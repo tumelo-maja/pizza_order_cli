@@ -8,14 +8,25 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
 ]
 
-CREDS = Credentials.from_service_account_file('creds.json')
-SCOPED_CREDS = CREDS.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-SHEET = GSPREAD_CLIENT.open('fresh_leafy_greens')
 
-orders_sheet = SHEET.worksheet('orders')
+def connect_google_sheets(sheet_name):
+    
+    CREDS = Credentials.from_service_account_file('creds.json')
+    SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+    GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
+    SHEET = GSPREAD_CLIENT.open('fresh_leafy_greens')
+    
+    sheet_object = SHEET.worksheet(sheet_name)
+    
+    return sheet_object
 
-orders_df = get_as_dataframe(orders_sheet)
-print(orders_df)
+def main():
 
-print("Hello")
+    print("Main is running")
+    
+    orders_sheet = connect_google_sheets('orders')
+    orders_df = get_as_dataframe(orders_sheet)
+    print(orders_df)
+
+
+main()
