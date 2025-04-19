@@ -82,11 +82,11 @@ def get_user_inputs():
     for key, value in EXTRA_TOPPINGS.items():
         print(f"{key}) {value:<20}")
 
-    toppings_ind_list = input("any extra toppingas?: \n")
+    toppings_ind_list = input("any extra toppings?: \n")
     toppings_items = [EXTRA_TOPPINGS[x] for x in  toppings_ind_list.split(",")]
     pizza_toppings = [f"{count} x {item}" for item, count in Counter(toppings_items).items()]
 
-    print(pizza_toppings)
+    print(f"\nYou chose a {pizza_size} {pizza_type} pizza with the following extra toppings: \n{'\n'.join(pizza_toppings)}")
     
 
 def main():
