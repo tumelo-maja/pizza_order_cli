@@ -20,14 +20,14 @@ PIZZA_MENU = {
 
 EXTRA_TOPPINGS = {
     "0": "None",
-    "1": "mushrooms",
-    "2": "mixed peppers",
-    "3": "jalapenos",
-    "4": "cheese",
-    "5": "pepperoni",
-    "6": "chicken",
-    "7": "beef",
-    "8": "bacon",
+    "1": "Mushrooms",
+    "2": "Mixed Peppers",
+    "3": "Jalapenos",
+    "4": "Cheese",
+    "5": "Pepperoni",
+    "6": "Chicken",
+    "7": "Beef",
+    "8": "Bacon",
 }
 
 PIZZA_SIZES = {
