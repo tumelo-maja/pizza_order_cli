@@ -61,6 +61,40 @@ def connect_google_sheets(sheet_name):
     
     return sheet_object
 
+def get_user_inputs():
+    #### Pizza type
+    for key, value in PIZZA_MENU.items():
+        # value['label']
+        print(f"{key}) {value['name']:<20}  | {value['base_toppings']}")
+
+    pizza_ind = input("Choose your pizza type: \n")
+    pizza_type = PIZZA_MENU[pizza_ind]['name']
+    print(f"User chose: \n{PIZZA_MENU[pizza_ind]['name']}")
+
+    #### Pizza size
+    for key, value in PIZZA_SIZES.items():
+        # value['label']
+        print(f"{key}) {value['label']:<20}  | £{value['price']}")
+
+    size_ind = input("Choose your pizza size: \n")
+    pizza_size = PIZZA_SIZES[size_ind]['label']
+    print(f"User chose: \n{PIZZA_SIZES[size_ind]['label']}")
+
+
+    #### pizza extra toppings
+    for key, value in EXTRA_TOPPINGS.items():
+        # value['label']
+        print(f"{key}) {value:<20}")
+
+    toppings_ind_list = input("any extra toppingas?: \n")
+    print(toppings_ind_list.split(","))
+    # print(list(toppings_ind_list))
+    # pizza_toppings = [EXTRA_TOPPINGS[int(x)] for x in  toppings_ind_list.split(",")]
+    pizza_toppings = [EXTRA_TOPPINGS[x] for x in  ['2','3','4']]
+    print(pizza_toppings)
+    # print(f"User chose: \n{EXTRA_TOPPINGS[toppings_ind_list]}")
+    
+
 def main():
 
     print("Main is running")
@@ -70,28 +104,6 @@ def main():
     # print(orders_df)
 
 # main()
-
-#### Pizza type
-for key, value in PIZZA_MENU.items():
-    # value['label']
-    print(f"{key}) {value['name']:<20}  | {value['base_toppings']}")
-
-ind = input("Choose your pizza type: \n")
-print(f"User chose: \n{PIZZA_MENU[ind]['name']}")
-
-#### Pizza size
-for key, value in PIZZA_SIZES.items():
-    # value['label']
-    print(f"{key}) {value['label']:<20}  | £{value['price']}")
-
-ind = input("Choose your pizza size: \n")
-print(f"User chose: \n{PIZZA_SIZES[ind]['label']}")
+get_user_inputs()
 
 
-#### pizza extra toppings
-for key, value in EXTRA_TOPPINGS.items():
-    # value['label']
-    print(f"{key}) {value:<20}")
-
-ind = input("any extra toppingas?: \n")
-print(f"User chose: \n{EXTRA_TOPPINGS[ind]}")
