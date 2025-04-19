@@ -30,6 +30,8 @@ EXTRA_TOPPINGS = {
     "8": "Bacon",
 }
 
+EXTRA_TOPPING_PRICE = 1.25
+
 PIZZA_SIZES = {
     "1": {
         "label": 'Small - 9" (23 cm)',
@@ -50,6 +52,17 @@ PIZZA_SIZES = {
         "price": 14.99
     }
 }
+
+class Pizza():
+    """
+    Creates a Pizza instance
+    """
+    def __init__(self, name,base_toppings, size, base_price, extra_toppings):
+        self.name = name
+        self.base_toppings = base_toppings
+        self.size = size
+        self.base_price = base_price
+        self.extra_toppings = extra_toppings
 
 def connect_google_sheets(sheet_name):
     """
@@ -90,7 +103,8 @@ def get_user_inputs():
         print(f"{key}) {value['name']:<20}  | {value['base_toppings']}")
 
     pizza_ind = input("Choose your pizza type: \n")
-    pizza_type = PIZZA_MENU[pizza_ind]['name']
+    pizza_name = PIZZA_MENU[pizza_ind]['name']
+    pizza_base = PIZZA_MENU[pizza_ind]['base_toppings']
 
     #### Pizza size
     for key, value in PIZZA_SIZES.items():
@@ -98,6 +112,7 @@ def get_user_inputs():
 
     size_ind = input("Choose your pizza size: \n")
     pizza_size = PIZZA_SIZES[size_ind]['label']
+    pizza_price = PIZZA_SIZES[size_ind]['price']
 
     #### pizza extra toppings
     for key, value in EXTRA_TOPPINGS.items():
@@ -105,10 +120,20 @@ def get_user_inputs():
 
     toppings_ind_list = input("any extra toppings?: \n")
     toppings_items = [EXTRA_TOPPINGS[x] for x in  toppings_ind_list.split(",")]
-    pizza_toppings = [f"{count} x {item}" for item, count in Counter(toppings_items).items()]
 
-    print(f"\nYou chose a {pizza_size} {pizza_type} pizza with the following extra toppings: \n{'\n'.join(pizza_toppings)}")
+    pizza_toppings = {'labels': [f"{count} x {item}" for item, count in Counter(toppings_items).items()], 
+                      'Counts': len(toppings_items)}
+
+    print(f"\nYou chose a {pizza_size} {pizza_name} pizza with the following extra toppings: \n{'\n'.join(pizza_toppings)}")
     
+    pizza_object = Pizza(name=pizza_name,
+                         base_toppings=pizza_base, 
+                         size=pizza_size, 
+                         base_price=pizza_price, 
+                         extra_toppings=pizza_toppings)
+    
+    return pizza_object
+
 
 def main():
     """
@@ -122,6 +147,13 @@ def main():
     # print(orders_df)
 
 # main()
-get_user_inputs()
+user_pizza = get_user_inputs()
+
+print(user_pizza.name)
+print(user_pizza.base_toppings)
+print(user_pizza.size)
+print(user_pizza.base_price)
+print(user_pizza.extra_toppings['labels'])
+print(user_pizza.extra_toppings['counts'])
 
 
