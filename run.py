@@ -51,8 +51,21 @@ PIZZA_SIZES = {
     }
 }
 
-
 def connect_google_sheets(sheet_name):
+    """
+    Setup and connects API to the google sheet and links the input 'sheet_name'
+
+    Parameters
+    ----------
+    sheet_name : TYPE
+        Google worksheet
+
+    Returns
+    -------
+    sheet_object : TYPE
+        worksheet object
+
+    """
     
     CREDS = Credentials.from_service_account_file('creds.json')
     SCOPED_CREDS = CREDS.with_scopes(SCOPE)
@@ -64,6 +77,14 @@ def connect_google_sheets(sheet_name):
     return sheet_object
 
 def get_user_inputs():
+    """
+    Get input from user for the pizza order options
+
+    Returns
+    -------
+    None.
+
+    """
     #### Pizza type
     for key, value in PIZZA_MENU.items():
         print(f"{key}) {value['name']:<20}  | {value['base_toppings']}")
@@ -90,6 +111,9 @@ def get_user_inputs():
     
 
 def main():
+    """
+    Run the application to initiate requests for user input
+    """
 
     print("Main is running")
     
