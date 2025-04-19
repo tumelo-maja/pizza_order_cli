@@ -1,6 +1,8 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from gspread_dataframe import get_as_dataframe
+from collections import Counter
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -89,8 +91,10 @@ def get_user_inputs():
     toppings_ind_list = input("any extra toppingas?: \n")
     print(toppings_ind_list.split(","))
     # print(list(toppings_ind_list))
-    # pizza_toppings = [EXTRA_TOPPINGS[int(x)] for x in  toppings_ind_list.split(",")]
-    pizza_toppings = [EXTRA_TOPPINGS[x] for x in  ['2','3','4']]
+    toppings_items = [EXTRA_TOPPINGS[x] for x in  toppings_ind_list.split(",")]
+    pizza_toppings = [f"{count} x {item}" for item, count in Counter(toppings_items).items()]
+
+    # pizza_toppings = [EXTRA_TOPPINGS[x] for x in  ['2','3','4']]
     print(pizza_toppings)
     # print(f"User chose: \n{EXTRA_TOPPINGS[toppings_ind_list]}")
     
