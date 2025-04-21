@@ -2,7 +2,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from gspread_dataframe import get_as_dataframe
 from collections import Counter
-from datetime import datetime
+from datetime import datetime, timedelta
 
 
 
@@ -82,9 +82,30 @@ class Order():
     Creates an instance order.
     """
     def __init__(self, pizza):
-        self.pizza = pizza
-        self.date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        self.order_number = self.create_order_number()
+        self.order_items = pizza
+        self.order_toppings = pizza
+        self.order_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.order_ID = self.create_order_ID()
+        
+    @property
+    def order_ready_time(self):
+        BASE_PIZZA_PREP_TIME = 15
+        DELAY_PIZZA_PREP_TIME =5
+        
+        preparation_time=0
+        for i, topping_count in enumerate(self.order_toppings):
+            
+            if i==0:
+                preparation_time+=BASE_PIZZA_PREP_TIME
+            else:
+                preparation_time+=DELAY_PIZZA_PREP_TIME
+            
+            if topping_count > 5:
+                preparation_time+=DELAY_PIZZA_PREP_TIME
+        
+        ready_by_time = self.order_date + timedelta(minutes = preparation_time)
+        return ready_by_time.strftime("%Y-%m-%d %H:%M:%S")
+                
 
     def total_price(self):
         total = self.pizza.total_price()
@@ -93,7 +114,7 @@ class Order():
     def summary(self):
        
         return {
-            "Order Number": self.order_number,
+            "Order Number": self.order_ID,
             "Date": self.date,
             "Pizza Name": self.pizza.name,
             "Pizza Size": self.pizza.size,
@@ -102,7 +123,7 @@ class Order():
             "Status": "Ready",
         }
     
-    def create_order_number(self):
+    def create_order_ID(self):
         # add some code later
         return 12345
 
