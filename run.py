@@ -274,11 +274,13 @@ def confirm_order(input_list):
 
     if order_comfirmed == "1":
         order_placed(input_list)
-        return total_sum
+        return total_sum, 0
     elif order_comfirmed == "2":
         print("You're adding more")
+        return None, 2
     elif order_comfirmed == "3":
         print("You're removing items")
+        return None, 3
     else:
         print("Invalid answer")
 
@@ -316,16 +318,27 @@ def get_latest_order_ID(orders_sheet):
 
 def prepare_new_order():
     
-    orders_sheet = connect_google_sheets('orders')
-    
+    orders_sheet = connect_google_sheets('orders')        
     last_orderID = get_latest_order_ID(orders_sheet)
-    
-    # print(orders_df)
-    pizza_list = create_order()
-    
-    total_price = confirm_order(pizza_list)
 
-    orders = Order(pizza_list, total_price, last_orderID)
+    pizza_list=[]
+    continue_loop= 1
+    
+    while continue_loop:
+            
+        pizza_list= create_order(pizza_list)
+        # pizza_list= order_pizza_list
+        
+        total_price, continue_loop  = confirm_order(pizza_list)
+        
+        if continue_loop == 2:
+            continue
+        elif continue_loop == 3:
+            print("Lets start removeing")
+
+    order = Order(pizza_list, total_price, last_orderID)
+    
+    return order
 
 def main():
     """
