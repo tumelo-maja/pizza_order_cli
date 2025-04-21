@@ -66,11 +66,14 @@ class Pizza():
         self.base_price = base_price
         self.extra_toppings = extra_toppings
     
+    def summary(self):
+        extra_str = f"with {self.extra_toppings['counts']} extra topping(s) " if self.extra_toppings['counts']>0 else ''
+        return f"1 x {self.name} pizza, {self.size} {extra_str} | £{self.total_price}"
+    
+    @property
     def total_price(self):
-        
-        base_toppings_total= self.base_price + (len(self.base_toppings)*EXTRA_TOPPING_PRICE)
-        
-        return round(base_toppings_total)
+        base_toppings_total= self.base_price + (self.extra_toppings['counts']*EXTRA_TOPPING_PRICE)
+        return round(base_toppings_total,2)
 
 class Order():
     """
@@ -127,7 +130,7 @@ def connect_google_sheets(sheet_name):
     
     return sheet_object
 
-def create_new_order(pizza_list):
+def create_new_order(pizza_list=[]):
     """
     Creates new pizza order from user's inpusts 
 
@@ -192,7 +195,7 @@ def choose_extra_toppings(EXTRA_TOPPINGS):
     toppings_items = [EXTRA_TOPPINGS[x] for x in  toppings_ind_list.split(",")]
 
     pizza_toppings = {'labels': [f"{count} x {item}" for item, count in Counter(toppings_items).items()], 
-                      'Counts': len(toppings_items)}
+                      'counts': len(toppings_items)}
     
     return pizza_toppings
 
@@ -205,7 +208,10 @@ def print_pizza_summary(pizza_size, pizza_name, pizza_toppings):
     else:
         print(summary_str + "no extra toppings")
     
-
+def confirm_order(input_list):
+    print("Confirm your full order:")
+    for order in input_list:
+        print(order.summary())
 
 def main():
     """
@@ -217,10 +223,10 @@ def main():
     # orders_sheet = connect_google_sheets('orders')
     # orders_df = get_as_dataframe(orders_sheet)
     # print(orders_df)
-    pizza_list=[]
-    user_pizza = create_new_order(pizza_list)
+    pizza_list = create_new_order()
     print("New order created!")
-    print(user_pizza)
+    order_rows = confirm_order(pizza_list)
+    # update_orders_sheet(pizza_list)
     # print(user_pizza.name)
     # print(user_pizza.base_toppings)
     # print(user_pizza.size)
