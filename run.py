@@ -68,16 +68,14 @@ class Pizza():
         self.extra_toppings = extra_toppings
 
     def summary(self):
-        extra_str = f"with {
-            self.extra_toppings['counts']} extra topping(s) " if self.extra_toppings['counts'] > 0 else ''
+        extra_str = f"with {self.extra_toppings['counts']} extra topping(s)" if self.extra_toppings['counts'] > 0 else ''
         description_str = f"1 x {self.name} pizza, {self.size} {extra_str}"
         price_str = f"£{'{:.2f}'.format(self.total_price)}"
         return description_str, price_str
 
     @property
     def total_price(self):
-        base_toppings_total = self.base_price + \
-            (self.extra_toppings['counts']*EXTRA_TOPPING_PRICE)
+        base_toppings_total = self.base_price + (self.extra_toppings['counts']*EXTRA_TOPPING_PRICE)
         return round(base_toppings_total, 2)
 
 
@@ -241,18 +239,20 @@ def choose_extra_toppings(EXTRA_TOPPINGS):
     for key, value in EXTRA_TOPPINGS.items():
         print(f"{key}) {value:<20}")
     toppings_ind_list = input("Enter your choice(s): \n")
-    toppings_items = [EXTRA_TOPPINGS[x] for x in toppings_ind_list.split(",")]
-
-    pizza_toppings = {'labels': [f"{count} x {item}" for item, count in Counter(toppings_items).items()],
+    toppings_items = [EXTRA_TOPPINGS[x] for x in toppings_ind_list.split(",") if x != "0"]
+    
+  
+    pizza_toppings = {'labels': [f"{count} x {item}" if toppings_items != ["None"] else None for item, count in Counter(toppings_items).items()  ],
                       'counts': len(toppings_items)}
 
+    print(f"pizza_toppings: {pizza_toppings}")
     return pizza_toppings
 
 
 def print_pizza_summary(pizza_size, pizza_name, pizza_toppings):
     print("\nOrder summary: ")
     summary_str = f"1) {pizza_size} {pizza_name} pizza with "
-    if pizza_toppings['labels']:
+    if pizza_toppings['counts'] >0:
         print(summary_str + "the following extra toppings:")
         print(" " + "\n ".join(pizza_toppings['labels']))
     else:
