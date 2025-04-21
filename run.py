@@ -136,33 +136,18 @@ def get_user_inputs():
     None.
 
     """
-    #### Pizza type
-    for key, value in PIZZA_MENU.items():
-        print(f"{key}) {value['name']:<20}  | {value['base_toppings']}")
-
-    pizza_ind = input("Choose your pizza type: \n")
-    pizza_name = PIZZA_MENU[pizza_ind]['name']
-    pizza_base = PIZZA_MENU[pizza_ind]['base_toppings']
-
-    #### Pizza size
-    for key, value in PIZZA_SIZES.items():
-        print(f"{key}) {value['label']:<20}  | £{value['price']}")
-
-    size_ind = input("Choose your pizza size: \n")
-    pizza_size = PIZZA_SIZES[size_ind]['label']
-    pizza_price = PIZZA_SIZES[size_ind]['price']
-
-    #### pizza extra toppings
-    for key, value in EXTRA_TOPPINGS.items():
-        print(f"{key}) {value:<20}")
-
-    toppings_ind_list = input("any extra toppings?: \n")
-    toppings_items = [EXTRA_TOPPINGS[x] for x in  toppings_ind_list.split(",")]
-
-    pizza_toppings = {'labels': [f"{count} x {item}" for item, count in Counter(toppings_items).items()], 
-                      'Counts': len(toppings_items)}
-
-    print(f"\nYou chose a {pizza_size} {pizza_name} pizza with the following extra toppings: \n{'\n'.join(pizza_toppings)}")
+         
+    # choose pizza name
+    pizza_name, pizza_base = choose_pizza_name(PIZZA_MENU)
+    
+    # choose pizza size
+    pizza_size, pizza_price = choose_pizza_size(PIZZA_SIZES)
+    
+    # Choose extra toppigns
+    pizza_toppings = choose_extra_toppings(EXTRA_TOPPINGS)
+    
+    # Print summary 
+    print_pizza_summary(pizza_size, pizza_name, pizza_toppings)
     
     pizza_object = Pizza(name=pizza_name,
                          base_toppings=pizza_base, 
@@ -171,6 +156,46 @@ def get_user_inputs():
                          extra_toppings=pizza_toppings)
     
     return pizza_object
+
+def choose_pizza_name(PIZZA_MENU):
+    print("Choose your Pizza:\n")
+    for key, value in PIZZA_MENU.items():
+        print(f"{key}) {value['name']:<20}  | {', '.join(value['base_toppings'])}")
+    pizza_ind = input("Enter your choice: \n")
+    pizza_name = PIZZA_MENU[pizza_ind]['name']
+    pizza_base = PIZZA_MENU[pizza_ind]['base_toppings']
+    return pizza_name, pizza_base
+
+def choose_pizza_size(PIZZA_SIZES):
+    print("\nChoose the Pizza size:\n")
+    for key, value in PIZZA_SIZES.items():
+        print(f"{key}) {value['label']:<20}  | £{value['price']}")
+    size_ind = input("Enter your choice: \n")
+    pizza_size = PIZZA_SIZES[size_ind]['label']
+    pizza_price = PIZZA_SIZES[size_ind]['price']
+    return pizza_size, pizza_price
+
+def choose_extra_toppings(EXTRA_TOPPINGS):
+    print("Any extra toppings? (separated by comma): \n")
+    for key, value in EXTRA_TOPPINGS.items():
+        print(f"{key}) {value:<20}")
+    toppings_ind_list = input("Enter your choice(s): \n")
+    toppings_items = [EXTRA_TOPPINGS[x] for x in  toppings_ind_list.split(",")]
+
+    pizza_toppings = {'labels': [f"{count} x {item}" for item, count in Counter(toppings_items).items()], 
+                      'Counts': len(toppings_items)}
+    
+    return pizza_toppings
+
+def print_pizza_summary(pizza_size, pizza_name, pizza_toppings):
+    print("Order summary: \n")
+    summary_str=f"1) {pizza_size} {pizza_name} pizza with "
+    if pizza_toppings['labels']:
+        print(summary_str + "the following extra toppings:")
+        print(" " + "\n ".join(pizza_toppings['labels']))
+    else:
+        print(summary_str + "no extra toppings")
+    
 
 
 def main():
@@ -183,15 +208,14 @@ def main():
     # orders_sheet = connect_google_sheets('orders')
     # orders_df = get_as_dataframe(orders_sheet)
     # print(orders_df)
+    user_pizza = get_user_inputs()
+    # print(user_pizza.name)
+    # print(user_pizza.base_toppings)
+    # print(user_pizza.size)
+    
 
-# main()
-user_pizza = get_user_inputs()
 
-print(user_pizza.name)
-print(user_pizza.base_toppings)
-print(user_pizza.size)
-print(user_pizza.base_price)
-print(user_pizza.extra_toppings['labels'])
-print(user_pizza.extra_toppings['counts'])
+
+main()
 
 
