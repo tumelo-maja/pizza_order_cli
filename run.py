@@ -79,7 +79,7 @@ class Order():
     def __init__(self, pizza):
         self.pizza = pizza
         self.date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        self.order_number = 12345
+        self.order_number = self.create_order_number()
 
     def total_price(self):
         total = self.pizza.total_price()
@@ -96,6 +96,10 @@ class Order():
             "Total": self.total_price(),
             "Status": "Ready",
         }
+    
+    def create_order_number(self):
+        # add some code later
+        return 12345
 
 
 def connect_google_sheets(sheet_name):
