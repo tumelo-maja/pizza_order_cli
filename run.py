@@ -97,14 +97,14 @@ class Order():
         DELAY_PIZZA_PREP_TIME = 5
 
         preparation_time = 0
-        for i, order in enumerate(self.order_list):
+        for i, order_item in enumerate(self.order_list):
 
             if i == 0:
                 preparation_time += BASE_PIZZA_PREP_TIME
             else:
                 preparation_time += DELAY_PIZZA_PREP_TIME
 
-            if order.extra_toppings['counts'] > 5:
+            if order_item.extra_toppings['counts'] > 5:
                 preparation_time += DELAY_PIZZA_PREP_TIME
 
         ready_by_time = datetime.strptime(
@@ -116,11 +116,11 @@ class Order():
     def order_items(self):
 
         full_order_str = []
-        for order in self.order_list:
+        for order_item in self.order_list:
 
-            size_str = order.size.split(' - ')[0]
-            name_str = order.name
-            topping_count = order.extra_toppings['counts']
+            size_str = order_item.size.split(' - ')[0]
+            name_str = order_item.name
+            topping_count = order_item.extra_toppings['counts']
 
             topping_str = f" - extra toppings: {
                 topping_count}" if topping_count > 0 else ''
@@ -174,7 +174,7 @@ def connect_google_sheets(sheet_name):
     return sheet_object
 
 
-def create_new_order(pizza_list=[]):
+def create_order(pizza_list=[]):
     """
     Creates new pizza order from user's inpusts 
 
@@ -290,12 +290,14 @@ def order_placed(input_list):
     print("\n1) return to home page")
 
 
-def update_orders_sheet(worksheet, orders):
+def update_orders_sheet(order):
     print("Updating 'order' worksheet...\n")
     
-    orders_list_item = list(orders.summary.values())
+    worksheet = connect_google_sheets('orders')
+
+    order_list_item = list(order.summary.values())
     
-    worksheet.append_row(orders_list_item)
+    worksheet.append_row(order_list_item)
 
     print("'orders' worksheet updated successfully.\n")
 
@@ -310,7 +312,20 @@ def get_latest_order_ID(orders_sheet):
         last_orderID= int(latest_order_ID[-4:])
         
     print(last_orderID)
-    return last_orderID 
+    return last_orderID
+
+def prepare_new_order():
+    
+    orders_sheet = connect_google_sheets('orders')
+    
+    last_orderID = get_latest_order_ID(orders_sheet)
+    
+    # print(orders_df)
+    pizza_list = create_order()
+    
+    total_price = confirm_order(pizza_list)
+
+    orders = Order(pizza_list, total_price, last_orderID)
 
 def main():
     """
@@ -319,19 +334,11 @@ def main():
 
     print("Main is running")
 
-    orders_sheet = connect_google_sheets('orders')
+    order = prepare_new_order()
     
-    last_orderID = get_latest_order_ID(orders_sheet)
+    update_orders_sheet(order)
 
-    # print(orders_df)
-    pizza_list = create_new_order()
-    
-    total_price = confirm_order(pizza_list)
-
-    orders = Order(pizza_list, total_price, last_orderID)
-    update_orders_sheet(orders_sheet, orders)
-
-    return orders
+    return order
 
 
 myOrder = main()
