@@ -224,7 +224,7 @@ def confirm_order(input_list):
     order_comfirmed = input("Enter your choice: \n")
     
     if order_comfirmed== "1":
-        print("Your order has been placed")
+        order_placed(input_list)
     elif order_comfirmed== "2":
         print("You're adding more")
     elif order_comfirmed== "3":
@@ -232,7 +232,12 @@ def confirm_order(input_list):
     else:
         print("Invalid answer")
     
-
+def order_placed(input_list):
+    print("Thank you for sending your order")
+    print("Your order will be ready at 14:30")
+    print("Order number: 1234")
+    print("\n1) return to home page")
+    
 
 def main():
     """
