@@ -127,13 +127,13 @@ def connect_google_sheets(sheet_name):
     
     return sheet_object
 
-def get_user_inputs():
+def create_new_order():
     """
-    Get input from user for the pizza order options
+    Creates new pizza order from user's inpusts 
 
     Returns
     -------
-    None.
+    Pizza object.
 
     """
          
@@ -208,7 +208,7 @@ def main():
     # orders_sheet = connect_google_sheets('orders')
     # orders_df = get_as_dataframe(orders_sheet)
     # print(orders_df)
-    user_pizza = get_user_inputs()
+    user_pizza = create_new_order()
     # print(user_pizza.name)
     # print(user_pizza.base_toppings)
     # print(user_pizza.size)
