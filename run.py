@@ -339,6 +339,7 @@ def prepare_new_order():
             total_price, continue_loop  = confirm_order(pizza_list)
         
         elif continue_loop == 2:
+            continue_loop =1
             continue
         elif continue_loop == 3:
             pizza_list = remove_order_items(pizza_list)
@@ -348,6 +349,13 @@ def prepare_new_order():
             
             if order_comfirmed == "1":
                 continue_loop=0
+            elif order_comfirmed == "2":
+                continue_loop=1
+            elif order_comfirmed == "3":
+                pass
+            else:
+                print("Invalid input")
+                
 
     order = Order(pizza_list, total_price, last_orderID)
     
