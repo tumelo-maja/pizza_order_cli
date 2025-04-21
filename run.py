@@ -240,7 +240,6 @@ def choose_extra_toppings(EXTRA_TOPPINGS):
         print(f"{key}) {value:<20}")
     toppings_ind_list = input("Enter your choice(s): \n")
     toppings_items = [EXTRA_TOPPINGS[x] for x in toppings_ind_list.split(",") if x != "0"]
-    
   
     pizza_toppings = {'labels': [f"{count} x {item}" if toppings_items != ["None"] else None for item, count in Counter(toppings_items).items()  ],
                       'counts': len(toppings_items)}
@@ -260,17 +259,8 @@ def print_pizza_summary(pizza_size, pizza_name, pizza_toppings):
 
 
 def confirm_order(input_list):
-    print("\nConfirm your full order:")
-    total_sum = 0
-    for order in input_list:
-        description_str, price_str = order.summary()
-        print(f"{description_str:<70}| {price_str}")
-        total_sum += order.total_price
-    total_sum = round(total_sum, 2)
-    print('-'*78)
-    print("Total cost:".ljust(70) + f"| £{'{:.2f}'.format(total_sum)}")
-    print("\n1) Place order \n2) Add more items \n3) Remove items")
-    order_comfirmed = input("Enter your choice: \n")
+    
+    order_comfirmed, total_sum= summary_order_confirm(input_list)
 
     if order_comfirmed == "1":
         order_placed(input_list)
@@ -283,6 +273,22 @@ def confirm_order(input_list):
         return None, 3
     else:
         print("Invalid answer")
+
+def summary_order_confirm(input_list):
+    print("\nConfirm your full order:")
+    total_sum = 0
+    for order in input_list:
+        description_str, price_str = order.summary()
+        print(f"{description_str:<70}| {price_str}")
+        total_sum += order.total_price
+    total_sum = round(total_sum, 2)
+    print('-'*78)
+    print("Total cost:".ljust(70) + f"| £{'{:.2f}'.format(total_sum)}")
+    print("\n1) Place order \n2) Add more items \n3) Remove items")
+    order_comfirmed = input("Enter your choice: \n")
+    
+    return order_comfirmed, total_sum
+
 
 
 def order_placed(input_list):
@@ -325,21 +331,53 @@ def prepare_new_order():
     continue_loop= 1
     
     while continue_loop:
+        
+        if continue_loop == 1:
+            pizza_list= create_order(pizza_list)
+            # pizza_list= order_pizza_list
             
-        pizza_list= create_order(pizza_list)
-        # pizza_list= order_pizza_list
+            total_price, continue_loop  = confirm_order(pizza_list)
         
-        total_price, continue_loop  = confirm_order(pizza_list)
-        
-        if continue_loop == 2:
+        elif continue_loop == 2:
             continue
         elif continue_loop == 3:
-            print("Lets start removeing")
+            pizza_list = remove_order_items(pizza_list)
+            order_comfirmed, total_sum= summary_order_confirm(pizza_list)
+            print(f"order_comfirmed {order_comfirmed}")
+            print(f"order_comfirmed type  {type(order_comfirmed)}")
+            
+            if order_comfirmed == "1":
+                continue_loop=0
 
     order = Order(pizza_list, total_price, last_orderID)
     
     return order
 
+def remove_order_items(input_list):
+    print("\nSelect the order item(s) you wish to remove")
+    # print(input_list)
+    for ind, order in enumerate(input_list):
+        description_str, price_str = order.summary()
+        print(f"{ind+1}) {description_str:<70}| {price_str}")
+    remove_items= input("Enter your choice: \n")
+    
+    removed_indexes = [int(x)-1 for x in remove_items.split(",")]
+    
+    new_list = [order for i, order in enumerate(input_list) if i not in removed_indexes]
+    
+    return new_list
+
+    
+    
+    print(remove_items)
+    print("Item removed \n")
+    
+    return input_list
+    
+
+
+    
+    
 def main():
     """
     Run the application to initiate requests for user input
