@@ -81,10 +81,9 @@ class Order():
     """
     Creates an instance order.
     """
-    def __init__(self, order_list):
+    def __init__(self, order_list,total_price):
         self.order_list = order_list
-        # self.order_items = pizza
-        # self.order_toppings = pizza
+        self.total_price = total_price
         self.order_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.order_ID = self.create_order_ID()
         
@@ -123,21 +122,17 @@ class Order():
             full_order_str.append(f"1 x {size_str} {name_str}{topping_str}")
             
         return ', '.join(full_order_str)
-    
-    def total_price(self):
-        total = self.pizza.total_price()
-        return round(total, 2)
 
+    @property
     def summary(self):
        
         return {
-            "Order Number": self.order_ID,
-            "Date": self.date,
-            "Pizza Name": self.pizza.name,
-            "Pizza Size": self.pizza.size,
-            "Toppings": self.pizza.extra_toppings,
-            "Total": self.total_price(),
-            "Status": "Ready",
+            "Order ID": self.order_ID,
+            "Order Date": self.order_date,
+            "Order items": self.order_items,
+            "Order ready time": self.order_ready_time,
+            "Order status": 'Preparing',
+            "Order total": self.total_price,
         }
     
     def create_order_ID(self):
@@ -164,7 +159,7 @@ def connect_google_sheets(sheet_name):
     CREDS = Credentials.from_service_account_file('creds.json')
     SCOPED_CREDS = CREDS.with_scopes(SCOPE)
     GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-    SHEET = GSPREAD_CLIENT.open('fresh_leafy_greens')
+    SHEET = GSPREAD_CLIENT.open('pizza_order_cli_gs')
     
     sheet_object = SHEET.worksheet(sheet_name)
     
@@ -263,6 +258,7 @@ def confirm_order(input_list):
     
     if order_comfirmed== "1":
         order_placed(input_list)
+        return total_sum
     elif order_comfirmed== "2":
         print("You're adding more")
     elif order_comfirmed== "3":
@@ -275,7 +271,12 @@ def order_placed(input_list):
     print("Your order will be ready at 14:30")
     print("Order number: 1234")
     print("\n1) return to home page")
-    print(input_list)
+   
+def update_orders_sheet(orders_sheet, orders):
+    print("Updating 'order' worksheet...\n")
+    orders_df = get_as_dataframe(orders_sheet)
+    print("current orders:")
+    print(orders_df)
     
 
 def main():
@@ -285,20 +286,20 @@ def main():
 
     print("Main is running")
     
-    # orders_sheet = connect_google_sheets('orders')
-    # orders_df = get_as_dataframe(orders_sheet)
+    orders_sheet = connect_google_sheets('orders')
+    
     # print(orders_df)
     pizza_list = create_new_order()
     print("New order created!")
-    confirm_order(pizza_list)
+    total_price = confirm_order(pizza_list)
     
-    myOrder = Order(pizza_list)
-    # update_orders_sheet(pizza_list)
+    orders = Order(pizza_list, total_price)
+    update_orders_sheet(orders_sheet, orders)
     # print(user_pizza.name)
     # print(user_pizza.base_toppings)
     # print(user_pizza.size)
     
-    return myOrder
+    return orders
     
 
 
