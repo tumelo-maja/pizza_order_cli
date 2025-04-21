@@ -2,6 +2,8 @@ import gspread
 from google.oauth2.service_account import Credentials
 from gspread_dataframe import get_as_dataframe
 from collections import Counter
+from datetime import datetime
+
 
 
 SCOPE = [
@@ -63,6 +65,38 @@ class Pizza():
         self.size = size
         self.base_price = base_price
         self.extra_toppings = extra_toppings
+    
+    def total_price(self):
+        
+        base_toppings_total= self.base_price + (len(self.base_toppings)*EXTRA_TOPPING_PRICE)
+        
+        return round(base_toppings_total)
+
+class Order():
+    """
+    Creates an instance order.
+    """
+    def __init__(self, pizza):
+        self.pizza = pizza
+        self.date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.order_number = 12345
+
+    def total_price(self):
+        total = self.pizza.total_price()
+        return round(total, 2)
+
+    def summary(self):
+       
+        return {
+            "Order Number": self.order_number,
+            "Date": self.date,
+            "Pizza Name": self.pizza.name,
+            "Pizza Size": self.pizza.size,
+            "Toppings": self.pizza.extra_toppings,
+            "Total": self.total_price(),
+            "Status": "Ready",
+        }
+
 
 def connect_google_sheets(sheet_name):
     """
