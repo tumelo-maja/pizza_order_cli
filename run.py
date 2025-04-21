@@ -32,26 +32,26 @@ EXTRA_TOPPINGS = {
     "8": "Bacon",
 }
 
-EXTRA_TOPPING_PRICE = 1.20
+EXTRA_TOPPING_PRICE = 1.50
 
 PIZZA_SIZES = {
     "1": {
         "label": 'Small - 9" (23 cm)',
         "size_inch": '9"',
         "size_cm": '23 cm',
-        "price": 8.99
+        "price": 9.00
     },
     "2": {
         "label": 'Medium - 12" (30 cm)',
         "size_inch": '12"',
         "size_cm": '30 cm',
-        "price": 10.99
+        "price": 11.00
     },
     "3": {
         "label": 'Large - 15" (38 cm)',
         "size_inch": '15"',
         "size_cm": '38 cm',
-        "price": 14.99
+        "price": 15.00
     }
 }
 
@@ -68,7 +68,9 @@ class Pizza():
     
     def summary(self):
         extra_str = f"with {self.extra_toppings['counts']} extra topping(s) " if self.extra_toppings['counts']>0 else ''
-        return f"1 x {self.name} pizza, {self.size} {extra_str} | £{self.total_price}"
+        description_str =f"1 x {self.name} pizza, {self.size} {extra_str}"
+        price_str =f"£{'{:.2f}'.format(self.total_price)}"
+        return description_str, price_str
     
     @property
     def total_price(self):
@@ -172,7 +174,7 @@ def create_new_order(pizza_list=[]):
 def choose_pizza_name(PIZZA_MENU):
     print("\nChoose your Pizza (one pizza at a time):\n")
     for key, value in PIZZA_MENU.items():
-        print(f"{key}) {value['name']:<20}  | {', '.join(value['base_toppings'])}")
+        print(f"{key}) {value['name']:<13}  | {', '.join(value['base_toppings'])}")
     pizza_ind = input("Enter your choice: \n")
     pizza_name = PIZZA_MENU[pizza_ind]['name']
     pizza_base = PIZZA_MENU[pizza_ind]['base_toppings']
@@ -209,12 +211,17 @@ def print_pizza_summary(pizza_size, pizza_name, pizza_toppings):
         print(summary_str + "no extra toppings")
     
 def confirm_order(input_list):
-    print("Confirm your full order:")
+    print("\nConfirm your full order:")
     total_sum=0
     for order in input_list:
-        print(order.summary())
+        description_str, price_str = order.summary()
+        # print(f"description_str: {len(description_str)}")
+        # print(f"price_str: {price_str}")
+        print(f"{description_str:<70}| {price_str}")
         total_sum+= order.total_price
-    print(f"Total cost: {total_sum}")
+    total_sum= round(total_sum,2)
+    print('-'*78)
+    print("Total cost:".ljust(70) + f"| £{'{:.2f}'.format(total_sum)}")
 
 def main():
     """
