@@ -215,13 +215,24 @@ def confirm_order(input_list):
     total_sum=0
     for order in input_list:
         description_str, price_str = order.summary()
-        # print(f"description_str: {len(description_str)}")
-        # print(f"price_str: {price_str}")
         print(f"{description_str:<70}| {price_str}")
         total_sum+= order.total_price
     total_sum= round(total_sum,2)
     print('-'*78)
     print("Total cost:".ljust(70) + f"| £{'{:.2f}'.format(total_sum)}")
+    print("\n1) Place order \n2) Add more items \n3) Remove items")
+    order_comfirmed = input("Enter your choice: \n")
+    
+    if order_comfirmed== "1":
+        print("Your order has been placed")
+    elif order_comfirmed== "2":
+        print("You're adding more")
+    elif order_comfirmed== "3":
+        print("You're removing items")
+    else:
+        print("Invalid answer")
+    
+
 
 def main():
     """
