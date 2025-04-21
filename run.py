@@ -114,11 +114,11 @@ class Order():
         full_order_str=[]
         for order in self.order_list:
             
-            size_str = order.size
+            size_str = order.size.split(' - ')[0]
             name_str = order.name
             topping_count = order.extra_toppings['counts']
             
-            topping_str = f", ({topping_count}) extra topping(s)" if topping_count>0 else ''
+            topping_str = f" - extra toppings: {topping_count}" if topping_count>0 else ''
             
             full_order_str.append(f"1 x {size_str} {name_str}{topping_str}")
             
