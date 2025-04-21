@@ -127,7 +127,7 @@ def connect_google_sheets(sheet_name):
     
     return sheet_object
 
-def create_new_order():
+def create_new_order(pizza_list):
     """
     Creates new pizza order from user's inpusts 
 
@@ -136,29 +136,38 @@ def create_new_order():
     Pizza object.
 
     """
-         
-    # choose pizza name
-    pizza_name, pizza_base = choose_pizza_name(PIZZA_MENU)
+    continue_order=True
+    while continue_order:     
+        # choose pizza name
+        pizza_name, pizza_base = choose_pizza_name(PIZZA_MENU)
+        
+        # choose pizza size
+        pizza_size, pizza_price = choose_pizza_size(PIZZA_SIZES)
+        
+        # Choose extra toppigns
+        pizza_toppings = choose_extra_toppings(EXTRA_TOPPINGS)
+        
+        # Print summary 
+        print_pizza_summary(pizza_size, pizza_name, pizza_toppings)
+        
+        pizza_object = Pizza(name=pizza_name,
+                             base_toppings=pizza_base, 
+                             size=pizza_size, 
+                             base_price=pizza_price, 
+                             extra_toppings=pizza_toppings)
+        
+        pizza_list.append(pizza_object)
+        print("\nWould you like to add another pizza: \n1) Yes \n2) No")
+        add_more_pizza = input("Enter your choice: \n")
+        
+        if int(add_more_pizza) ==2:
+            continue_order = False
+
     
-    # choose pizza size
-    pizza_size, pizza_price = choose_pizza_size(PIZZA_SIZES)
-    
-    # Choose extra toppigns
-    pizza_toppings = choose_extra_toppings(EXTRA_TOPPINGS)
-    
-    # Print summary 
-    print_pizza_summary(pizza_size, pizza_name, pizza_toppings)
-    
-    pizza_object = Pizza(name=pizza_name,
-                         base_toppings=pizza_base, 
-                         size=pizza_size, 
-                         base_price=pizza_price, 
-                         extra_toppings=pizza_toppings)
-    
-    return pizza_object
+    return pizza_list
 
 def choose_pizza_name(PIZZA_MENU):
-    print("Choose your Pizza:\n")
+    print("\nChoose your Pizza (one pizza at a time):\n")
     for key, value in PIZZA_MENU.items():
         print(f"{key}) {value['name']:<20}  | {', '.join(value['base_toppings'])}")
     pizza_ind = input("Enter your choice: \n")
@@ -176,7 +185,7 @@ def choose_pizza_size(PIZZA_SIZES):
     return pizza_size, pizza_price
 
 def choose_extra_toppings(EXTRA_TOPPINGS):
-    print("Any extra toppings? (separated by comma): \n")
+    print("\nAny extra toppings? (separated by comma): ")
     for key, value in EXTRA_TOPPINGS.items():
         print(f"{key}) {value:<20}")
     toppings_ind_list = input("Enter your choice(s): \n")
@@ -188,7 +197,7 @@ def choose_extra_toppings(EXTRA_TOPPINGS):
     return pizza_toppings
 
 def print_pizza_summary(pizza_size, pizza_name, pizza_toppings):
-    print("Order summary: \n")
+    print("\nOrder summary: ")
     summary_str=f"1) {pizza_size} {pizza_name} pizza with "
     if pizza_toppings['labels']:
         print(summary_str + "the following extra toppings:")
@@ -208,7 +217,10 @@ def main():
     # orders_sheet = connect_google_sheets('orders')
     # orders_df = get_as_dataframe(orders_sheet)
     # print(orders_df)
-    user_pizza = create_new_order()
+    pizza_list=[]
+    user_pizza = create_new_order(pizza_list)
+    print("New order created!")
+    print(user_pizza)
     # print(user_pizza.name)
     # print(user_pizza.base_toppings)
     # print(user_pizza.size)
