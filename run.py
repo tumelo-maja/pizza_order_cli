@@ -289,15 +289,12 @@ def order_placed(input_list):
 
 def update_orders_sheet(worksheet, orders):
     print("Updating 'order' worksheet...\n")
-    orders_df = get_as_dataframe(worksheet)
-    print("current orders:")
-    print(orders_df)
     
     orders_list_item = list(orders.summary.values())
     
     worksheet.append_row(orders_list_item)
 
-    print(f"'orders' worksheet updated successfully.\n")
+    print("'orders' worksheet updated successfully.\n")
 
 
 def main():
@@ -308,17 +305,19 @@ def main():
     print("Main is running")
 
     orders_sheet = connect_google_sheets('orders')
+    
+    current_orders = orders_sheet.col_values(1)
+    print(f'today orders: ')
+    print(current_orders)
+
 
     # print(orders_df)
     pizza_list = create_new_order()
-    print("New order created!")
+    
     total_price = confirm_order(pizza_list)
 
     orders = Order(pizza_list, total_price)
     update_orders_sheet(orders_sheet, orders)
-    # print(user_pizza.name)
-    # print(user_pizza.base_toppings)
-    # print(user_pizza.size)
 
     return orders
 
