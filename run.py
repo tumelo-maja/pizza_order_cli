@@ -235,7 +235,7 @@ def choose_pizza_size(PIZZA_SIZES):
 
 
 def choose_extra_toppings(EXTRA_TOPPINGS):
-    print("\nAny extra toppings? (separated by comma): ")
+    print("\nAny extra toppings? (input(s) can be comma-separated integers): ")
     for key, value in EXTRA_TOPPINGS.items():
         print(f"{key}) {value:<20}")
     toppings_ind_list = input("Enter your choice(s): \n")
@@ -354,7 +354,7 @@ def prepare_new_order():
     return order
 
 def remove_order_items(input_list):
-    print("\nSelect the order item(s) you wish to remove")
+    print("\nSelect the order item(s) you wish to remove (inputs can be comma-separated integers)")
     # print(input_list)
     for ind, order in enumerate(input_list):
         description_str, price_str = order.summary()
