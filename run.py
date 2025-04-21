@@ -81,9 +81,10 @@ class Order():
     """
     Creates an instance order.
     """
-    def __init__(self, pizza):
-        self.order_items = pizza
-        self.order_toppings = pizza
+    def __init__(self, order_list):
+        self.order_list = order_list
+        # self.order_items = pizza
+        # self.order_toppings = pizza
         self.order_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         self.order_ID = self.create_order_ID()
         
@@ -93,20 +94,36 @@ class Order():
         DELAY_PIZZA_PREP_TIME =5
         
         preparation_time=0
-        for i, topping_count in enumerate(self.order_toppings):
+        for i, order in enumerate(self.order_list):
             
             if i==0:
                 preparation_time+=BASE_PIZZA_PREP_TIME
             else:
                 preparation_time+=DELAY_PIZZA_PREP_TIME
             
-            if topping_count > 5:
+            if order.extra_toppings['counts'] > 5:
                 preparation_time+=DELAY_PIZZA_PREP_TIME
         
-        ready_by_time = self.order_date + timedelta(minutes = preparation_time)
-        return ready_by_time.strftime("%Y-%m-%d %H:%M:%S")
+        ready_by_time = datetime.strptime(self.order_date, "%Y-%m-%d %H:%M:%S") + timedelta(minutes = preparation_time)
+        
+        return ready_by_time.replace(second=0).strftime("%Y-%m-%d %H:%M:%S")
                 
-
+    @property
+    def order_items(self):
+        
+        full_order_str=[]
+        for order in self.order_list:
+            
+            size_str = order.size
+            name_str = order.name
+            topping_count = order.extra_toppings['counts']
+            
+            topping_str = f", ({topping_count}) extra topping(s)" if topping_count>0 else ''
+            
+            full_order_str.append(f"1 x {size_str} {name_str}{topping_str}")
+            
+        return ', '.join(full_order_str)
+    
     def total_price(self):
         total = self.pizza.total_price()
         return round(total, 2)
@@ -258,6 +275,7 @@ def order_placed(input_list):
     print("Your order will be ready at 14:30")
     print("Order number: 1234")
     print("\n1) return to home page")
+    print(input_list)
     
 
 def main():
@@ -272,15 +290,19 @@ def main():
     # print(orders_df)
     pizza_list = create_new_order()
     print("New order created!")
-    order_rows = confirm_order(pizza_list)
+    confirm_order(pizza_list)
+    
+    myOrder = Order(pizza_list)
     # update_orders_sheet(pizza_list)
     # print(user_pizza.name)
     # print(user_pizza.base_toppings)
     # print(user_pizza.size)
     
+    return myOrder
+    
 
 
 
-main()
+myOrder = main()
 
 
