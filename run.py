@@ -32,7 +32,7 @@ EXTRA_TOPPINGS = {
     "8": "Bacon",
 }
 
-EXTRA_TOPPING_PRICE = 1.25
+EXTRA_TOPPING_PRICE = 1.20
 
 PIZZA_SIZES = {
     "1": {
@@ -210,8 +210,11 @@ def print_pizza_summary(pizza_size, pizza_name, pizza_toppings):
     
 def confirm_order(input_list):
     print("Confirm your full order:")
+    total_sum=0
     for order in input_list:
         print(order.summary())
+        total_sum+= order.total_price
+    print(f"Total cost: {total_sum}")
 
 def main():
     """
