@@ -86,10 +86,11 @@ class Order():
     Creates an instance order.
     """
 
-    def __init__(self, order_list, total_price):
+    def __init__(self, order_list, total_price,last_orderID):
         self.order_list = order_list
         self.total_price = total_price
         self.order_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.last_orderID = last_orderID
         self.order_ID = self.create_order_ID()
 
     @property
@@ -144,7 +145,9 @@ class Order():
 
     def create_order_ID(self):
         # add some code later
-        return 12345
+        new_order_ID = datetime.today().strftime("%Y%m%d") + '{:04}'.format(self.last_orderID+1)
+        
+        return new_order_ID
 
 
 def connect_google_sheets(sheet_name):
@@ -296,6 +299,18 @@ def update_orders_sheet(worksheet, orders):
 
     print("'orders' worksheet updated successfully.\n")
 
+def get_latest_order_ID(orders_sheet):
+    latest_order_ID = orders_sheet.col_values(1)[-1]
+    print(f'latest order ID: {latest_order_ID}')
+    today_date = datetime.today().strftime("%Y%m%d")
+    
+    if today_date not in latest_order_ID:
+        last_orderID = 0
+    else:
+        last_orderID= int(latest_order_ID[-4:])
+        
+    print(last_orderID)
+    return last_orderID 
 
 def main():
     """
@@ -306,17 +321,14 @@ def main():
 
     orders_sheet = connect_google_sheets('orders')
     
-    current_orders = orders_sheet.col_values(1)
-    print(f'today orders: ')
-    print(current_orders)
-
+    last_orderID = get_latest_order_ID(orders_sheet)
 
     # print(orders_df)
     pizza_list = create_new_order()
     
     total_price = confirm_order(pizza_list)
 
-    orders = Order(pizza_list, total_price)
+    orders = Order(pizza_list, total_price, last_orderID)
     update_orders_sheet(orders_sheet, orders)
 
     return orders
