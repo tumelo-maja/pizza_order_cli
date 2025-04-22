@@ -207,7 +207,7 @@ def create_order(pizza_list=[]):
         
         while True:
             print("\nWould you like to add another pizza? \n1) Yes \n2) No")
-            add_more_pizza = input("Enter your choice: \n")
+            add_more_pizza = input("Enter your choice:\n")
             if validate_single_entry(add_more_pizza,1,2):
                 break
 
@@ -226,7 +226,7 @@ def choose_pizza_name(PIZZA_MENU):
         for key, value in PIZZA_MENU.items():
             print(f"{key}) {value['name']:<13}  | {', '.join(value['base_toppings'])}")
             
-        pizza_ind = input("Enter your choice: \n")
+        pizza_ind = input("Enter your choice:\n")
         if validate_single_entry(pizza_ind,1,5):
             break
     pizza_name = PIZZA_MENU[pizza_ind]['name']
@@ -239,7 +239,7 @@ def choose_pizza_size(PIZZA_SIZES):
         print("\nChoose the Pizza size:")
         for key, value in PIZZA_SIZES.items():
             print(f"{key}) {value['label']:<20}  | £{value['price']}")
-        size_ind = input("Enter your choice: \n")
+        size_ind = input("Enter your choice:\n")
         if validate_single_entry(size_ind,1,3):
             break
     pizza_size = PIZZA_SIZES[size_ind]['label']
@@ -250,10 +250,10 @@ def choose_pizza_size(PIZZA_SIZES):
 def choose_extra_toppings(EXTRA_TOPPINGS):
     
     while True:
-        print("\nAny extra toppings? (input(s) can be comma-separated integers): ")
+        print("\nAny extra toppings? (input(s) can be comma-separated integers):")
         for key, value in EXTRA_TOPPINGS.items():
             print(f"{key}) {value:<20}")
-        toppings_ind_list = input("Enter your choice(s): \n")
+        toppings_ind_list = input("Enter your choice(s):\n")
         if validate_multiple_entries(toppings_ind_list,0,len(EXTRA_TOPPINGS)-1):
             break
         
@@ -292,7 +292,7 @@ def summary_order_confirm(input_list):
     
     if not len(input_list):
         print("\nThere are no items in this order")
-        input("- Press any key to return to pizza selection \n")
+        input("- Press any key to return to pizza selection\n")
         total_sum=0
         order_comfirmed="2"
 
@@ -311,7 +311,7 @@ def summary_order_confirm(input_list):
             print("1) Place order")
             print("2) Add more items")
             print("3) Remove items")
-            order_comfirmed = input("Enter your choice: \n")
+            order_comfirmed = input("Enter your choice:\n")
             if validate_single_entry(order_comfirmed,1,3):
                 break
         
@@ -327,6 +327,7 @@ def order_placed(order):
     for label,value in zip(new_labels,order_summary.values()):
         
         if label== 'Total':
+            print(f"value total: {value}")
             value = f"£{'{:.2f}'.format(value)}"
             
         if 'time' in label:
@@ -360,7 +361,7 @@ def update_orders_sheet(order):
     while True:
         print("\n1) Return to home page")
         print("2) Quit application")
-        end_response= input("Enter your choice: \n")
+        end_response= input("Enter your choice:\n")
         if validate_single_entry(end_response,1,2):
             break
     
@@ -402,6 +403,8 @@ def prepare_new_order():
         elif continue_loop == 3:
             pizza_list = remove_order_items(pizza_list)
             order_comfirmed, total_sum= summary_order_confirm(pizza_list)
+            print(f"Pizza list after remove: {pizza_list}")
+            print(f"Total after remove: {total_sum}")
             
             if order_comfirmed == "1":
                 continue_loop=0
@@ -422,7 +425,7 @@ def remove_order_items(input_list):
         for ind, order in enumerate(input_list):
             description_str, price_str = order.summary()
             print(f"{ind+1}) {description_str:<70}| {price_str}")
-        remove_items= input("Enter your choice: \n")
+        remove_items= input("Enter your choice:\n")
         if validate_multiple_entries(remove_items,1,len(input_list)):
             break    
     removed_indexes = [int(x)-1 for x in remove_items.split(",")]
