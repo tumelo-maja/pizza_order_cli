@@ -246,7 +246,6 @@ def choose_extra_toppings(EXTRA_TOPPINGS):
     pizza_toppings = {'labels': [f"{count} x {item}" if toppings_items != ["None"] else None for item, count in Counter(toppings_items).items()  ],
                       'counts': len(toppings_items)}
 
-    print(f"pizza_toppings: {pizza_toppings}")
     return pizza_toppings
 
 
@@ -268,37 +267,43 @@ def confirm_order(input_list):
         order_placed(input_list)
         return total_sum, 0
     elif order_comfirmed == "2":
-        print("You're adding more")
         return None, 2
     elif order_comfirmed == "3":
-        print("You're removing items")
         return None, 3
     else:
         print("Invalid answer")
 
 def summary_order_confirm(input_list):
-    print("\nConfirm your full order:")
-    total_sum = 0
-    for order in input_list:
-        description_str, price_str = order.summary()
-        print(f"{description_str:<70}| {price_str}")
-        total_sum += order.total_price
-    total_sum = round(total_sum, 2)
-    print('-'*78)
-    print("Total cost:".ljust(70) + f"| £{'{:.2f}'.format(total_sum)}")
-    print("\n1) Place order \n2) Add more items \n3) Remove items")
-    order_comfirmed = input("Enter your choice: \n")
+    
+    if not len(input_list):
+        print("\nThere are no items in this order")
+        input("- Press any key to return to pizza selection \n")
+        total_sum=0
+        order_comfirmed="2"
+
+    else:
+            
+        print("\nConfirm your full order:")
+        total_sum = 0
+        for order in input_list:
+            description_str, price_str = order.summary()
+            print(f"{description_str:<70}| {price_str}")
+            total_sum += order.total_price
+        total_sum = round(total_sum, 2)
+        print('-'*78)
+        print("Total cost:".ljust(70) + f"| £{'{:.2f}'.format(total_sum)}")
+        print("1) Place order")
+        print("2) Add more items")
+        print("3) Remove items")
+        order_comfirmed = input("Enter your choice: \n")
     
     return order_comfirmed, total_sum
-
-
 
 def order_placed(input_list):
     print("Thank you for sending your order")
     print("Your order will be ready at 14:30")
     print("Order number: 1234")
     print("\n1) return to home page")
-
 
 def update_orders_sheet(order):
     print("Updating 'order' worksheet...\n")
@@ -351,16 +356,14 @@ def prepare_new_order():
             elif order_comfirmed == "3":
                 pass
             else:
-                print("Invalid input")
-                
+                print("Invalid input")            
 
     order = Order(pizza_list, total_price, last_orderID)
-    
     return order
 
 def remove_order_items(input_list):
     print("\nSelect the order item(s) you wish to remove (inputs can be comma-separated integers)")
-    # print(input_list)
+    print(input_list)
     for ind, order in enumerate(input_list):
         description_str, price_str = order.summary()
         print(f"{ind+1}) {description_str:<70}| {price_str}")
@@ -370,24 +373,12 @@ def remove_order_items(input_list):
     
     new_list = [order for i, order in enumerate(input_list) if i not in removed_indexes]
     
-    return new_list
-
-    
-    
-    print(remove_items)
-    print("Item removed \n")
-    
-    return input_list
-    
-
-
-    
+    return new_list   
     
 def main():
     """
     Run the application to initiate requests for user input
     """
-
     print("Main is running")
 
     order = prepare_new_order()
