@@ -337,10 +337,15 @@ def update_orders_sheet(order):
     print("'orders' worksheet updated successfully.")
     
     order_placed(order)
-
-    input("- Press any key to return to home page \n")
     
-    return True
+    print("\n0) Return to home page")
+    print("q) Quit application")
+    end_response= input("Enter your choice: \n")
+    
+    if end_response== "0":
+        return True
+    elif end_response.lower()=="q":
+        return False
 
 
 def get_latest_order_ID(orders_sheet):
@@ -406,10 +411,11 @@ def main():
     """
     Run the application to initiate requests for user input
     """    
-    while True:
+    continue_app=True
+    while continue_app:
 
         order = prepare_new_order()
-        update_orders_sheet(order)
+        continue_app= update_orders_sheet(order)
 
 main()
 
