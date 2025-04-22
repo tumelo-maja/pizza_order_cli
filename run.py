@@ -204,10 +204,14 @@ def create_order(pizza_list=[]):
                              extra_toppings=pizza_toppings)
 
         pizza_list.append(pizza_object)
-        print("\nWould you like to add another pizza: \n1) Yes \n2) No")
-        add_more_pizza = input("Enter your choice: \n")
+        
+        while True:
+            print("\nWould you like to add another pizza? \n1) Yes \n2) No")
+            add_more_pizza = input("Enter your choice: \n")
+            if validate_single_entry(add_more_pizza,1,2):
+                break
 
-        if int(add_more_pizza) == 2:
+        if add_more_pizza == '2':
             continue_order = False
 
     return pizza_list
@@ -223,9 +227,7 @@ def choose_pizza_name(PIZZA_MENU):
             print(f"{key}) {value['name']:<13}  | {', '.join(value['base_toppings'])}")
             
         pizza_ind = input("Enter your choice: \n")
-        
         if validate_single_entry(pizza_ind,1,5):
-            print("Validated input:", pizza_ind)
             break
     pizza_name = PIZZA_MENU[pizza_ind]['name']
     pizza_base = PIZZA_MENU[pizza_ind]['base_toppings']
@@ -233,10 +235,13 @@ def choose_pizza_name(PIZZA_MENU):
 
 
 def choose_pizza_size(PIZZA_SIZES):
-    print("\nChoose the Pizza size:")
-    for key, value in PIZZA_SIZES.items():
-        print(f"{key}) {value['label']:<20}  | £{value['price']}")
-    size_ind = input("Enter your choice: \n")
+    while True:
+        print("\nChoose the Pizza size:")
+        for key, value in PIZZA_SIZES.items():
+            print(f"{key}) {value['label']:<20}  | £{value['price']}")
+        size_ind = input("Enter your choice: \n")
+        if validate_single_entry(size_ind,1,3):
+            break
     pizza_size = PIZZA_SIZES[size_ind]['label']
     pizza_price = PIZZA_SIZES[size_ind]['price']
     return pizza_size, pizza_price
@@ -249,10 +254,9 @@ def choose_extra_toppings(EXTRA_TOPPINGS):
         for key, value in EXTRA_TOPPINGS.items():
             print(f"{key}) {value:<20}")
         toppings_ind_list = input("Enter your choice(s): \n")
+        if validate_multiple_entries(toppings_ind_list,0,len(EXTRA_TOPPINGS)-1):
+            break
         
-        if validate_multiple_entries(toppings_ind_list,0,8):
-            print("Validated input:", toppings_ind_list)
-            break        
     toppings_items = [EXTRA_TOPPINGS[x] for x in toppings_ind_list.split(",") if x != "0"]
   
     pizza_toppings = {'labels': [f"{count} x {item}" if toppings_items != ["None"] else None for item, count in Counter(toppings_items).items()  ],
@@ -293,21 +297,24 @@ def summary_order_confirm(input_list):
         order_comfirmed="2"
 
     else:
-            
-        print("\nConfirm your full order:")
-        total_sum = 0
-        for order in input_list:
-            description_str, price_str = order.summary()
-            print(f"{description_str:<70}| {price_str}")
-            total_sum += order.total_price
-        total_sum = round(total_sum, 2)
-        print('-'*78)
-        print("Total cost:".ljust(70) + f"| £{'{:.2f}'.format(total_sum)}")
-        print("1) Place order")
-        print("2) Add more items")
-        print("3) Remove items")
-        order_comfirmed = input("Enter your choice: \n")
-    
+        
+        while True:
+            print("\nConfirm your full order:")
+            total_sum = 0
+            for order in input_list:
+                description_str, price_str = order.summary()
+                print(f"{description_str:<70}| {price_str}")
+                total_sum += order.total_price
+            total_sum = round(total_sum, 2)
+            print('-'*78)
+            print("Total cost:".ljust(70) + f"| £{'{:.2f}'.format(total_sum)}")
+            print("1) Place order")
+            print("2) Add more items")
+            print("3) Remove items")
+            order_comfirmed = input("Enter your choice: \n")
+            if validate_single_entry(order_comfirmed,1,3):
+                break
+        
     return order_comfirmed, total_sum
 
 def order_placed(order):
@@ -350,13 +357,16 @@ def update_orders_sheet(order):
     
     order_placed(order)
     
-    print("\n0) Return to home page")
-    print("q) Quit application")
-    end_response= input("Enter your choice: \n")
+    while True:
+        print("\n1) Return to home page")
+        print("2) Quit application")
+        end_response= input("Enter your choice: \n")
+        if validate_single_entry(end_response,1,2):
+            break
     
-    if end_response== "0":
+    if end_response== "1":
         return True
-    elif end_response.lower()=="q":
+    else:
         return False
 
 
@@ -406,13 +416,15 @@ def prepare_new_order():
     return order
 
 def remove_order_items(input_list):
-    print("\nSelect the order item(s) you wish to remove (inputs can be comma-separated integers)")
-    print(input_list)
-    for ind, order in enumerate(input_list):
-        description_str, price_str = order.summary()
-        print(f"{ind+1}) {description_str:<70}| {price_str}")
-    remove_items= input("Enter your choice: \n")
     
+    while True:
+        print("\nSelect the order item(s) you wish to remove (inputs can be comma-separated integers)")
+        for ind, order in enumerate(input_list):
+            description_str, price_str = order.summary()
+            print(f"{ind+1}) {description_str:<70}| {price_str}")
+        remove_items= input("Enter your choice: \n")
+        if validate_multiple_entries(remove_items,1,len(input_list)):
+            break    
     removed_indexes = [int(x)-1 for x in remove_items.split(",")]
     
     new_list = [order for i, order in enumerate(input_list) if i not in removed_indexes]
@@ -467,7 +479,7 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None):
             
             # 4) Check if digit
             if not value.isdigit():
-                raise ValueError(f"'{value}' is not an integer")
+                raise ValueError(f"'{value}' is not an integer. The input values must be between {min_value} and {max_value}")
             value = int(value)
             
             # 5 check if within range
