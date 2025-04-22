@@ -134,7 +134,7 @@ class Order():
 
         return {
             "Order ID": self.order_ID,
-            "Order Date": self.order_date,
+            "Order date": self.order_date,
             "Order items": self.order_items,
             "Order ready time": self.order_ready_time,
             "Order status": 'Preparing',
@@ -214,7 +214,7 @@ def create_order(pizza_list=[]):
 
 
 def choose_pizza_name(PIZZA_MENU):
-    print("Choose your Pizza (one pizza at a time):\n")
+    print("\nChoose your Pizza (one pizza at a time):\n")
     print("Our Pizza's'".ljust(18) + "| Base toppings")
     print("-"*35)
 
@@ -264,7 +264,6 @@ def confirm_order(input_list):
     order_comfirmed, total_sum= summary_order_confirm(input_list)
 
     if order_comfirmed == "1":
-        order_placed(input_list)
         return total_sum, 0
     elif order_comfirmed == "2":
         return None, 2
@@ -299,14 +298,29 @@ def summary_order_confirm(input_list):
     
     return order_comfirmed, total_sum
 
-def order_placed(input_list):
-    print("Thank you for sending your order")
-    print("Your order will be ready at 14:30")
-    print("Order number: 1234")
-    print("\n1) return to home page")
+def order_placed(order):
+    print("\nThank you for sending your order")
+    print("Here's your order summary:\n")
+
+    order_summary = order.summary
+    new_labels = ['Order number','Date','Ordered items','Collection time','Order status','Total']
+    
+    for label,value in zip(new_labels,order_summary.values()):
+        
+        if label =='Ordered items' and ',' in value:
+            align_space = " " * len(f"{label}".ljust(18)) + "|"
+            split_str = value.split(',')
+            
+            print(f"{label}".ljust(18) + f"| {split_str[0]}\n{align_space} " + f'\n{align_space}'.join(split_str))
+            
+        else: 
+            print(f"{label}".ljust(18) + f"| {value}")
+
+
+
 
 def update_orders_sheet(order):
-    print("Updating 'order' worksheet...\n")
+    print("Updating 'order' worksheet...")
     
     worksheet = connect_google_sheets('orders')
 
@@ -314,7 +328,10 @@ def update_orders_sheet(order):
     
     worksheet.append_row(order_list_item)
 
-    print("'orders' worksheet updated successfully.\n")
+    print("'orders' worksheet updated successfully.")
+    
+    order_placed(order)
+
     input("- Press any key to return to home page \n")
     
     return True
@@ -382,13 +399,25 @@ def remove_order_items(input_list):
 def main():
     """
     Run the application to initiate requests for user input
-    """
-    print("Main is running")
-    
-    system_on=True
-    while system_on:
+    """    
+    while True:
 
         order = prepare_new_order()
-        system_on = update_orders_sheet(order)
+        update_orders_sheet(order)
 
 main()
+
+# order_summary = {'Order ID': '202504220014', 'Order date': '2025-04-22 11:15:16', 'Order items': '1 x Small Hawaiian - extra toppings: 1, 1 x Medium Pepperoni - extra toppings: 1, 1 x Medium Vegetarian - extra toppings: 1, 1 x Medium Vegetarian - extra toppings: 1, 1 x Large All Meaty - extra toppings: 1, 1 x Large Spicy Chicken - extra toppings: 1, 1 x Large Pepperoni', 'Order ready time': '2025-04-22 12:00:00', 'Order status': 'Preparing', 'Order total': 96.0}
+# order_summary = {'Order ID': '202504220014', 'Order date': '2025-04-22 11:15:16', 'Order items': '1 x Small Hawaiian - extra toppings: 1', 'Order ready time': '2025-04-22 12:00:00', 'Order status': 'Preparing', 'Order total': 96.0}
+# new_labels = ['Order number','Date','Ordered items','Collection time','Order status','Total']
+
+# for label,value in zip(new_labels,order_summary.values()):
+    
+#     if label =='Ordered items' and ',' in value:
+#         align_space = " " * len(f"{label}".ljust(18)) + "|"
+#         split_str = value.split(',')
+        
+#         print(f"{label}".ljust(18) + f"| {split_str[0]}\n{align_space} " + f'\n{align_space}'.join(split_str))
+        
+#     else: 
+#         print(f"{label}".ljust(18) + f"| {value}")
