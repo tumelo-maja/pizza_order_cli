@@ -302,7 +302,7 @@ def summary_order_confirm(input_list):
             total_sum = 0
             for order in input_list:
                 description_str, price_str = order.summary()
-                print(f"{description_str:<70}| {price_str}")
+                print(f"{description_str:<60}| {price_str}")
                 total_sum += order.total_price
             total_sum = round(total_sum, 2)
             print('-'*78)
@@ -322,6 +322,7 @@ def order_placed(order):
 
     order_summary = order.summary
     new_labels = ['Order number','Order time','Ordered items','Collection time','Order status','Total']
+    
     
     for label,value in zip(new_labels,order_summary.values()):
         
@@ -401,10 +402,8 @@ def prepare_new_order():
             continue
         elif continue_loop == 3:
             pizza_list = remove_order_items(pizza_list)
-            order_comfirmed, total_sum= summary_order_confirm(pizza_list)
-            print(f"Pizza list after remove: {pizza_list}")
-            print(f"Total after remove: {total_sum}")
-            
+            order_comfirmed, total_price= summary_order_confirm(pizza_list)
+          
             if order_comfirmed == "1":
                 continue_loop=0
             elif order_comfirmed == "2":
@@ -504,6 +503,7 @@ def main():
     while continue_app:
 
         order = prepare_new_order()
+
         continue_app= update_orders_sheet(order)
 
 main()
