@@ -243,10 +243,16 @@ def choose_pizza_size(PIZZA_SIZES):
 
 
 def choose_extra_toppings(EXTRA_TOPPINGS):
-    print("\nAny extra toppings? (input(s) can be comma-separated integers): ")
-    for key, value in EXTRA_TOPPINGS.items():
-        print(f"{key}) {value:<20}")
-    toppings_ind_list = input("Enter your choice(s): \n")
+    
+    while True:
+        print("\nAny extra toppings? (input(s) can be comma-separated integers): ")
+        for key, value in EXTRA_TOPPINGS.items():
+            print(f"{key}) {value:<20}")
+        toppings_ind_list = input("Enter your choice(s): \n")
+        
+        if validate_multiple_entries(toppings_ind_list,0,8):
+            print("Validated input:", toppings_ind_list)
+            break        
     toppings_items = [EXTRA_TOPPINGS[x] for x in toppings_ind_list.split(",") if x != "0"]
   
     pizza_toppings = {'labels': [f"{count} x {item}" if toppings_items != ["None"] else None for item, count in Counter(toppings_items).items()  ],
@@ -423,16 +429,16 @@ def validate_single_entry(value, min_value=None, max_value=None):
         
         # 2) Check if there are leading zerpos
         if len(value)> 1 and value.startswith("0"):
-                raise ValueError(f"'{value}' is not a valid entry. Leading zeros are not allowed.")
+                raise ValueError(f"'{value}' is not a valid entry. Leading zeros are not allowed")
         
         # 3) Check if digit
         if not value.isdigit():
-            raise ValueError(f"'{value}' is not an integer.")
+            raise ValueError(f"'{value}' is not an integer")
         value = int(value)
         
-        # 40 check if within range
+        # 5 check if within range
         if value < min_value or value>max_value:
-            raise ValueError(f"Value '{value}' is out of range. The input value mus be between {min_value} and {max_value}")
+            raise ValueError(f"Value '{value}' is out of range. The input value must be between {min_value} and {max_value}")
 
     except ValueError as e:
         print(f"\nInvalid entry: {e}, please try again.\n")
@@ -440,6 +446,41 @@ def validate_single_entry(value, min_value=None, max_value=None):
 
     return True
         
+def validate_multiple_entries(values_input, min_value=None, max_value=None):
+    
+    try:
+        values = [x for x in values_input.split(",")]
+        
+        # 1) Check if zeros in included with outher numbers
+        if len(values)> 1 and '0' in values:
+                raise ValueError(f"'{values_input}' is not a valid entry. You cannot select '0' with any other values")
+        
+        # 2) Check if there are any spaces ' '
+        if ' ' in values_input:
+            raise ValueError(f"'{values_input}' is not a valid entry. The input value must not contain any spaces")
+
+        for value in values:
+            
+            # 3) Check if there are leading zerpos
+            if len(value)> 1 and value.startswith("0"):
+                    raise ValueError(f"'{value}' is not a valid entry. Leading zeros are not allowed")
+            
+            # 4) Check if digit
+            if not value.isdigit():
+                raise ValueError(f"'{value}' is not an integer")
+            value = int(value)
+            
+            # 5 check if within range
+            if value < min_value or value>max_value:
+                raise ValueError(f"Value '{value}' is out of range. The input values must be between {min_value} and {max_value}")
+
+    except ValueError as e:
+        print(f"\nInvalid entry: {e}, please try again.\n")
+        return False
+
+    return True
+        
+
 
 def main():
     """
