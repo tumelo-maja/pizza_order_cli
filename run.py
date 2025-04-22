@@ -299,13 +299,19 @@ def summary_order_confirm(input_list):
     return order_comfirmed, total_sum
 
 def order_placed(order):
-    print("\nThank you for sending your order")
+    print("\nThank you for sending your order. It is now being prepared...")
     print("Here's your order summary:\n")
 
     order_summary = order.summary
-    new_labels = ['Order number','Date','Ordered items','Collection time','Order status','Total']
+    new_labels = ['Order number','Order time','Ordered items','Collection time','Order status','Total']
     
     for label,value in zip(new_labels,order_summary.values()):
+        
+        if label== 'Total':
+            value = f"£{'{:.2f}'.format(value)}"
+            
+        if 'time' in label:
+            value = value.split(' ')[1][:-3]
         
         if label =='Ordered items' and ',' in value:
             align_space = " " * len(f"{label}".ljust(18)) + "|"
@@ -407,17 +413,3 @@ def main():
 
 main()
 
-# order_summary = {'Order ID': '202504220014', 'Order date': '2025-04-22 11:15:16', 'Order items': '1 x Small Hawaiian - extra toppings: 1, 1 x Medium Pepperoni - extra toppings: 1, 1 x Medium Vegetarian - extra toppings: 1, 1 x Medium Vegetarian - extra toppings: 1, 1 x Large All Meaty - extra toppings: 1, 1 x Large Spicy Chicken - extra toppings: 1, 1 x Large Pepperoni', 'Order ready time': '2025-04-22 12:00:00', 'Order status': 'Preparing', 'Order total': 96.0}
-# order_summary = {'Order ID': '202504220014', 'Order date': '2025-04-22 11:15:16', 'Order items': '1 x Small Hawaiian - extra toppings: 1', 'Order ready time': '2025-04-22 12:00:00', 'Order status': 'Preparing', 'Order total': 96.0}
-# new_labels = ['Order number','Date','Ordered items','Collection time','Order status','Total']
-
-# for label,value in zip(new_labels,order_summary.values()):
-    
-#     if label =='Ordered items' and ',' in value:
-#         align_space = " " * len(f"{label}".ljust(18)) + "|"
-#         split_str = value.split(',')
-        
-#         print(f"{label}".ljust(18) + f"| {split_str[0]}\n{align_space} " + f'\n{align_space}'.join(split_str))
-        
-#     else: 
-#         print(f"{label}".ljust(18) + f"| {value}")
