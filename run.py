@@ -415,12 +415,18 @@ def remove_order_items(input_list):
 
 def validate_single_entry(value, min_value=None, max_value=None):
     
-    
     try:
+        
+        # Check if there are any spaces ' '
+        if ' ' in value:
+            raise ValueError(f"'{value}' is not a valid entry. The input value must not contain any spaces")
+        
+        # Check if digit
         if not value.isdigit():
             raise ValueError(f"'{value}' is not an integer.")
         value = int(value)
         
+        # check if within range
         if value < min_value or value>max_value:
             raise ValueError(f"Value '{value}' is out of range. The input value mus be between {min_value} and {max_value}")
 
