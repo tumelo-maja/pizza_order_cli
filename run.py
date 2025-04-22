@@ -214,10 +214,12 @@ def create_order(pizza_list=[]):
 
 
 def choose_pizza_name(PIZZA_MENU):
-    print("\nChoose your Pizza (one pizza at a time):\n")
+    print("Choose your Pizza (one pizza at a time):\n")
+    print("Our Pizza's'".ljust(18) + "| Base toppings")
+    print("-"*35)
+
     for key, value in PIZZA_MENU.items():
-        print(f"{key}) {value['name']:<13}  | {
-              ', '.join(value['base_toppings'])}")
+        print(f"{key}) {value['name']:<13}  | {', '.join(value['base_toppings'])}")
     pizza_ind = input("Enter your choice: \n")
     pizza_name = PIZZA_MENU[pizza_ind]['name']
     pizza_base = PIZZA_MENU[pizza_ind]['base_toppings']
@@ -225,7 +227,7 @@ def choose_pizza_name(PIZZA_MENU):
 
 
 def choose_pizza_size(PIZZA_SIZES):
-    print("\nChoose the Pizza size:\n")
+    print("\nChoose the Pizza size:")
     for key, value in PIZZA_SIZES.items():
         print(f"{key}) {value['label']:<20}  | £{value['price']}")
     size_ind = input("Enter your choice: \n")
@@ -311,7 +313,6 @@ def update_orders_sheet(order):
 
 def get_latest_order_ID(orders_sheet):
     latest_order_ID = orders_sheet.col_values(1)[-1]
-    print(f'latest order ID: {latest_order_ID}')
     today_date = datetime.today().strftime("%Y%m%d")
     
     if today_date not in latest_order_ID:
@@ -319,7 +320,6 @@ def get_latest_order_ID(orders_sheet):
     else:
         last_orderID= int(latest_order_ID[-4:])
         
-    print(last_orderID)
     return last_orderID
 
 def prepare_new_order():
@@ -334,7 +334,6 @@ def prepare_new_order():
         
         if continue_loop == 1:
             pizza_list= create_order(pizza_list)
-            # pizza_list= order_pizza_list
             
             total_price, continue_loop  = confirm_order(pizza_list)
         
@@ -344,8 +343,6 @@ def prepare_new_order():
         elif continue_loop == 3:
             pizza_list = remove_order_items(pizza_list)
             order_comfirmed, total_sum= summary_order_confirm(pizza_list)
-            print(f"order_comfirmed {order_comfirmed}")
-            print(f"order_comfirmed type  {type(order_comfirmed)}")
             
             if order_comfirmed == "1":
                 continue_loop=0
