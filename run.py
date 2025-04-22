@@ -217,13 +217,14 @@ def create_order(pizza_list=[]):
 
 
 def choose_pizza_name(PIZZA_MENU):
+    indent_value=20
     print("\nChoose your Pizza (one pizza at a time):\n")
-    print("Our Pizza's'".ljust(20) + "| Base toppings")
+    print("Our Pizza's'".ljust(indent_value) + "| Base toppings")
     print("-"*35)
     
     while True:
         for key, value in PIZZA_MENU.items():
-            print(f"{key}) {value['name']:<15}  | {', '.join(value['base_toppings'])}")
+            print(f"{key}) {value['name']}".ljust(indent_value) + f"| {', '.join(value['base_toppings'])}")
             
         pizza_ind = input("Enter your choice:\n")
         if validate_single_entry(pizza_ind,1,5):
@@ -234,11 +235,12 @@ def choose_pizza_name(PIZZA_MENU):
 
 
 def choose_pizza_size(PIZZA_SIZES):
+    indent_value=20
     while True:
         print("\nChoose the Pizza size:")
         print("-"*35)
         for key, value in PIZZA_SIZES.items():
-            print(f"{key}) {value['label']:<15}  | £{value['price']}")
+            print(f"{key}) {value['label']}".ljust(indent_value) + f"| £{value['price']}")
         size_ind = input("Enter your choice:\n")
         if validate_single_entry(size_ind,1,3):
             break
@@ -252,7 +254,7 @@ def choose_extra_toppings(EXTRA_TOPPINGS):
     while True:
         print("\nAny extra toppings? (input(s) can be comma-separated integers):")
         for key, value in EXTRA_TOPPINGS.items():
-            print(f"{key}) {value:<20}")
+            print(f"{key}) {value}")
         toppings_ind_list = input("Enter your choice(s):\n")
         if validate_multiple_entries(toppings_ind_list,0,len(EXTRA_TOPPINGS)-1):
             break
@@ -324,6 +326,7 @@ def order_placed(order):
     order_summary = order.summary
     new_labels = ['Order number','Order time','Ordered items','Collection time','Order status','Total']
     
+    indent_value= 20
     
     for label,value in zip(new_labels,order_summary.values()):
         
@@ -331,16 +334,18 @@ def order_placed(order):
             value = f"£{'{:.2f}'.format(value)}"
             
         if 'time' in label:
+            print("Order date".ljust(indent_value) + f"| {value.split(' ')[0]}")
             value = value.split(' ')[1][:-3]
+
         
         if label =='Ordered items' and ',' in value:
-            align_space = " " * len(f"{label}".ljust(18)) + "|"
+            align_space = " " * len(f"{label}".ljust(indent_value)) + "|"
             split_str = value.split(',')
             
-            print(f"{label}".ljust(18) + f"| {split_str[0]}\n{align_space} " + f'\n{align_space}'.join(split_str))
+            print(f"{label}".ljust(indent_value) + f"| {split_str[0]}\n{align_space} " + f'\n{align_space}'.join(split_str))
             
         else: 
-            print(f"{label}".ljust(18) + f"| {value}")
+            print(f"{label}".ljust(indent_value) + f"| {value}")
 
 
 
@@ -418,11 +423,12 @@ def prepare_new_order():
 
 def remove_order_items(input_list):
     
+    indent_value= 60
     while True:
         print("\nSelect the order item(s) you wish to remove \n(inputs can be comma-separated integers)")
         for ind, order in enumerate(input_list):
             description_str, price_str = order.summary()
-            print(f"{ind+1}) {description_str}".ljust(60) + f"| {price_str}")
+            print(f"{ind+1}) {description_str}".ljust(indent_value) + f"| {price_str}")
         remove_items= input("Enter your choice:\n")
         if validate_multiple_entries(remove_items,1,len(input_list)):
             break    
