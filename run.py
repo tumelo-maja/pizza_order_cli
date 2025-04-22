@@ -421,6 +421,10 @@ def validate_single_entry(value, min_value=None, max_value=None):
         if ' ' in value:
             raise ValueError(f"'{value}' is not a valid entry. The input value must not contain any spaces")
         
+        # Check if there are leading zerpos
+        if value.startswith("0"):
+                raise ValueError(f"'{value}' is not a valid entry. Leading zeros are not allowed.")
+        
         # Check if digit
         if not value.isdigit():
             raise ValueError(f"'{value}' is not an integer.")
