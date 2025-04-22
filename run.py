@@ -34,19 +34,19 @@ EXTRA_TOPPING_PRICE = 1.50
 
 PIZZA_SIZES = {
     "1": {
-        "label": 'Small - 9"',
+        "label": 'Small',
         "size_inch": '9"',
         "size_cm": '23 cm',
         "price": 9.00
     },
     "2": {
-        "label": 'Medium - 12"',
+        "label": 'Medium',
         "size_inch": '12"',
         "size_cm": '30 cm',
         "price": 11.00
     },
     "3": {
-        "label": 'Large - 15"',
+        "label": 'Large',
         "size_inch": '15"',
         "size_cm": '38 cm',
         "price": 15.00
@@ -67,8 +67,8 @@ class Pizza():
         self.extra_toppings = extra_toppings
 
     def summary(self):
-        extra_str = f"with {self.extra_toppings['counts']} extra topping(s)" if self.extra_toppings['counts'] > 0 else ''
-        description_str = f"1 x {self.name} pizza, {self.size} {extra_str}"
+        extra_str = f"Extra topping(s): {self.extra_toppings['counts']}" if self.extra_toppings['counts'] > 0 else ''
+        description_str = f"1 x {self.name} {self.size} Pizza, {extra_str}"
         price_str = f"£{'{:.2f}'.format(self.total_price)}"
         return description_str, price_str
 
@@ -218,12 +218,12 @@ def create_order(pizza_list=[]):
 
 def choose_pizza_name(PIZZA_MENU):
     print("\nChoose your Pizza (one pizza at a time):\n")
-    print("Our Pizza's'".ljust(18) + "| Base toppings")
+    print("Our Pizza's'".ljust(20) + "| Base toppings")
     print("-"*35)
     
     while True:
         for key, value in PIZZA_MENU.items():
-            print(f"{key}) {value['name']:<13}  | {', '.join(value['base_toppings'])}")
+            print(f"{key}) {value['name']:<15}  | {', '.join(value['base_toppings'])}")
             
         pizza_ind = input("Enter your choice:\n")
         if validate_single_entry(pizza_ind,1,5):
@@ -236,8 +236,9 @@ def choose_pizza_name(PIZZA_MENU):
 def choose_pizza_size(PIZZA_SIZES):
     while True:
         print("\nChoose the Pizza size:")
+        print("-"*35)
         for key, value in PIZZA_SIZES.items():
-            print(f"{key}) {value['label']:<20}  | £{value['price']}")
+            print(f"{key}) {value['label']:<15}  | £{value['price']}")
         size_ind = input("Enter your choice:\n")
         if validate_single_entry(size_ind,1,3):
             break
@@ -302,11 +303,11 @@ def summary_order_confirm(input_list):
             total_sum = 0
             for order in input_list:
                 description_str, price_str = order.summary()
-                print(f"{description_str:<60}| {price_str}")
+                print(f"{description_str}".ljust(60) + f"| {price_str}")
                 total_sum += order.total_price
             total_sum = round(total_sum, 2)
-            print('-'*78)
-            print("Total cost:".ljust(70) + f"| £{'{:.2f}'.format(total_sum)}")
+            print('-'*68)
+            print("Total cost:".ljust(60) + f"| £{'{:.2f}'.format(total_sum)}")
             print("1) Place order")
             print("2) Add more items")
             print("3) Remove items")
@@ -327,7 +328,6 @@ def order_placed(order):
     for label,value in zip(new_labels,order_summary.values()):
         
         if label== 'Total':
-            print(f"value total: {value}")
             value = f"£{'{:.2f}'.format(value)}"
             
         if 'time' in label:
@@ -422,7 +422,7 @@ def remove_order_items(input_list):
         print("\nSelect the order item(s) you wish to remove \n(inputs can be comma-separated integers)")
         for ind, order in enumerate(input_list):
             description_str, price_str = order.summary()
-            print(f"{ind+1}) {description_str:<60}| {price_str}")
+            print(f"{ind+1}) {description_str}".ljust(60) + f"| {price_str}")
         remove_items= input("Enter your choice:\n")
         if validate_multiple_entries(remove_items,1,len(input_list)):
             break    
