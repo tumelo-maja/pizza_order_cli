@@ -217,10 +217,16 @@ def choose_pizza_name(PIZZA_MENU):
     print("\nChoose your Pizza (one pizza at a time):\n")
     print("Our Pizza's'".ljust(18) + "| Base toppings")
     print("-"*35)
-
-    for key, value in PIZZA_MENU.items():
-        print(f"{key}) {value['name']:<13}  | {', '.join(value['base_toppings'])}")
-    pizza_ind = input("Enter your choice: \n")
+    
+    while True:
+        for key, value in PIZZA_MENU.items():
+            print(f"{key}) {value['name']:<13}  | {', '.join(value['base_toppings'])}")
+            
+        pizza_ind = input("Enter your choice: \n")
+        
+        if validate_single_entry(pizza_ind):
+            print("Validated input:", pizza_ind)
+            break
     pizza_name = PIZZA_MENU[pizza_ind]['name']
     pizza_base = PIZZA_MENU[pizza_ind]['base_toppings']
     return pizza_name, pizza_base
@@ -406,7 +412,22 @@ def remove_order_items(input_list):
     new_list = [order for i, order in enumerate(input_list) if i not in removed_indexes]
     
     return new_list   
+
+def validate_single_entry(value, min_value=None, max_value=None):
     
+    
+    try:
+        if not value.isdigit():
+            raise ValueError(f"'{value}' is not an integer.")
+
+
+    except ValueError as e:
+        print(f"\nInvalid entry: {e}, please try again.\n")
+        return False
+
+    return True
+        
+
 def main():
     """
     Run the application to initiate requests for user input
@@ -419,3 +440,4 @@ def main():
 
 main()
 
+    
