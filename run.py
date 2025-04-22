@@ -224,7 +224,7 @@ def choose_pizza_name(PIZZA_MENU):
             
         pizza_ind = input("Enter your choice: \n")
         
-        if validate_single_entry(pizza_ind):
+        if validate_single_entry(pizza_ind,1,5):
             print("Validated input:", pizza_ind)
             break
     pizza_name = PIZZA_MENU[pizza_ind]['name']
@@ -419,7 +419,10 @@ def validate_single_entry(value, min_value=None, max_value=None):
     try:
         if not value.isdigit():
             raise ValueError(f"'{value}' is not an integer.")
-
+        value = int(value)
+        
+        if value < min_value or value>max_value:
+            raise ValueError(f"Value '{value}' is out of range. The input value mus be between {min_value} and {max_value}")
 
     except ValueError as e:
         print(f"\nInvalid entry: {e}, please try again.\n")
