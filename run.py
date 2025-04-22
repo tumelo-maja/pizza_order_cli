@@ -34,19 +34,19 @@ EXTRA_TOPPING_PRICE = 1.50
 
 PIZZA_SIZES = {
     "1": {
-        "label": 'Small - 9" (23 cm)',
+        "label": 'Small - 9"',
         "size_inch": '9"',
         "size_cm": '23 cm',
         "price": 9.00
     },
     "2": {
-        "label": 'Medium - 12" (30 cm)',
+        "label": 'Medium - 12"',
         "size_inch": '12"',
         "size_cm": '30 cm',
         "price": 11.00
     },
     "3": {
-        "label": 'Large - 15" (38 cm)',
+        "label": 'Large - 15"',
         "size_inch": '15"',
         "size_cm": '38 cm',
         "price": 15.00
@@ -420,10 +420,10 @@ def prepare_new_order():
 def remove_order_items(input_list):
     
     while True:
-        print("\nSelect the order item(s) you wish to remove (inputs can be comma-separated integers)")
+        print("\nSelect the order item(s) you wish to remove \n(inputs can be comma-separated integers)")
         for ind, order in enumerate(input_list):
             description_str, price_str = order.summary()
-            print(f"{ind+1}) {description_str:<70}| {price_str}")
+            print(f"{ind+1}) {description_str:<60}| {price_str}")
         remove_items= input("Enter your choice:\n")
         if validate_multiple_entries(remove_items,1,len(input_list)):
             break    
