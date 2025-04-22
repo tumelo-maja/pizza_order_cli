@@ -315,6 +315,10 @@ def update_orders_sheet(order):
     worksheet.append_row(order_list_item)
 
     print("'orders' worksheet updated successfully.\n")
+    input("- Press any key to return to home page \n")
+    
+    return True
+
 
 def get_latest_order_ID(orders_sheet):
     latest_order_ID = orders_sheet.col_values(1)[-1]
@@ -380,12 +384,11 @@ def main():
     Run the application to initiate requests for user input
     """
     print("Main is running")
-
-    order = prepare_new_order()
     
-    update_orders_sheet(order)
+    system_on=True
+    while system_on:
 
-    return order
+        order = prepare_new_order()
+        system_on = update_orders_sheet(order)
 
-
-myOrder = main()
+main()
