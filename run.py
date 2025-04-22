@@ -417,20 +417,20 @@ def validate_single_entry(value, min_value=None, max_value=None):
     
     try:
         
-        # Check if there are any spaces ' '
+        # 1) Check if there are any spaces ' '
         if ' ' in value:
             raise ValueError(f"'{value}' is not a valid entry. The input value must not contain any spaces")
         
-        # Check if there are leading zerpos
-        if value.startswith("0"):
+        # 2) Check if there are leading zerpos
+        if len(value)> 1 and value.startswith("0"):
                 raise ValueError(f"'{value}' is not a valid entry. Leading zeros are not allowed.")
         
-        # Check if digit
+        # 3) Check if digit
         if not value.isdigit():
             raise ValueError(f"'{value}' is not an integer.")
         value = int(value)
         
-        # check if within range
+        # 40 check if within range
         if value < min_value or value>max_value:
             raise ValueError(f"Value '{value}' is out of range. The input value mus be between {min_value} and {max_value}")
 
