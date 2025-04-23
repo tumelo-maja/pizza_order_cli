@@ -321,7 +321,6 @@ def summary_order_confirm(input_list):
     return order_comfirmed, total_sum
 
 def order_placed(order):
-    print("\nThank you for sending your order. It is now being prepared...")
     print("Here's your order summary:\n")
 
     order_summary = order.summary
@@ -359,7 +358,7 @@ def update_orders_sheet(order,worksheet):
     worksheet.append_row(order_list_item)
 
     print("'orders' worksheet updated successfully.")
-    
+    print("\nThank you for sending your order. It is now being prepared...")
     order_placed(order)
     
     while True:
@@ -526,8 +525,7 @@ def track_order(orders_sheet):
         print("Track order:")
         order_number = input("Enter your order number or '99' to return to home page:\n")
         if order_number == '99':
-            continue_app=True
-            break
+            return True
         elif validate_order_number(order_number):
             break
     
@@ -539,7 +537,11 @@ def track_order(orders_sheet):
     
     order_index = orders_df[orders_df['Order ID'] == order_number].index
     
-    order_dict = orders_df.loc[order_index].values.tolist()[0]
+    # order_dict = orders_df.loc[order_index].values.tolist()[0]
+    order_dict = orders_df.iloc[order_index[0]].to_dict()
+
+    
+    # print(orders_df.columns)
     
     print(f"order_index: {order_index}")
     # match_id = orders_df['Order ID'][0]
@@ -549,10 +551,10 @@ def track_order(orders_sheet):
     print(order_dict)
     # print(order_dict['Order ID'])
     
-    continue_app=False
     
     print(f"Your order number: {order_number} is ready")
-    return continue_app
+    return False
+
 
 def validate_order_number(number):
     
