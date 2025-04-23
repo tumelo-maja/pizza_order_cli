@@ -53,6 +53,7 @@ PIZZA_SIZES = {
     }
 }
 
+ORDER_NUMBER_LENGTH =12
 
 class Pizza():
     """
@@ -522,9 +523,44 @@ def welcome_page():
     return task_to_do        
 
 def track_order():
-    print("Lets find your order")
     
+    while True:
+        print("Track order:")
+        order_number = input("Enter your order number or '99' to return to home page:\n")
+        if order_number == '99':
+            continue_app=True
+            break
+        elif validate_order_number(order_number):
+            break
     
+    return continue_app
+    print(f"Your order number: {order_number} is ready")
+
+def validate_order_number(number):
+    
+    try:
+        # 1) Check if there are any spaces ' '
+        if ' ' in number:
+            raise ValueError(f"'{number}' is not a valid order number. Order number must not contain any spaces")
+        
+        # 2) Check if there are leading zerpos
+        if not number.startswith("20"):
+                raise ValueError(f"'{number}' is not a valid order number. Order number must start with '20'")
+        
+        # 3) Check if digit
+        if not number.isdigit():
+            raise ValueError(f"'{number}' is not a valid order number. Order number must contain integers only")
+
+        # 4) Check number length
+        if len(number) != ORDER_NUMBER_LENGTH:
+            raise ValueError(f"Order number must have exactly 12 integers - you provided {len(number)}")
+        
+    except ValueError as e:
+        print(f"\nInvalid entry: {e}, please try again.\n")
+        return False
+
+    return True
+
 def main():
     """
     Run the application to initiate requests for user input
