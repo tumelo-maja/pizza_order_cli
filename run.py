@@ -2,7 +2,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from collections import Counter
 from datetime import datetime, timedelta
-
+import pandas as pd
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -351,11 +351,9 @@ def order_placed(order):
 
 
 
-def update_orders_sheet(order):
+def update_orders_sheet(order,worksheet):
     print("Updating 'order' worksheet...")
     
-    worksheet = connect_google_sheets('orders')
-
     order_list_item = list(order.summary.values())
     
     worksheet.append_row(order_list_item)
@@ -522,7 +520,7 @@ def welcome_page():
             break
     return task_to_do        
 
-def track_order():
+def track_order(orders_sheet):
     
     while True:
         print("Track order:")
@@ -533,8 +531,28 @@ def track_order():
         elif validate_order_number(order_number):
             break
     
-    return continue_app
+    order_number= int(order_number)
+    list_of_records = orders_sheet.get_all_records()
+    
+    orders_df = pd.DataFrame(list_of_records)
+    print(orders_df)
+    
+    order_index = orders_df[orders_df['Order ID'] == order_number].index
+    
+    order_dict = orders_df.loc[order_index].values.tolist()[0]
+    
+    print(f"order_index: {order_index}")
+    # match_id = orders_df['Order ID'][0]
+    # print(f"ID type: {type()}")
+    # print(f"input type: {type(order_number)}")
+    # print(list_of_records[order_index])
+    print(order_dict)
+    # print(order_dict['Order ID'])
+    
+    continue_app=False
+    
     print(f"Your order number: {order_number} is ready")
+    return continue_app
 
 def validate_order_number(number):
     
@@ -577,9 +595,9 @@ def main():
             last_orderID = get_latest_order_ID(orders_sheet)
             order = prepare_new_order(last_orderID)
     
-            continue_app= update_orders_sheet(order)
+            continue_app= update_orders_sheet(order, orders_sheet)
         elif user_choice == "2":
-            continue_app = track_order()
+            continue_app = track_order(orders_sheet)
         else:
             continue_app=False
 
