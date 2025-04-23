@@ -504,8 +504,8 @@ def welcome_page():
     dashes = "-"*19
     welcome_str = f"/{dashes} \U0001F355   Welcome to PizzaPalace CLI!   \U0001F355 {dashes}\\"
     second_line_str = "|---  Packed with incredible flavors - our pizzas are irresitably tasty! ---|"
-    print(f"welcome_str: {len(welcome_str)}")
-    print(f"second_line_str: {len(second_line_str)}")
+    # print(f"welcome_str: {len(welcome_str)}")
+    # print(f"second_line_str: {len(second_line_str)}")
     print(" "+ "_"*75 )
     print(welcome_str)
     print("|"+"-"*75 +"|")
@@ -521,19 +521,30 @@ def welcome_page():
     task_to_do = input("Enter your choice:\n")
     return task_to_do        
 
-
+def track_order():
+    print("Lets find your order")
+    
+    
 def main():
     """
     Run the application to initiate requests for user input
     """    
     continue_app=True
     while continue_app:
+        
+        user_choice = welcome_page()
+        
+        if user_choice == "1":
+            
+            order = prepare_new_order()
+    
+            continue_app= update_orders_sheet(order)
+        elif user_choice == "2":
+            continue_app = track_order()
+        else:
+            continue_app=False
 
-        order = prepare_new_order()
+main()
 
-        continue_app= update_orders_sheet(order)
 
-# main()
-
-user_choice = welcome_page()
     
