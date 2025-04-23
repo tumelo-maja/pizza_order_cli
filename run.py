@@ -320,18 +320,17 @@ def summary_order_confirm(input_list):
         
     return order_comfirmed, total_sum
 
-def order_placed(order):
+def print_order_summary(order_dict):
     print("Here's your order summary:\n")
 
-    order_summary = order.summary
     new_labels = ['Order number','Order time','Ordered items','Collection time','Order status','Total']
     
     indent_value= 20
     
-    for label,value in zip(new_labels,order_summary.values()):
+    for label,value in zip(new_labels,order_dict):
         
         if label== 'Total':
-            value = f"£{'{:.2f}'.format(value)}"
+            value = value if isinstance(value, str) else f"£{'{:.2f}'.format(value)}"
             
         if 'time' in label:
             print("Order date".ljust(indent_value) + f"| {value.split(' ')[0]}")
@@ -359,7 +358,8 @@ def update_orders_sheet(order,worksheet):
 
     print("'orders' worksheet updated successfully.")
     print("\nThank you for sending your order. It is now being prepared...")
-    order_placed(order)
+    print_order_summary(order.summary.values())
+
     
     while True:
         print("\n1) Return to home page")
@@ -532,24 +532,14 @@ def track_order(orders_sheet):
     order_number= int(order_number)
     list_of_records = orders_sheet.get_all_records()
     
-    orders_df = pd.DataFrame(list_of_records)
-    print(orders_df)
-    
+    orders_df = pd.DataFrame(list_of_records)    
     order_index = orders_df[orders_df['Order ID'] == order_number].index
     
-    # order_dict = orders_df.loc[order_index].values.tolist()[0]
     order_dict = orders_df.iloc[order_index[0]].to_dict()
 
     
-    # print(orders_df.columns)
-    
-    print(f"order_index: {order_index}")
-    # match_id = orders_df['Order ID'][0]
-    # print(f"ID type: {type()}")
-    # print(f"input type: {type(order_number)}")
-    # print(list_of_records[order_index])
+    print_order_summary(order_dict.values())
     print(order_dict)
-    # print(order_dict['Order ID'])
     
     
     print(f"Your order number: {order_number} is ready")
