@@ -387,10 +387,7 @@ def get_latest_order_ID(orders_sheet):
         
     return last_orderID
 
-def prepare_new_order():
-    
-    orders_sheet = connect_google_sheets('orders')        
-    last_orderID = get_latest_order_ID(orders_sheet)
+def prepare_new_order(last_orderID):
 
     pizza_list=[]
     continue_loop= 1
@@ -511,14 +508,17 @@ def welcome_page():
     print("|"+"-"*75 +"|")
     print(second_line_str) 
     print("\\"+"_"*75 +"/")
-    
     indent_value =21
-    print("\nWhat would you like to do today? \U0001F600")
-    print("1) Place an order".ljust(indent_value) + "\U0001F4DD")
-    print("2) Track an order".ljust(indent_value) + "\U0001F50D")
-    print("0) Quit Application".ljust(indent_value) + "\U0000274C")
-
-    task_to_do = input("Enter your choice:\n")
+    
+    while True:
+        print("\nWhat would you like to do today? \U0001F600")
+        print("1) Place an order".ljust(indent_value) + "\U0001F4DD")
+        print("2) Track an order".ljust(indent_value) + "\U0001F50D")
+        print("0) Quit Application".ljust(indent_value) + "\U0000274C")
+    
+        task_to_do = input("Enter your choice:\n")
+        if validate_single_entry(task_to_do,0,2):
+            break
     return task_to_do        
 
 def track_order():
@@ -529,6 +529,8 @@ def main():
     """
     Run the application to initiate requests for user input
     """    
+    orders_sheet = connect_google_sheets('orders')        
+
     continue_app=True
     while continue_app:
         
@@ -536,7 +538,8 @@ def main():
         
         if user_choice == "1":
             
-            order = prepare_new_order()
+            last_orderID = get_latest_order_ID(orders_sheet)
+            order = prepare_new_order(last_orderID)
     
             continue_app= update_orders_sheet(order)
         elif user_choice == "2":
