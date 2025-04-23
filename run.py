@@ -498,7 +498,28 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None):
         return False
 
     return True
-        
+
+def welcome_page():
+    
+    dashes = "-"*19
+    welcome_str = f"/{dashes}  \U0001F355 Welcome to PizzaPalace CLI! \U0001F355 {dashes}\\"
+    second_line_str = "|---  Packed with incredible flavors - our pizzas are irresitably tasty! ---|"
+    print(f"welcome_str: {len(welcome_str)}")
+    print(f"second_line_str: {len(second_line_str)}")
+    print(" "+ "_"*75 )
+    print(welcome_str)
+    print("|"+"-"*75 +"|")
+    print(second_line_str) 
+    print("\\"+"_"*75 +"/")
+    
+    indent_value =21
+    print("\nWhat would you like to do today? \U0001F600")
+    print("1) Place an order".ljust(indent_value) + "\U0001F4DD")
+    print("2) Track an order".ljust(indent_value) + "\U0001F50D")
+    print("0) Quit Application".ljust(indent_value) + "\U0000274C")
+
+    task_to_do = input("Enter your choice:\n")
+    return task_to_do        
 
 
 def main():
@@ -512,6 +533,7 @@ def main():
 
         continue_app= update_orders_sheet(order)
 
-main()
+# main()
 
+user_choice = welcome_page()
     
