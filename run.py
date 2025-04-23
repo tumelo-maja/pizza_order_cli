@@ -533,7 +533,8 @@ def track_order(orders_sheet):
     order_number= int(order_number)
     list_of_records = orders_sheet.get_all_records()
     
-    orders_df = pd.DataFrame(list_of_records)    
+    orders_df_old = pd.DataFrame(list_of_records)    
+    orders_df = update_orders_status(orders_sheet,orders_df_old)
     order_index = orders_df[orders_df['Order ID'] == order_number].index
     
     order_dict = orders_df.iloc[order_index[0]].to_dict()
@@ -556,6 +557,34 @@ def track_order(orders_sheet):
     else:
         return False
 
+def update_orders_status(orders_sheet,orders_df):
+    print("Updating orders...")
+    
+    for ind, row in orders_df.iterrows():
+        status_column = row['Order ready time']
+        
+        if ind == 0:
+            continue
+        
+        if status_column != 'Ready':
+            
+            time_format ="%Y-%m-%d %H:%M:%S"
+            current_time = datetime.now()
+            ready_time = datetime.strptime(status_column,time_format)
+            
+            time_difference =int((current_time -ready_time).total_seconds())
+            
+            if time_difference > 0:
+                
+                orders_df[ind, status_column] = 'Ready'
+                orders_sheet.update_cell(ind+1, 5, 'Ready')
+            
+    
+    # orders_sheet.update([orders_df.columns.values.tolist()] + orders_df.values.tolist())
+    # orders_sheet.update(orders_df['Order staus'].tolist(), 'E2')
+    return orders_df
+        
+
 def check_order_status(order_dict):
     print("Checking your order status...")
     
@@ -565,28 +594,18 @@ def check_order_status(order_dict):
     #202504230001
     
     order_ready_datestr=order_ready_datetime.strftime("%Y-%m-%d %H:%M")
-    
-    # strftime("%Y%m%d")
-    
-    print(f"Time difference: {time_difference}")
-    print(f"Time order: {order_ready_datetime}")
-    print(f"Time expected: {current_time}")
-    
-    print(order_ready_datetime)
-    
-    if int(time_difference) >0:
+        
+    if time_difference >0:
         status_str = f"Your order has been ready since {order_ready_datestr}"
-    elif int(time_difference) <0:
-        print("it will be ready")
+    elif time_difference <0:
         status_str = f"Your order will be ready at {order_ready_datestr}"
     else:
-        print("its ready now")
+        status_str = "Your order is ready now"
     
     print(status_str)
         
     
     print(order_dict)
-    print("Updating status...")
     
     return status_str, order_dict
     
