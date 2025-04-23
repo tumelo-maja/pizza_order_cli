@@ -502,7 +502,7 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None):
 def welcome_page():
     
     dashes = "-"*19
-    welcome_str = f"/{dashes}  \U0001F355 Welcome to PizzaPalace CLI! \U0001F355 {dashes}\\"
+    welcome_str = f"/{dashes} \U0001F355   Welcome to PizzaPalace CLI!   \U0001F355 {dashes}\\"
     second_line_str = "|---  Packed with incredible flavors - our pizzas are irresitably tasty! ---|"
     print(f"welcome_str: {len(welcome_str)}")
     print(f"second_line_str: {len(second_line_str)}")
