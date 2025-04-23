@@ -4,6 +4,7 @@ from collections import Counter
 from datetime import datetime, timedelta
 import pandas as pd
 
+
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -537,14 +538,58 @@ def track_order(orders_sheet):
     
     order_dict = orders_df.iloc[order_index[0]].to_dict()
 
-    
-    print_order_summary(order_dict.values())
-    print(order_dict)
-    
-    
-    print(f"Your order number: {order_number} is ready")
-    return False
+    status_str, order_dict = check_order_status(order_dict)     
 
+    print_order_summary(order_dict.values())
+    print(f"\n{status_str}")
+    
+    # return False
+    while True:
+        print("1) Return to home page")
+        print("2) Quit application")
+        end_response= input("Enter your choice:\n")
+        if validate_single_entry(end_response,1,2):
+            break
+    
+    if end_response== "1":
+        return True
+    else:
+        return False
+
+def check_order_status(order_dict):
+    print("Checking your order status...")
+    
+    order_ready_datetime = datetime.strptime(order_dict['Order ready time'], "%Y-%m-%d %H:%M:%S")
+    current_time = datetime.now()
+    time_difference =int((current_time -order_ready_datetime).total_seconds() )
+    #202504230001
+    
+    order_ready_datestr=order_ready_datetime.strftime("%Y-%m-%d %H:%M")
+    
+    # strftime("%Y%m%d")
+    
+    print(f"Time difference: {time_difference}")
+    print(f"Time order: {order_ready_datetime}")
+    print(f"Time expected: {current_time}")
+    
+    print(order_ready_datetime)
+    
+    if int(time_difference) >0:
+        status_str = f"Your order has been ready since {order_ready_datestr}"
+    elif int(time_difference) <0:
+        print("it will be ready")
+        status_str = f"Your order will be ready at {order_ready_datestr}"
+    else:
+        print("its ready now")
+    
+    print(status_str)
+        
+    
+    print(order_dict)
+    print("Updating status...")
+    
+    return status_str, order_dict
+    
 
 def validate_order_number(number):
     
@@ -594,6 +639,9 @@ def main():
             continue_app=False
 
 main()
+
+
+
 
 
     
