@@ -22,48 +22,48 @@ PIZZA_MENU = {
 DRINK_PRICE = 1.40
 DRINKS_MENU = {
     "0": "None",
-    "1": "Coke Zero 330ml",
-    "2": "Coke 330ml",
-    "3": "Sprite 330ml",
-    "4": "Pepsi 330ml",
-    "5": "Apple Juice 330ml",
-    "6": "Mango Juice 330ml",
-    "7": "Orange Juice 330ml",
-    "8": "Still Water 330ml",
+    "1": {"name": "Coke Zero 330ml", "price": 1.20},
+    "2": {"name": "Coke 330ml", "price": 1.30},
+    "3": {"name": "Sprite 330ml", "price": 1.30},
+    "4": {"name": "Pepsi 330ml", "price": 1.20},
+    "5": {"name": "Apple Juice 330ml", "price": 1.50},
+    "6": {"name": "Mango Juice 330ml", "price": 1.60},
+    "7": {"name": "Orange Juice 330ml", "price": 1.50},
+    "8": {"name": "Still Water 500ml", "price": 1.00},
 }
 
 EXTRA_TOPPING_PRICE = 1.50
 EXTRA_TOPPINGS = {
     "0": "None",
-    "1": "Mushrooms",
-    "2": "Mixed Peppers",
-    "3": "Jalapenos",
-    "4": "Cheese",
-    "5": "Pepperoni",
-    "6": "Chicken",
-    "7": "Beef",
-    "8": "Bacon",
+    "1": {"name": "Mushrooms", "price": EXTRA_TOPPING_PRICE},
+    "2": {"name": "Mixed Peppers", "price": EXTRA_TOPPING_PRICE},
+    "3": {"name": "Jalapenos", "price": EXTRA_TOPPING_PRICE},
+    "4": {"name": "Cheese", "price": EXTRA_TOPPING_PRICE},
+    "5": {"name": "Pepperoni", "price": EXTRA_TOPPING_PRICE},
+    "6": {"name": "Chicken", "price": EXTRA_TOPPING_PRICE},
+    "7": {"name": "Beef", "price": EXTRA_TOPPING_PRICE},
+    "8": {"name": "Bacon", "price": EXTRA_TOPPING_PRICE},
 }
 
 
 EXTRA_DIP_PRICE = 0.60
 EXTRA_DIP = {
     "0": "None",
-    "1": "Garlic & Herb Dip",
-    "2": "BBQ Dip",
-    "3": "Sriracha Dip",
-    "4": "Ranch Dip",    
-    }
+    "1": {"name": "Garlic & Herb Dip", "price": EXTRA_DIP_PRICE},
+    "2": {"name": "BBQ Dip", "price": EXTRA_DIP_PRICE},
+    "3": {"name": "Sriracha Dip", "price": EXTRA_DIP_PRICE},
+    "4": {"name": "Ranch Dip", "price": EXTRA_DIP_PRICE},
+}
 
 SIDES_PRICE = 1.50
 SIDES_MENU = {
     "0": "None",
-    "1": "Small Fries",
-    "2": "Medium Fries",
-    "3": "Large Fries",
-    "4": "8 x Chicken Wings",
-    "5": "12 x Chicken Wings",
-    "6": "16 x Chicken Wings",
+    "1": {"name": "Small Fries", "price": 1.80},
+    "2": {"name": "Medium Fries", "price": 2.30},
+    "3": {"name": "Large Fries", "price": 2.80},
+    "4": {"name": "8 x Chicken Wings", "price": 4.50},
+    "5": {"name": "12 x Chicken Wings", "price": 6.50},
+    "6": {"name": "16 x Chicken Wings", "price": 8.00},
 }
 
 PIZZA_SIZES = {
@@ -302,25 +302,43 @@ def choose_extra_items(item_type):
         menu_list = EXTRA_DIP 
         item_type = f'extra {item_type}'
     elif item_type=='drinks':
-        menu_list = DRINKS_MENU 
+        menu_list = DRINKS_MENU
     elif item_type=='sides':
-        menu_list = SIDES_MENU 
+        menu_list = SIDES_MENU
+        # menu_list = convert_to_menu_items(SIDES_MENU)
         
         
     while True:
         print(f"\nAny {item_type}? (input(s) can be comma-separated integers):")
         for key, value in menu_list.items():
-            print(f"{key}) {value}")
+            if key == "0":
+                print(f"{key}) {value}")
+            else:
+                print(f"{key}) {value['name']}" + f"| £{value['price']}")
+                
         item_ind_list = input("Enter your choice(s):\n")
         if validate_multiple_entries(item_ind_list,0,len(menu_list)-1):
             break
         
-    extra_items = [menu_list[x] for x in item_ind_list.split(",") if x != "0"]
+    extra_items = [menu_list[x]['name'] for x in item_ind_list.split(",") if x != "0"]
   
     extra_items_dict = {'labels': [f"{count} x {item}" if extra_items != ["None"] else None for item, count in Counter(extra_items).items()  ],
                       'counts': len(extra_items)}
 
     return extra_items_dict    
+
+def convert_to_menu_items(menu_dict):
+    
+    new_dict={}
+    for key, value in menu_dict.items():
+        
+        if key == "0":
+            new_dict[key]=value
+            
+        else:
+            new_dict[key]=value['name']
+    return new_dict
+   
 
 def print_pizza_summary(pizza_size, pizza_name, pizza_toppings):
     print("\nOrder summary: ")
