@@ -94,22 +94,25 @@ class Pizza():
     Creates a Pizza instance
     """
 
-    def __init__(self, name, base_toppings, size, base_price, extra_toppings):
+    def __init__(self, name, base_toppings, size, base_price, extra_toppings,pizza_dips):
         self.name = name
         self.base_toppings = base_toppings
         self.size = size
         self.base_price = base_price
         self.extra_toppings = extra_toppings
+        self.pizza_dips = pizza_dips
 
     def summary(self):
-        extra_str = f"Extra topping(s): {self.extra_toppings['counts']}" if self.extra_toppings['counts'] > 0 else ''
-        description_str = f"1 x {self.name} {self.size} Pizza, {extra_str}"
+        topping_str = f"Topping(s):{self.extra_toppings['counts']}" if self.extra_toppings['counts'] > 0 else ''
+        dip_str = f", Dip(s):{self.extra_toppings['counts']}" if self.extra_toppings['counts'] > 0 else ''
+        description_str = f"1x {self.name} {self.size}\U0001F355- {topping_str}{dip_str}, Sides:10, Drink(s):12"
         price_str = f"£{'{:.2f}'.format(self.total_price)}"
         return description_str, price_str
+    
 
     @property
     def total_price(self):
-        base_toppings_total = self.base_price + (self.extra_toppings['counts']*EXTRA_TOPPING_PRICE)
+        base_toppings_total = self.base_price + (self.extra_toppings['counts']*EXTRA_TOPPING_PRICE) + (self.pizza_dips['counts']*EXTRA_DIP_PRICE)
         return round(base_toppings_total, 2)
 
 
@@ -244,7 +247,8 @@ def create_order(pizza_list=[]):
                              base_toppings=pizza_base,
                              size=pizza_size,
                              base_price=pizza_price,
-                             extra_toppings=pizza_toppings)
+                             extra_toppings=pizza_toppings,
+                             pizza_dips=pizza_dips)
 
         pizza_list.append(pizza_object)
         
@@ -378,12 +382,12 @@ def summary_order_confirm(input_list):
             total_sum = 0
             for order in input_list:
                 description_str, price_str = order.summary()
-                print(f"{description_str}".ljust(60) + f"| {price_str}")
+                print(f"{description_str}".ljust(77) + f"| {price_str}")
                 total_sum += order.total_price
             total_sum = round(total_sum, 2)
-            print('-'*68)
-            print("Total cost:".ljust(60) + f"| £{'{:.2f}'.format(total_sum)}")
-            print("1) Place order")
+            print('-'*87)
+            print("Total cost:".ljust(79) + f"| £{'{:.2f}'.format(total_sum)}")
+            print("\n1) Place order")
             print("2) Add more items")
             print("3) Remove items")
             order_comfirmed = input("Enter your choice:\n")
