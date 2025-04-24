@@ -382,11 +382,11 @@ def summary_order_confirm(input_list):
             total_sum = 0
             for order in input_list:
                 description_str, price_str = order.summary()
-                print(f"{description_str}".ljust(77) + f"| {price_str}")
+                print(f"{description_str}".ljust(65) + f"| {price_str}")
                 total_sum += order.total_price
             total_sum = round(total_sum, 2)
-            print('-'*87)
-            print("Total cost:".ljust(79) + f"| £{'{:.2f}'.format(total_sum)}")
+            print('-'*75)
+            print("Total cost:".ljust(67) + f"| £{'{:.2f}'.format(total_sum)}")
             print("\n1) Place order")
             print("2) Add more items")
             print("3) Remove items")
