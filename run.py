@@ -33,6 +33,15 @@ EXTRA_TOPPINGS = {
 
 EXTRA_TOPPING_PRICE = 1.50
 
+EXTRA_DIP = {
+    "0": "None",
+    "1": "Garlic & Herb Dip",
+    "2": "BBQ Dip",
+    "3": "Sriracha Dip",
+    "4": "Ranch Dip",    
+    }
+EXTRA_DIP_PRICE = 0.6
+
 PIZZA_SIZES = {
     "1": {
         "label": 'Small',
@@ -187,13 +196,14 @@ def create_order(pizza_list=[]):
     continue_order = True
     while continue_order:
         # choose pizza name
-        pizza_name, pizza_base = choose_pizza_name(PIZZA_MENU)
+        pizza_name, pizza_base = choose_pizza_name()
 
         # choose pizza size
-        pizza_size, pizza_price = choose_pizza_size(PIZZA_SIZES)
+        pizza_size, pizza_price = choose_pizza_size()
 
         # Choose extra toppigns
-        pizza_toppings = choose_extra_toppings(EXTRA_TOPPINGS)
+        pizza_toppings = choose_extra_toppings()
+
 
         # Print summary
         print_pizza_summary(pizza_size, pizza_name, pizza_toppings)
@@ -218,7 +228,7 @@ def create_order(pizza_list=[]):
     return pizza_list
 
 
-def choose_pizza_name(PIZZA_MENU):
+def choose_pizza_name():
     indent_value=20
     print("\nChoose your Pizza (one pizza at a time):\n")
     print("Our Pizza's'".ljust(indent_value) + "| Base toppings")
@@ -236,7 +246,7 @@ def choose_pizza_name(PIZZA_MENU):
     return pizza_name, pizza_base
 
 
-def choose_pizza_size(PIZZA_SIZES):
+def choose_pizza_size():
     indent_value=20
     while True:
         print("\nChoose the Pizza size:")
@@ -251,7 +261,7 @@ def choose_pizza_size(PIZZA_SIZES):
     return pizza_size, pizza_price
 
 
-def choose_extra_toppings(EXTRA_TOPPINGS):
+def choose_extra_toppings():
     
     while True:
         print("\nAny extra toppings? (input(s) can be comma-separated integers):")
@@ -266,8 +276,7 @@ def choose_extra_toppings(EXTRA_TOPPINGS):
     pizza_toppings = {'labels': [f"{count} x {item}" if toppings_items != ["None"] else None for item, count in Counter(toppings_items).items()  ],
                       'counts': len(toppings_items)}
 
-    return pizza_toppings
-
+    return pizza_toppings    
 
 def print_pizza_summary(pizza_size, pizza_name, pizza_toppings):
     print("\nOrder summary: ")
@@ -531,20 +540,22 @@ def track_order(orders_sheet):
             break
     
     order_number= int(order_number)
-    list_of_records = orders_sheet.get_all_records()
+    orders_df = pd.DataFrame(orders_sheet.get_all_records())
     
-    orders_df_old = pd.DataFrame(list_of_records)    
-    orders_df = update_orders_status(orders_sheet,orders_df_old)
+    update_orders_status(orders_sheet,orders_df)
+    orders_df = pd.DataFrame(orders_sheet.get_all_records())
     order_index = orders_df[orders_df['Order ID'] == order_number].index
     
     order_dict = orders_df.iloc[order_index[0]].to_dict()
 
     status_str, order_dict = check_order_status(order_dict)     
+    
+    print(f"Chosen one: {order_dict.values()}")
+    print(order_dict.values())
 
     print_order_summary(order_dict.values())
     print(f"\n{status_str}")
     
-    # return False
     while True:
         print("1) Return to home page")
         print("2) Quit application")
@@ -563,9 +574,6 @@ def update_orders_status(orders_sheet,orders_df):
     for ind, row in orders_df.iterrows():
         status_column = row['Order ready time']
         
-        if ind == 0:
-            continue
-        
         if status_column != 'Ready':
             
             time_format ="%Y-%m-%d %H:%M:%S"
@@ -576,14 +584,7 @@ def update_orders_status(orders_sheet,orders_df):
             
             if time_difference > 0:
                 
-                orders_df[ind, status_column] = 'Ready'
-                orders_sheet.update_cell(ind+1, 5, 'Ready')
-            
-    
-    # orders_sheet.update([orders_df.columns.values.tolist()] + orders_df.values.tolist())
-    # orders_sheet.update(orders_df['Order staus'].tolist(), 'E2')
-    return orders_df
-        
+                orders_sheet.update_cell(ind+2, 5, 'Ready')      
 
 def check_order_status(order_dict):
     print("Checking your order status...")
@@ -601,11 +602,6 @@ def check_order_status(order_dict):
         status_str = f"Your order will be ready at {order_ready_datestr}"
     else:
         status_str = "Your order is ready now"
-    
-    print(status_str)
-        
-    
-    print(order_dict)
     
     return status_str, order_dict
     
