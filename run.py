@@ -202,7 +202,7 @@ def create_order(pizza_list=[]):
         pizza_size, pizza_price = choose_pizza_size()
 
         # Choose extra toppigns
-        pizza_toppings = choose_extra_toppings()
+        pizza_toppings = choose_extra_items('toppings')
 
 
         # Print summary
@@ -261,22 +261,25 @@ def choose_pizza_size():
     return pizza_size, pizza_price
 
 
-def choose_extra_toppings():
+def choose_extra_items(item_type):
+    
+    if item_type=='toppings':
+        menu_list = EXTRA_TOPPINGS
     
     while True:
-        print("\nAny extra toppings? (input(s) can be comma-separated integers):")
-        for key, value in EXTRA_TOPPINGS.items():
+        print(f"\nAny extra {item_type}? (input(s) can be comma-separated integers):")
+        for key, value in menu_list.items():
             print(f"{key}) {value}")
-        toppings_ind_list = input("Enter your choice(s):\n")
-        if validate_multiple_entries(toppings_ind_list,0,len(EXTRA_TOPPINGS)-1):
+        item_ind_list = input("Enter your choice(s):\n")
+        if validate_multiple_entries(item_ind_list,0,len(menu_list)-1):
             break
         
-    toppings_items = [EXTRA_TOPPINGS[x] for x in toppings_ind_list.split(",") if x != "0"]
+    extra_items = [menu_list[x] for x in item_ind_list.split(",") if x != "0"]
   
-    pizza_toppings = {'labels': [f"{count} x {item}" if toppings_items != ["None"] else None for item, count in Counter(toppings_items).items()  ],
-                      'counts': len(toppings_items)}
+    extra_items_dict = {'labels': [f"{count} x {item}" if extra_items != ["None"] else None for item, count in Counter(extra_items).items()  ],
+                      'counts': len(extra_items)}
 
-    return pizza_toppings    
+    return extra_items_dict    
 
 def print_pizza_summary(pizza_size, pizza_name, pizza_toppings):
     print("\nOrder summary: ")
