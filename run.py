@@ -19,6 +19,20 @@ PIZZA_MENU = {
     "5": {"name": "Spicy Chicken", "base_toppings": ["spicy chicken", "jalapenos", "onions", "cheese"]},
 }
 
+DRINK_PRICE = 1.40
+DRINKS_MENU = {
+    "0": "None",
+    "1": "Coke Zero 330ml",
+    "2": "Coke 330ml",
+    "3": "Sprite 330ml",
+    "4": "Pepsi 330ml",
+    "5": "Apple Juice 330ml",
+    "6": "Mango Juice 330ml",
+    "7": "Orange Juice 330ml",
+    "8": "Still Water 330ml",
+}
+
+EXTRA_TOPPING_PRICE = 1.50
 EXTRA_TOPPINGS = {
     "0": "None",
     "1": "Mushrooms",
@@ -31,8 +45,8 @@ EXTRA_TOPPINGS = {
     "8": "Bacon",
 }
 
-EXTRA_TOPPING_PRICE = 1.50
 
+EXTRA_DIP_PRICE = 0.60
 EXTRA_DIP = {
     "0": "None",
     "1": "Garlic & Herb Dip",
@@ -40,7 +54,17 @@ EXTRA_DIP = {
     "3": "Sriracha Dip",
     "4": "Ranch Dip",    
     }
-EXTRA_DIP_PRICE = 0.6
+
+SIDES_PRICE = 1.50
+SIDES_MENU = {
+    "0": "None",
+    "1": "Small Fries",
+    "2": "Medium Fries",
+    "3": "Large Fries",
+    "4": "8 x Chicken Wings",
+    "5": "12 x Chicken Wings",
+    "6": "16 x Chicken Wings",
+}
 
 PIZZA_SIZES = {
     "1": {
@@ -204,7 +228,15 @@ def create_order(pizza_list=[]):
         # Choose extra toppigns
         pizza_toppings = choose_extra_items('toppings')
 
+        # Choose extra dips
+        pizza_dips = choose_extra_items('Dips')
+        
+        # Choose sides
+        sides = choose_extra_items('sides')
 
+        # Choose drinks
+        drinks = choose_extra_items('drinks')
+        
         # Print summary
         print_pizza_summary(pizza_size, pizza_name, pizza_toppings)
 
@@ -265,9 +297,18 @@ def choose_extra_items(item_type):
     
     if item_type=='toppings':
         menu_list = EXTRA_TOPPINGS
-    
+        item_type = f'extra {item_type}'
+    elif item_type=='Dips':
+        menu_list = EXTRA_DIP 
+        item_type = f'extra {item_type}'
+    elif item_type=='drinks':
+        menu_list = DRINKS_MENU 
+    elif item_type=='sides':
+        menu_list = SIDES_MENU 
+        
+        
     while True:
-        print(f"\nAny extra {item_type}? (input(s) can be comma-separated integers):")
+        print(f"\nAny {item_type}? (input(s) can be comma-separated integers):")
         for key, value in menu_list.items():
             print(f"{key}) {value}")
         item_ind_list = input("Enter your choice(s):\n")
