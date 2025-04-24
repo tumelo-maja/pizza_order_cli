@@ -104,8 +104,8 @@ class Pizza():
 
     def summary(self):
         topping_str = f"Topping(s):{self.extra_toppings['counts']}" if self.extra_toppings['counts'] > 0 else ''
-        dip_str = f", Dip(s):{self.extra_toppings['counts']}" if self.extra_toppings['counts'] > 0 else ''
-        description_str = f"1x {self.name} {self.size}\U0001F355- {topping_str}{dip_str}, Sides:10, Drink(s):12"
+        # dip_str = f", Dip(s):{self.extra_toppings['counts']}" if self.extra_toppings['counts'] > 0 else ''
+        description_str = f"1x {self.name} {self.size}\U0001F355- {topping_str}, Sides:10, Drink(s):12"
         price_str = f"£{'{:.2f}'.format(self.total_price)}"
         return description_str, price_str
     
