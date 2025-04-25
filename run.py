@@ -198,7 +198,6 @@ class Order():
         }
 
     def create_order_ID(self):
-        # add some code later
         new_order_ID = datetime.today().strftime("%Y%m%d") + '{:04}'.format(self.last_orderID+1)
         
         return new_order_ID
@@ -598,8 +597,6 @@ def welcome_page():
     dashes = "-"*19
     welcome_str = f"/{dashes} \U0001F355   Welcome to PizzaPalace CLI!   \U0001F355 {dashes}\\"
     second_line_str = "|---  Packed with incredible flavors - our pizzas are irresitably tasty! ---|"
-    # print(f"welcome_str: {len(welcome_str)}")
-    # print(f"second_line_str: {len(second_line_str)}")
     print(" "+ "_"*75 )
     print(welcome_str)
     print("|"+"-"*75 +"|")
@@ -625,14 +622,23 @@ def track_order():
         order_number = input("Enter your order number or '99' to return to home page:\n")
         if order_number == '99':
             return True
-        elif validate_order_number(order_number):
-            break
-    
-    order_number= int(order_number)
-    
-    update_orders_status()
-    orders_df = pd.DataFrame(ORDERS_SHEET.get_all_records())
-    order_index = orders_df[orders_df['Order ID'] == order_number].index
+        elif not validate_order_number(order_number):
+            continue
+        
+        
+        order_number= int(order_number)
+        update_orders_status()
+        orders_df = pd.DataFrame(ORDERS_SHEET.get_all_records())
+        order_index = orders_df[orders_df['Order ID'] == order_number].index
+        
+        if not len(order_index):
+            print(f"Order number {order_number} not found. Please check the number and try again.\n")
+            continue
+        
+        break
+            
+
+         
     
     order_dict = orders_df.iloc[order_index[0]].to_dict()
 
@@ -661,19 +667,23 @@ def update_orders_status():
     orders_df = pd.DataFrame(ORDERS_SHEET.get_all_records())
     
     for ind, row in orders_df.iterrows():
-        status_column = row['Order ready time']
+        status_value = row['Order ready time']
         
-        if status_column != 'Ready':
+        if status_value != 'Ready':
             
             time_format ="%Y-%m-%d %H:%M:%S"
             current_time = datetime.now()
-            ready_time = datetime.strptime(status_column,time_format)
+            ready_time = datetime.strptime(status_value,time_format)
             
             time_difference =int((current_time -ready_time).total_seconds())
             
             if time_difference > 0:
+                orders_df.at[ind, 'Order status'] = 'Ready'
+
                 
-                ORDERS_SHEET.update_cell(ind+2, 5, 'Ready')      
+    status_values = [[status_str] for status_str in orders_df['Order status'].tolist()]
+    ORDERS_SHEET.update(values=status_values,range_name=f'E2:E{len(status_values)+1}')
+
 
 def check_order_status(order_dict):
     print("Checking your order status...")
