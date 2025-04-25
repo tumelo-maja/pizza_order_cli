@@ -159,8 +159,7 @@ class Order():
             name_str = order_item.name
             topping_count = order_item.extra_toppings['counts']
 
-            topping_str = f" - extra toppings: {
-                topping_count}" if topping_count > 0 else ''
+            topping_str = f" - extra toppings: {topping_count}" if topping_count > 0 else ''
 
             full_order_str.append(f"1 x {size_str} {name_str}{topping_str}")
 
@@ -239,9 +238,6 @@ def create_order(pizza_list=[]):
 
         # Choose drinks
         drinks = choose_extra_items('drinks')
-        
-        # Print summary
-        print_pizza_summary(pizza_size, pizza_name, pizza_toppings)
 
         pizza_object = Pizza(name=pizza_name,
                              base_toppings=pizza_base,
@@ -249,6 +245,9 @@ def create_order(pizza_list=[]):
                              base_price=pizza_price,
                              extra_toppings=pizza_toppings,
                              pizza_dips=pizza_dips)
+        
+        # Print summary
+        print_pizza_summary(pizza_object)
 
         pizza_list.append(pizza_object)
         
@@ -344,14 +343,21 @@ def convert_to_menu_items(menu_dict):
     return new_dict
    
 
-def print_pizza_summary(pizza_size, pizza_name, pizza_toppings):
+def print_pizza_summary(pizza_object):
     print("\nOrder summary: ")
-    summary_str = f"1) {pizza_size} {pizza_name} pizza with "
-    if pizza_toppings['counts'] >0:
+    summary_str = f"1) {pizza_object.size} {pizza_object.name} pizza with "
+    if pizza_object.extra_toppings['counts'] >0:
         print(summary_str + "the following extra toppings:")
-        print(" " + "\n ".join(pizza_toppings['labels']))
+        print(" " + "\n ".join(pizza_object.extra_toppings['labels']))
     else:
         print(summary_str + "no extra toppings")
+        
+        # pizza_object = Pizza(name=pizza_name,
+        #                      base_toppings=pizza_base,
+        #                      size=pizza_size,
+        #                      base_price=pizza_price,
+        #                      extra_toppings=pizza_toppings,
+        #                      pizza_dips=pizza_dips)
 
 
 def confirm_order(input_list):
