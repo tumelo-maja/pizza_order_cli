@@ -168,11 +168,17 @@ class Order():
 
             size_str = order_item.size.split(' - ')[0]
             name_str = order_item.name
-            topping_count = order_item.toppings['counts']
+            extras =['toppings','dips','sides','drinks']
+            
+            extras_str_list=[]
+            for extra in extras:
+                extra_counts =getattr(order_item, extra).get('counts')
+                if extra_counts>0:
+                    extras_str_list.append(f"{extra}:{extra_counts}")
 
-            topping_str = f" - extra toppings: {topping_count}" if topping_count > 0 else ''
+            extras_str = f" - {' '.join(extras_str_list)}" if len(extras_str_list) > 0 else ''
 
-            full_order_str.append(f"1 x {size_str} {name_str}{topping_str}")
+            full_order_str.append(f"1 x {size_str} {name_str}{extras_str}")
 
         return ', '.join(full_order_str)
 
