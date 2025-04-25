@@ -3,6 +3,7 @@ from google.oauth2.service_account import Credentials
 from collections import Counter
 from datetime import datetime, timedelta
 import pandas as pd
+import math
 
 
 SCOPE = [
@@ -93,7 +94,7 @@ class Pizza():
     Creates a Pizza instance
     """
 
-    def __init__(self, name, base_toppings, size, base_price, toppings,dips,sides,drinks):
+    def __init__(self, name, base_toppings, size, base_price, toppings,dips,sides,drinks,quantity):
         self.name = name
         self.base_toppings = base_toppings
         self.size = size
@@ -102,10 +103,11 @@ class Pizza():
         self.dips = dips
         self.sides = sides
         self.drinks = drinks
+        self.quantity = quantity
 
     def summary(self):
-        topping_str = f"Topping(s):{self.toppings['counts']}" if self.toppings['counts'] > 0 else ''
-        description_str = f"1x {self.name} {self.size}\U0001F355- {topping_str}, Sides:10, Drink(s):12"
+        
+        description_str = f"{self.quantity}x {self.name} {self.size}\U0001F355{self.extras_summary}"
         price_str = f"£{'{:.2f}'.format(self.total_price)}"
         return description_str, price_str
     
@@ -118,13 +120,27 @@ class Pizza():
         sides_prices = [SIDES_MENU[x[0]]['price']*x[1] for x in self.sides['item_indx']]
         drinks_prices = [DRINKS_MENU[x[0]]['price']*x[1] for x in self.drinks['item_indx']]
         
-        items_total = (self.base_price + 
+        items_total = self.quantity * (self.base_price + 
                        sum(toppings_prices) + 
                        sum(dips_prices) +
                        sum(sides_prices) +
                        sum(drinks_prices)
                        )
         return round(items_total, 2)
+    
+    @property
+    def extras_summary(self):
+        
+        extras =['toppings','dips','sides','drinks']
+        extras_str_list=[]
+        for extra in extras:
+            extra_counts =getattr(self, extra).get('counts')
+            if extra_counts>0:
+                extras_str_list.append(f"{extra}:{extra_counts}")
+
+        extras_str = f" - {' '.join(extras_str_list)}" if len(extras_str_list) > 0 else ''
+        
+        return extras_str
 
 
 class Order():
@@ -168,17 +184,8 @@ class Order():
 
             size_str = order_item.size.split(' - ')[0]
             name_str = order_item.name
-            extras =['toppings','dips','sides','drinks']
-            
-            extras_str_list=[]
-            for extra in extras:
-                extra_counts =getattr(order_item, extra).get('counts')
-                if extra_counts>0:
-                    extras_str_list.append(f"{extra}:{extra_counts}")
 
-            extras_str = f" - {' '.join(extras_str_list)}" if len(extras_str_list) > 0 else ''
-
-            full_order_str.append(f"1 x {size_str} {name_str}{extras_str}")
+            full_order_str.append(f"{order_item.quantity} x {size_str} {name_str}{order_item.extras_summary}")
 
         return ', '.join(full_order_str)
 
@@ -255,6 +262,11 @@ def create_order(pizza_list=[]):
 
         # Choose drinks
         drinks = choose_extra_items('drinks')
+        
+        # Repeat meals
+        quantity = multiply_meal()
+        
+        print(f"They chose: {quantity} meals")
 
         pizza_object = Pizza(name=pizza_name,
                              base_toppings=pizza_base,
@@ -263,7 +275,9 @@ def create_order(pizza_list=[]):
                              toppings=pizza_toppings,
                              dips=dips,
                              sides=sides,
-                             drinks=drinks)
+                             drinks=drinks,
+                             quantity=quantity
+                             )
         
         # Print summary
         print_pizza_summary(pizza_object)
@@ -350,6 +364,16 @@ def choose_extra_items(item_type):
 
     return extra_items_dict    
    
+def multiply_meal():
+    
+    while True:
+        print("\nHow many of this meal would you like?:")
+
+        quantity_input = input("Enter your required quantity:\n")
+        if validate_single_entry(quantity_input,1,math.inf):
+            break
+
+    return int(quantity_input)
 
 def print_pizza_summary(pizza_object):
     print("\nOrder summary: ")
@@ -359,14 +383,6 @@ def print_pizza_summary(pizza_object):
         print(" " + "\n ".join(pizza_object.toppings['labels']))
     else:
         print(summary_str + "no extra toppings")
-        
-        # pizza_object = Pizza(name=pizza_name,
-        #                      base_toppings=pizza_base,
-        #                      size=pizza_size,
-        #                      base_price=pizza_price,
-        #                      toppings=pizza_toppings,
-        #                      dips=dips)
-
 
 def confirm_order(input_list):
     
