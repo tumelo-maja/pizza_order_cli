@@ -19,7 +19,6 @@ PIZZA_MENU = {
     "5": {"name": "Spicy Chicken", "base_toppings": ["spicy chicken", "jalapenos", "onions", "cheese"]},
 }
 
-DRINK_PRICE = 1.40
 DRINKS_MENU = {
     "0": "None",
     "1": {"name": "Coke Zero 330ml", "price": 1.20},
@@ -94,17 +93,18 @@ class Pizza():
     Creates a Pizza instance
     """
 
-    def __init__(self, name, base_toppings, size, base_price, extra_toppings,pizza_dips):
+    def __init__(self, name, base_toppings, size, base_price, toppings,dips,sides,drinks):
         self.name = name
         self.base_toppings = base_toppings
         self.size = size
         self.base_price = base_price
-        self.extra_toppings = extra_toppings
-        self.pizza_dips = pizza_dips
+        self.toppings = toppings
+        self.dips = dips
+        self.sides = sides
+        self.drinks = drinks
 
     def summary(self):
-        topping_str = f"Topping(s):{self.extra_toppings['counts']}" if self.extra_toppings['counts'] > 0 else ''
-        # dip_str = f", Dip(s):{self.extra_toppings['counts']}" if self.extra_toppings['counts'] > 0 else ''
+        topping_str = f"Topping(s):{self.toppings['counts']}" if self.toppings['counts'] > 0 else ''
         description_str = f"1x {self.name} {self.size}\U0001F355- {topping_str}, Sides:10, Drink(s):12"
         price_str = f"£{'{:.2f}'.format(self.total_price)}"
         return description_str, price_str
@@ -112,8 +112,19 @@ class Pizza():
 
     @property
     def total_price(self):
-        base_toppings_total = self.base_price + (self.extra_toppings['counts']*EXTRA_TOPPING_PRICE) + (self.pizza_dips['counts']*EXTRA_DIP_PRICE)
-        return round(base_toppings_total, 2)
+        
+        toppings_prices = [EXTRA_TOPPINGS[x[0]]['price']*x[1] for x in self.toppings['item_indx']]
+        dips_prices = [EXTRA_DIP[x[0]]['price']*x[1] for x in self.dips['item_indx']]
+        sides_prices = [SIDES_MENU[x[0]]['price']*x[1] for x in self.sides['item_indx']]
+        drinks_prices = [DRINKS_MENU[x[0]]['price']*x[1] for x in self.drinks['item_indx']]
+        
+        items_total = (self.base_price + 
+                       sum(toppings_prices) + 
+                       sum(dips_prices) +
+                       sum(sides_prices) +
+                       sum(drinks_prices)
+                       )
+        return round(items_total, 2)
 
 
 class Order():
@@ -141,7 +152,7 @@ class Order():
             else:
                 preparation_time += DELAY_PIZZA_PREP_TIME
 
-            if order_item.extra_toppings['counts'] > 5:
+            if order_item.toppings['counts'] > 5:
                 preparation_time += DELAY_PIZZA_PREP_TIME
 
         ready_by_time = datetime.strptime(
@@ -157,7 +168,7 @@ class Order():
 
             size_str = order_item.size.split(' - ')[0]
             name_str = order_item.name
-            topping_count = order_item.extra_toppings['counts']
+            topping_count = order_item.toppings['counts']
 
             topping_str = f" - extra toppings: {topping_count}" if topping_count > 0 else ''
 
@@ -231,7 +242,7 @@ def create_order(pizza_list=[]):
         pizza_toppings = choose_extra_items('toppings')
 
         # Choose extra dips
-        pizza_dips = choose_extra_items('Dips')
+        dips = choose_extra_items('Dips')
         
         # Choose sides
         sides = choose_extra_items('sides')
@@ -243,8 +254,10 @@ def create_order(pizza_list=[]):
                              base_toppings=pizza_base,
                              size=pizza_size,
                              base_price=pizza_price,
-                             extra_toppings=pizza_toppings,
-                             pizza_dips=pizza_dips)
+                             toppings=pizza_toppings,
+                             dips=dips,
+                             sides=sides,
+                             drinks=drinks)
         
         # Print summary
         print_pizza_summary(pizza_object)
@@ -308,7 +321,6 @@ def choose_extra_items(item_type):
         menu_list = DRINKS_MENU
     elif item_type=='sides':
         menu_list = SIDES_MENU
-        # menu_list = convert_to_menu_items(SIDES_MENU)
         
         
     while True:
@@ -324,31 +336,21 @@ def choose_extra_items(item_type):
             break
         
     extra_items = [menu_list[x]['name'] for x in item_ind_list.split(",") if x != "0"]
+    extra_items_indx = [x for x in item_ind_list.split(",") if x != "0"]
   
-    extra_items_dict = {'labels': [f"{count} x {item}" if extra_items != ["None"] else None for item, count in Counter(extra_items).items()  ],
+    extra_items_dict = {'labels': [f"{count} x {item}" if extra_items != ["None"] else None for item, count in Counter(extra_items).items()],
+                        'item_indx': [[f"{item}",count] if extra_items != ["None"] else None for item, count in Counter(extra_items_indx).items()],
                       'counts': len(extra_items)}
 
     return extra_items_dict    
-
-def convert_to_menu_items(menu_dict):
-    
-    new_dict={}
-    for key, value in menu_dict.items():
-        
-        if key == "0":
-            new_dict[key]=value
-            
-        else:
-            new_dict[key]=value['name']
-    return new_dict
    
 
 def print_pizza_summary(pizza_object):
     print("\nOrder summary: ")
     summary_str = f"1) {pizza_object.size} {pizza_object.name} pizza with "
-    if pizza_object.extra_toppings['counts'] >0:
+    if pizza_object.toppings['counts'] >0:
         print(summary_str + "the following extra toppings:")
-        print(" " + "\n ".join(pizza_object.extra_toppings['labels']))
+        print(" " + "\n ".join(pizza_object.toppings['labels']))
     else:
         print(summary_str + "no extra toppings")
         
@@ -356,8 +358,8 @@ def print_pizza_summary(pizza_object):
         #                      base_toppings=pizza_base,
         #                      size=pizza_size,
         #                      base_price=pizza_price,
-        #                      extra_toppings=pizza_toppings,
-        #                      pizza_dips=pizza_dips)
+        #                      toppings=pizza_toppings,
+        #                      dips=dips)
 
 
 def confirm_order(input_list):
