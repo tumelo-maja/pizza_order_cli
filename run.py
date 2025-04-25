@@ -425,7 +425,7 @@ def print_order_summary(order_dict):
 
     new_labels = ['Order ID','Time','Items','Ready time','Status','Total']
     
-    indent_value= 15
+    indent_value= 10
     
     for label,value in zip(new_labels,order_dict):
         
