@@ -27,7 +27,7 @@ DRINKS_MENU = {
     "3": {"name": "Sprite 330ml", "price": 1.30},
     "4": {"name": "Pepsi 330ml", "price": 1.20},
     "5": {"name": "Apple Juice 330ml", "price": 1.50},
-    "6": {"name": "Mango Juice 330ml", "price": 1.60},
+    "6": {"name": "Mango Juice 330ml", "price": 1.50},
     "7": {"name": "Orange Juice 330ml", "price": 1.50},
     "8": {"name": "Still Water 500ml", "price": 1.00},
 }
@@ -169,9 +169,7 @@ class Order():
             preparation_time += ((topping_sides // 5) * DELAY_PIZZA_PREP_TIME)+DELAY_PIZZA_PREP_TIME
     
         ready_by_time = datetime.strptime(self.order_date, "%Y-%m-%d %H:%M:%S") + timedelta(minutes=preparation_time)
-        
-        print(f"It will take {preparation_time} minutes")
-    
+            
         return ready_by_time.replace(second=0).strftime("%Y-%m-%d %H:%M:%S")
 
     @property
