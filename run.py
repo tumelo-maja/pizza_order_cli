@@ -110,7 +110,6 @@ class Pizza():
         description_str = f"{self.quantity}x {self.name} {self.size}\U0001F355{self.extras_summary}"
         price_str = f"£{'{:.2f}'.format(self.total_price)}"
         return description_str, price_str
-    
 
     @property
     def total_price(self):
@@ -142,7 +141,6 @@ class Pizza():
         
         return extras_str
 
-
 class Order():
     """
     Creates an instance order.
@@ -159,21 +157,21 @@ class Order():
     def order_ready_time(self):
         BASE_PIZZA_PREP_TIME = 15
         DELAY_PIZZA_PREP_TIME = 5
-
-        preparation_time = 0
-        for i, order_item in enumerate(self.order_list):
-
-            if i == 0:
-                preparation_time += BASE_PIZZA_PREP_TIME
-            else:
-                preparation_time += DELAY_PIZZA_PREP_TIME
-
-            if order_item.toppings['counts'] > 5:
-                preparation_time += DELAY_PIZZA_PREP_TIME
-
-        ready_by_time = datetime.strptime(
-            self.order_date, "%Y-%m-%d %H:%M:%S") + timedelta(minutes=preparation_time)
-
+    
+        pizza_count = sum([x.quantity for x in self.order_list])
+        topping_sides = sum([x.toppings['counts']+x.sides['counts'] for x in self.order_list])
+        preparation_time = BASE_PIZZA_PREP_TIME
+    
+        if pizza_count > 2:
+            preparation_time += ((pizza_count // 5) * DELAY_PIZZA_PREP_TIME)+DELAY_PIZZA_PREP_TIME
+    
+        if topping_sides > 0:
+            preparation_time += ((topping_sides // 5) * DELAY_PIZZA_PREP_TIME)+DELAY_PIZZA_PREP_TIME
+    
+        ready_by_time = datetime.strptime(self.order_date, "%Y-%m-%d %H:%M:%S") + timedelta(minutes=preparation_time)
+        
+        print(f"It will take {preparation_time} minutes")
+    
         return ready_by_time.replace(second=0).strftime("%Y-%m-%d %H:%M:%S")
 
     @property
@@ -266,8 +264,6 @@ def create_order(pizza_list=[]):
         # Repeat meals
         quantity = multiply_meal()
         
-        print(f"They chose: {quantity} meals")
-
         pizza_object = Pizza(name=pizza_name,
                              base_toppings=pizza_base,
                              size=pizza_size,
@@ -447,7 +443,7 @@ def print_order_summary(order_dict):
             align_space = " " * len(f"{label}".ljust(indent_value)) + "|"
             split_str = value.split(',')
             
-            print(f"{label}".ljust(indent_value) + f"| {split_str[0]}\n{align_space} " + f'\n{align_space}'.join(split_str))
+            print(f"{label}".ljust(indent_value) + f"| {split_str[0]}\n{align_space}" + f'\n{align_space}'.join(split_str[1:]))
             
         else: 
             print(f"{label}".ljust(indent_value) + f"| {value}")
@@ -457,7 +453,6 @@ def print_order_summary(order_dict):
 
 def update_orders_sheet(order):
     print("Updating 'order' worksheet...")
-    update_orders_status()
     order_list_item = list(order.summary.values())
     
     ORDERS_SHEET.append_row(order_list_item)
