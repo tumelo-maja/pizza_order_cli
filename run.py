@@ -441,7 +441,7 @@ def print_order_summary(order_dict):
 
 def update_orders_sheet(order):
     print("Updating 'order' worksheet...")
-    
+    update_orders_status()
     order_list_item = list(order.summary.values())
     
     ORDERS_SHEET.append_row(order_list_item)
@@ -648,7 +648,7 @@ def track_order():
         return False
 
 def update_orders_status():
-    print("Updating orders...")
+    print("Updating order status...")
     orders_df = pd.DataFrame(ORDERS_SHEET.get_all_records())
     
     for ind, row in orders_df.iterrows():
