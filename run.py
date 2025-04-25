@@ -423,7 +423,7 @@ def summary_order_confirm(input_list):
 def print_order_summary(order_dict):
     print("Here's your order summary:\n")
 
-    new_labels = ['Order number','Order time','Ordered items','Collection time','Order status','Total']
+    new_labels = ['Order ID','Time','Items','Ready time','Status','Total']
     
     indent_value= 15
     
@@ -433,11 +433,11 @@ def print_order_summary(order_dict):
             value = value if isinstance(value, str) else f"£{'{:.2f}'.format(value)}"
             
         if 'time' in label:
-            print("Order date".ljust(indent_value) + f"| {value.split(' ')[0]}")
+            print("Date".ljust(indent_value) + f"| {value.split(' ')[0]}")
             value = value.split(' ')[1][:-3]
 
         
-        if label =='Ordered items' and ',' in value:
+        if label =='Items' and ',' in value:
             align_space = " " * len(f"{label}".ljust(indent_value)) + "|"
             split_str = value.split(',')
             
