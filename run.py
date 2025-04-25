@@ -271,12 +271,12 @@ def create_order(pizza_list=[]):
         pizza_list.append(pizza_object)
         
         while True:
-            print("\nWould you like to add another pizza? \n1) Yes \n2) No")
-            add_more_pizza = input("Enter your choice:\n")
-            if validate_single_entry(add_more_pizza,1,2):
+            print("\nWould you like to add another meal? \n1) Yes \n2) No")
+            add_more_meals = input("Enter your choice:\n")
+            if validate_single_entry(add_more_meals,1,2):
                 break
 
-        if add_more_pizza == '2':
+        if add_more_meals == '2':
             continue_order = False
 
     return pizza_list
