@@ -726,6 +726,9 @@ def main():
             continue_app = track_order(orders_sheet)
         else:
             continue_app=False
+        
+        if not continue_app:
+            print("\nThank you for using our app. See you soon!! \U0001F609")
 
 main()
 
