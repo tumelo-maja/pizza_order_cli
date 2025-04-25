@@ -439,12 +439,12 @@ def print_order_summary(order_dict):
 
 
 
-def update_orders_sheet(order,worksheet):
+def update_orders_sheet(order):
     print("Updating 'order' worksheet...")
     
     order_list_item = list(order.summary.values())
     
-    worksheet.append_row(order_list_item)
+    ORDERS_SHEET.append_row(order_list_item)
 
     print("'orders' worksheet updated successfully.")
     print("\nThank you for sending your order. It is now being prepared...")
@@ -464,8 +464,8 @@ def update_orders_sheet(order,worksheet):
         return False
 
 
-def get_latest_order_ID(orders_sheet):
-    latest_order_ID = orders_sheet.col_values(1)[-1]
+def get_latest_order_ID():
+    latest_order_ID = ORDERS_SHEET.col_values(1)[-1]
     today_date = datetime.today().strftime("%Y%m%d")
     
     if today_date not in latest_order_ID:
@@ -609,7 +609,7 @@ def welcome_page():
             break
     return task_to_do        
 
-def track_order(orders_sheet):
+def track_order():
     
     while True:
         print("Track order:")
@@ -620,10 +620,9 @@ def track_order(orders_sheet):
             break
     
     order_number= int(order_number)
-    orders_df = pd.DataFrame(orders_sheet.get_all_records())
     
-    update_orders_status(orders_sheet,orders_df)
-    orders_df = pd.DataFrame(orders_sheet.get_all_records())
+    update_orders_status()
+    orders_df = pd.DataFrame(ORDERS_SHEET.get_all_records())
     order_index = orders_df[orders_df['Order ID'] == order_number].index
     
     order_dict = orders_df.iloc[order_index[0]].to_dict()
@@ -648,8 +647,9 @@ def track_order(orders_sheet):
     else:
         return False
 
-def update_orders_status(orders_sheet,orders_df):
+def update_orders_status():
     print("Updating orders...")
+    orders_df = pd.DataFrame(ORDERS_SHEET.get_all_records())
     
     for ind, row in orders_df.iterrows():
         status_column = row['Order ready time']
@@ -664,7 +664,7 @@ def update_orders_status(orders_sheet,orders_df):
             
             if time_difference > 0:
                 
-                orders_sheet.update_cell(ind+2, 5, 'Ready')      
+                ORDERS_SHEET.update_cell(ind+2, 5, 'Ready')      
 
 def check_order_status(order_dict):
     print("Checking your order status...")
@@ -715,7 +715,6 @@ def main():
     """
     Run the application to initiate requests for user input
     """    
-    orders_sheet = connect_google_sheets('orders')        
 
     continue_app=True
     while continue_app:
@@ -724,17 +723,19 @@ def main():
         
         if user_choice == "1":
             
-            last_orderID = get_latest_order_ID(orders_sheet)
+            last_orderID = get_latest_order_ID()
             order = prepare_new_order(last_orderID)
     
-            continue_app= update_orders_sheet(order, orders_sheet)
+            continue_app= update_orders_sheet(order)
         elif user_choice == "2":
-            continue_app = track_order(orders_sheet)
+            continue_app = track_order()
         else:
             continue_app=False
         
         if not continue_app:
             print("\nThank you for using our app. See you soon!! \U0001F609")
+
+ORDERS_SHEET = connect_google_sheets('orders')        
 
 main()
 
