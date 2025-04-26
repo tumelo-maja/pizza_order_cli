@@ -3,7 +3,6 @@ from google.oauth2.service_account import Credentials
 from collections import Counter
 from datetime import datetime, timedelta
 import pandas as pd
-import math
 
 
 SCOPE = [
@@ -363,14 +362,14 @@ def multiply_meal():
         print("\nHow many of this meal would you like?:")
 
         quantity_input = input("Enter your required quantity:\n")
-        if validate_single_entry(quantity_input,1,math.inf):
+        if validate_single_entry(quantity_input,1,50):
             break
 
     return int(quantity_input)
 
 def print_pizza_summary(pizza_object):
     print("\nOrder summary: ")
-    summary_str = f"1) {pizza_object.size} {pizza_object.name} pizza with "
+    summary_str = f"1) {pizza_object.size} {pizza_object.name} pizza(s) with "
     if pizza_object.toppings['counts'] >0:
         print(summary_str + "the following extra toppings:")
         print(" " + "\n ".join(pizza_object.toppings['labels']))
