@@ -258,7 +258,7 @@ def create_order(pizza_list=[]):
         drinks = choose_extra_items('drinks')
         
         # Repeat meals
-        quantity = multiply_meal()
+        quantity = enter_meal_quantity()
         
         pizza_object = Pizza(name=pizza_name,
                              base_toppings=pizza_base,
@@ -356,7 +356,7 @@ def choose_extra_items(item_type):
 
     return extra_items_dict    
    
-def multiply_meal():
+def enter_meal_quantity():
     
     while True:
         print("\nHow many of this meal would you like?:")
