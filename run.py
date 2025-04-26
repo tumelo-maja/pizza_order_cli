@@ -369,7 +369,7 @@ def multiply_meal():
 
 def print_pizza_summary(pizza_object):
     print("\nOrder summary: ")
-    summary_str = f"1) {pizza_object.size} {pizza_object.name} pizza(s) with "
+    summary_str = f"1) {pizza_object.quantity} x {pizza_object.size} {pizza_object.name} pizza(s) with "
     if pizza_object.toppings['counts'] >0:
         print(summary_str + "the following extra toppings:")
         print(" " + "\n ".join(pizza_object.toppings['labels']))
