@@ -422,7 +422,7 @@ def summary_order_confirm(input_list):
             total_sum = 0
             for order in input_list:
                 description_str, price_str = order.summary()
-                print(f"{description_str}".ljust(63) + f"| {price_str}")
+                print(f"{description_str}".ljust(65) + f"| {price_str}")
                 total_sum += order.total_price
             total_sum = round(total_sum, 2)
             print('-'*73)
