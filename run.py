@@ -248,16 +248,16 @@ def create_order(pizza_list=[]):
         pizza_size, pizza_price = choose_pizza_size()
 
         # Choose extra toppigns
-        pizza_toppings = choose_extra_items('toppings')
+        pizza_toppings = choose_extra_items('toppings',8)
 
         # Choose extra dips
-        dips = choose_extra_items('Dips')
+        dips = choose_extra_items('Dips',4)
         
         # Choose sides
-        sides = choose_extra_items('sides')
+        sides = choose_extra_items('sides',6)
 
         # Choose drinks
-        drinks = choose_extra_items('drinks')
+        drinks = choose_extra_items('drinks',8)
         
         # Repeat meals
         quantity = enter_meal_quantity()
@@ -323,7 +323,7 @@ def choose_pizza_size():
     return pizza_size, pizza_price
 
 
-def choose_extra_items(item_type):
+def choose_extra_items(item_type,count_max):
     
     if item_type=='toppings':
         menu_list = EXTRA_TOPPINGS
@@ -338,7 +338,7 @@ def choose_extra_items(item_type):
         
         
     while True:
-        print(f"\nAny {item_type}? (input(s) can be comma-separated integers):")
+        print(f"\nAny {item_type}? (You can select up to {count_max} items,\n-  input(s) can be comma-separated integers):")
         for key, value in menu_list.items():
             if key == "0":
                 print(f"{key}) {value}")
@@ -346,7 +346,7 @@ def choose_extra_items(item_type):
                 print(f"{key}) {value['name']}" + f"| £{value['price']}")
                 
         item_ind_list = input("Enter your choice(s):\n")
-        if validate_multiple_entries(item_ind_list,0,len(menu_list)-1):
+        if validate_multiple_entries(item_ind_list,0,len(menu_list)-1,count_max):
             break
         
     extra_items = [menu_list[x]['name'] for x in item_ind_list.split(",") if x != "0"]
@@ -561,7 +561,7 @@ def validate_single_entry(value, min_value=None, max_value=None):
 
     return True
         
-def validate_multiple_entries(values_input, min_value=None, max_value=None):
+def validate_multiple_entries(values_input, min_value=None, max_value=None,count_max=None):
     
     try:
         values = [x for x in values_input.split(",")]
@@ -573,6 +573,11 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None):
         # 2) Check if there are any spaces ' '
         if ' ' in values_input:
             raise ValueError(f"'{values_input}' is not a valid entry. The input value must not contain any spaces")
+
+        # 3) Check number of inputs does not exceed limit
+        if count_max is not None and len(values) > count_max:
+            raise ValueError(f"You've entered {len(values)} items, you may only add up to {count_max} items")
+
 
         for value in values:
             
@@ -590,7 +595,7 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None):
                 raise ValueError(f"Value '{value}' is out of range. The input values must be between {min_value} and {max_value}")
 
     except ValueError as e:
-        print(f"\nInvalid entry: {e}, please try again.\n")
+        print(f"\nInvalid entry: {e}, please try again.")
         return False
 
     return True
