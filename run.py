@@ -109,7 +109,7 @@ class Pizza():
 
     def summary(self):
         
-        description_str = f"{self.quantity} x {self.name} {self.size}\U0001F355{self.extras_summary}"
+        description_str = f"{self.quantity} x {self.name} {self.size}\U0001F355{self.extras_summary()}"
         price_str = f"£{'{:.2f}'.format(self.total_price)}"
         return description_str, price_str
 
@@ -129,14 +129,18 @@ class Pizza():
                        )
         return round(items_total, 2)
     
-    @property
-    def extras_summary(self):
+    # @property
+    def extras_summary(self,label_type='short'):
         
         extras_str_list=[]
         for extra_full,extra_short in EXTRAS_NAMES:
             extra_counts =getattr(self, extra_full).get('counts')
             if extra_counts>0:
-                extras_str_list.append(f"*{extra_short}:{extra_counts}")
+                if label_type == 'full':
+                    extras_str_list.append(f"{extra_full}:{extra_counts}")
+                else:
+                    extras_str_list.append(f"*{extra_short}:{extra_counts}")
+
 
         extras_str = f" - {' '.join(extras_str_list)}" if len(extras_str_list) > 0 else ''
         
@@ -182,7 +186,7 @@ class Order():
             size_str = order_item.size.split(' - ')[0]
             name_str = order_item.name
 
-            full_order_str.append(f"{order_item.quantity} x {size_str} {name_str}{order_item.extras_summary}")
+            full_order_str.append(f"{order_item.quantity} x {size_str} {name_str}{order_item.extras_summary('full')}")
 
         return ', '.join(full_order_str)
 
@@ -372,7 +376,7 @@ def enter_meal_quantity():
 def print_pizza_summary(pizza_object):
     print("\nOrder summary: ")
     summary_str = f"{pizza_object.quantity} x {pizza_object.size} {pizza_object.name} pizza(s) with "
-    extras =pizza_object.extras_summary
+    extras =pizza_object.extras_summary('short')
     if len(extras) >0:
         print(summary_str + "the following extra(s):")
         print_extras_description()
