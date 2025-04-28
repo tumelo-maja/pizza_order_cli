@@ -705,6 +705,8 @@ def update_orders_status():
             
             if time_difference > 0:
                 orders_df.at[ind, 'Order status'] = 'Ready'
+            else:
+                orders_df.at[ind, 'Order status'] = 'Preparing'
 
                 
     status_values = [[status_str] for status_str in orders_df['Order status'].tolist()]
