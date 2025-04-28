@@ -109,7 +109,7 @@ class Pizza():
 
     def summary(self):
         
-        description_str = f"{self.quantity}x {self.name} {self.size}\U0001F355{self.extras_summary}"
+        description_str = f"{self.quantity} x {self.name} {self.size}\U0001F355{self.extras_summary}"
         price_str = f"£{'{:.2f}'.format(self.total_price)}"
         return description_str, price_str
 
@@ -406,11 +406,11 @@ def summary_order_confirm(input_list):
             total_sum = 0
             for order in input_list:
                 description_str, price_str = order.summary()
-                print(f"{description_str}".ljust(65) + f"| {price_str}")
+                print(f"{description_str}".ljust(63) + f"| {price_str}")
                 total_sum += order.total_price
             total_sum = round(total_sum, 2)
             print('-'*73)
-            print("Total cost:".ljust(65) + f"| £{'{:.2f}'.format(total_sum)}")
+            print("Total cost:".ljust(65) + f"| £{'{:.2f}'.format(total_sum)}\n")
             extras_description = " - ".join(f"{short}: {full.capitalize()}" for full, short in EXTRAS_NAMES)
             print(f' * {extras_description}')
             print("\n1) Place order")
