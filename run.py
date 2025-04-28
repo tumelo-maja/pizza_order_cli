@@ -291,7 +291,7 @@ def create_order(pizza_list=[]):
 def choose_pizza_name():
     indent_value=20
     print("\nChoose your Pizza (one pizza at a time):\n")
-    print("Our Pizza's'".ljust(indent_value) + "| Base toppings")
+    print("Our Pizzas \U0001F355 ".ljust(indent_value-2) + "| Base toppings")
     print("-"*35)
     
     while True:
@@ -359,7 +359,7 @@ def choose_extra_items(item_type):
 def enter_meal_quantity():
     
     while True:
-        print("\nHow many of this meal would you like?:")
+        print("\nHow many qunatities of this meal would you like?:")
 
         quantity_input = input("Enter your required quantity:\n")
         if validate_single_entry(quantity_input,1,50):
