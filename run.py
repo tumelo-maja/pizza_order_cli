@@ -363,7 +363,7 @@ def enter_meal_quantity():
     while True:
         print("\nHow many qunatities of this meal would you like?:")
 
-        quantity_input = input("Enter your required quantity:\n")
+        quantity_input = input("Enter your required quantity (1-50):\n")
         if validate_single_entry(quantity_input,1,50):
             break
 
