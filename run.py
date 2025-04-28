@@ -371,12 +371,25 @@ def enter_meal_quantity():
 
 def print_pizza_summary(pizza_object):
     print("\nOrder summary: ")
-    summary_str = f"1) {pizza_object.quantity} x {pizza_object.size} {pizza_object.name} pizza(s) with "
-    if pizza_object.toppings['counts'] >0:
-        print(summary_str + "the following extra toppings:")
-        print(" " + "\n ".join(pizza_object.toppings['labels']))
+    summary_str = f"{pizza_object.quantity} x {pizza_object.size} {pizza_object.name} pizza(s) with "
+    extras =pizza_object.extras_summary
+    if len(extras) >0:
+        print(summary_str + "the following extra(s):")
+        print_extras_description()
+        indent_value=3
+        
+        for extra_full,extra_short in EXTRAS_NAMES:
+            extra_counts =getattr(pizza_object, extra_full).get('counts')
+            extra_label =getattr(pizza_object, extra_full).get('labels')
+            if extra_counts>0:
+        
+                if len(extra_label) > 1:
+                    align_space = " " * len(f"{extra_short}".ljust(indent_value)) + "  "                    
+                    print(f"{extra_short}".ljust(indent_value) + f": {extra_label[0]}\n{align_space}" + f'\n{align_space}'.join(extra_label[1:]))
+                else: 
+                    print(f"{extra_short}".ljust(indent_value) + f" {extra_counts} x {extra_label[0]}")
     else:
-        print(summary_str + "no extra toppings")
+        print(summary_str + "no extras")
 
 def confirm_order(input_list):
     
@@ -411,8 +424,7 @@ def summary_order_confirm(input_list):
             total_sum = round(total_sum, 2)
             print('-'*73)
             print("Total cost:".ljust(65) + f"| £{'{:.2f}'.format(total_sum)}\n")
-            extras_description = " - ".join(f"{short}: {full.capitalize()}" for full, short in EXTRAS_NAMES)
-            print(f' * {extras_description}')
+            print_extras_description()
             print("\n1) Place order")
             print("2) Add more items")
             print("3) Remove items")
@@ -449,7 +461,10 @@ def print_order_summary(order_dict):
             print(f"{label}".ljust(indent_value) + f"| {value}")
 
 
-
+            
+def print_extras_description():
+    extras_description = " - ".join(f"{short}: {full.capitalize()}" for full, short in EXTRAS_NAMES)
+    print(f' * {extras_description}')
 
 def update_orders_sheet(order):
     print("Updating 'order' worksheet...")
