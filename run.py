@@ -86,6 +86,9 @@ PIZZA_SIZES = {
     }
 }
 
+
+EXTRAS_NAMES=(('toppings','TPs'),('dips','DPs'),('sides','SDs'),('drinks','DKs'))
+
 ORDER_NUMBER_LENGTH =12
 
 class Pizza():
@@ -129,12 +132,11 @@ class Pizza():
     @property
     def extras_summary(self):
         
-        extras =['toppings','dips','sides','drinks']
         extras_str_list=[]
-        for extra in extras:
-            extra_counts =getattr(self, extra).get('counts')
+        for extra_full,extra_short in EXTRAS_NAMES:
+            extra_counts =getattr(self, extra_full).get('counts')
             if extra_counts>0:
-                extras_str_list.append(f"{extra}:{extra_counts}")
+                extras_str_list.append(f"*{extra_short}:{extra_counts}")
 
         extras_str = f" - {' '.join(extras_str_list)}" if len(extras_str_list) > 0 else ''
         
@@ -409,6 +411,8 @@ def summary_order_confirm(input_list):
             total_sum = round(total_sum, 2)
             print('-'*73)
             print("Total cost:".ljust(65) + f"| £{'{:.2f}'.format(total_sum)}")
+            extras_description = " - ".join(f"{short}: {full.capitalize()}" for full, short in EXTRAS_NAMES)
+            print(f' * {extras_description}')
             print("\n1) Place order")
             print("2) Add more items")
             print("3) Remove items")
