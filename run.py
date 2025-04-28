@@ -129,7 +129,6 @@ class Pizza():
                        )
         return round(items_total, 2)
     
-    # @property
     def extras_summary(self,label_type='short'):
         
         extras_str_list=[]
@@ -376,7 +375,7 @@ def enter_meal_quantity():
 def print_pizza_summary(pizza_object):
     print("\nOrder summary: ")
     summary_str = f"{pizza_object.quantity} x {pizza_object.size} {pizza_object.name} pizza(s) with "
-    extras =pizza_object.extras_summary('short')
+    extras =pizza_object.extras_summary()
     if len(extras) >0:
         print(summary_str + "the following extra(s):")
         print_extras_description()
