@@ -26,8 +26,15 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 ### Features Left to Implement
 
 ## Project planning
+In this section, we provide all tasks related to project planning for development of the application. User stories and business goals are presented in this section
 
 ### Key business goals
+Primary goal: Design an interactive, user-friendly and efficient pizza ordering application that gives a positive user experience to all users.
+
+Other goals:
+- Increase pizza order traffic
+- Enhance user experience with intuitive application flow and informative feedback.
+- Provide users with the option to customise their meal order by adding extras on the pizza and or sides and drinks 
 
 ### User stories
 
