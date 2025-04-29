@@ -38,6 +38,22 @@ Other goals:
 
 ### User stories
 
+- **Interactive Welcome page (must-have)**
+
+  **Story:** 
+    - As a user, I want to be welcomed by a user-friendly welcome message with clear and intuitive information about how to use the application.
+
+  **Acceptance Criteria:**
+    - On load, the application displays application name and welcome message.
+    - The user is presented with two options 1) Place an order and 2) Track an order
+    - User input is validated and any invalid entries are handle with informative feedback and guide to resolve them
+
+  **Tasks:**
+    - Implement welcome display to run on launch of the application
+    - Display two option with clear labels and corrensponding integer to enter for each option
+    - Add code to validate user input and provide feeback for invalid entries while allowing user to resubmit the correct input
+
+
 
 ### Flow charts
 
