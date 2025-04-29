@@ -1,19 +1,20 @@
-# Nut Stacker Game
+# PizzaPalace CLI
 
 **Authors:** Tumelo Maja (GitHub username: tumelo-maja)
 
-Nut Stacker is a fun and exciting color-stacking game where the player is challenged to stack colorful nuts onto bolts. The nuts are stacked following rules in the game. The game is easy to learn and play while still giving players a challenge at each level.  
+PizzaPalace is a command-line_interface (CLI) application for ordering pizza meals. User can choose their desired pizza and add additional toppings and dips. User are able to include drinks and sides in the meal order. 
 
-**The website is aimed at helping users to:** 
-  - Enjoy a fun and relaxing game experience
-  - Get a sense of satisfaction when they win a level and earn game points.
-  - Challenge and test their coordination/strategy skills in a playful setting.
-  - Improve their strategy and scores as they play the game frequently.
+**The application is aimed at helping users to:** 
+  - Place an order for pizza meal in the command terminal
+  - Modify their pizza order by adding extra toppings and dips
+  - Add drinks and sides to their meal order
+  - Track their placed order to know when/if their order is ready
+
 
 **Target audience:** 
-  - Anyone who enjoys simple and fun games
-  - Puzzle enthusiasts who enjoy challenging online games (color-matching/stacking)
-  - Individuals looking for a quick gameplay experience without having to commit to playing in future.
+  - Individual looking to buy pizza
+  - Event organisers/companies looking to place large order purchases of pizza for their events
+  - 
 
 **Application Mockup:** 
 
@@ -29,6 +30,7 @@ Nut Stacker is a fun and exciting color-stacking game where the player is challe
 ### Key business goals
 
 ### User stories
+
 
 ### Flow charts
 
