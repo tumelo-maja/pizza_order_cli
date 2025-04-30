@@ -312,12 +312,12 @@ def choose_pizza_name():
 
 
 def choose_pizza_size():
-    indent_value=20
+    indent_value=22
     while True:
-        print("\nChoose the Pizza size:")
-        print("-"*35)
+        print("\nChoose the Pizza size | Price (£)")
+        print("-"*33)
         for key, value in PIZZA_SIZES.items():
-            print(f"{key}) {value['label']}".ljust(indent_value) + f"| £{value['price']}")
+            print(f"{key}) {value['label']}".ljust(indent_value) + "|"+ f"{'{:.2f}'.format(value['price'])}".rjust(7))
         size_ind = input("Enter your choice:\n")
         if validate_single_entry(size_ind,1,3):
             break
