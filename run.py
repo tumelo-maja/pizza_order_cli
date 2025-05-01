@@ -110,7 +110,7 @@ class Pizza():
     def summary(self):
         
         description_str = f"{self.quantity} x {self.name} {self.size}\U0001F355{self.extras_summary()}"
-        price_str = f"£{'{:.2f}'.format(self.total_price)}"
+        price_str = self.total_price
         return description_str, price_str
 
     @property
@@ -294,7 +294,7 @@ def create_order(pizza_list=[]):
 
 
 def choose_pizza_name():
-    indent_value=20
+    indent_value=18
     print("\nChoose your Pizza (one pizza at a time):\n")
     print("Our Pizzas \U0001F355 ".ljust(indent_value-2) + "| Base toppings")
     print("-"*35)
@@ -312,9 +312,9 @@ def choose_pizza_name():
 
 
 def choose_pizza_size():
-    indent_value=22
+    indent_value=18
     while True:
-        print("\nChoose the Pizza size | Price (£)")
+        print("\nChoose Pizza size | Price (£)")
         print("-"*33)
         for key, value in PIZZA_SIZES.items():
             print(f"{key}) {value['label']}".ljust(indent_value) + "|"+ f"{'{:.2f}'.format(value['price'])}".rjust(7))
@@ -339,14 +339,22 @@ def choose_extra_items(item_type,count_max):
     elif item_type=='sides':
         menu_list = SIDES_MENU
         
-        
+    indent_value=22
     while True:
         print(f"\nAny {item_type}? (You can select up to {count_max} items,\n-  input(s) can be comma-separated integers):")
+        print("Toppings".center(indent_value)+"| Price (£)")
+        print("-"*30)
+
         for key, value in menu_list.items():
             if key == "0":
-                print(f"{key}) {value}")
+                # print(f"{key}) {value}".ljust(indent_value)+ "|"+ "0.00".rjust(5))
+                print(f"{key}) {value}".ljust(indent_value)+ "|"+ "-".center(5))
             else:
-                print(f"{key}) {value['name']}" + f"| £{value['price']}")
+                # print(f"{key}) {value['name']}" + f"| £{value['price']}")
+                print(f"{key}) {value['name']}".ljust(indent_value) + "|"+ f"{'{:.2f}'.format(value['price'])}".rjust(5))
+                # print(f"6) 16 x Chicken Wings".ljust(18) + "|"+ f"8.00".rjust(5))
+                # print(f"0) None".ljust(18) + "|"+ f"0.00".rjust(5))
+
                 
         item_ind_list = input("Enter your choice(s):\n")
         if validate_multiple_entries(item_ind_list,0,len(menu_list)-1,count_max):
@@ -420,13 +428,17 @@ def summary_order_confirm(input_list):
         while True:
             print("\nConfirm your full order:")
             total_sum = 0
+            print("Items".center(59)+"| Price (£)")
+            print("_"*67)
+
             for order in input_list:
                 description_str, price_str = order.summary()
-                print(f"{description_str}".ljust(65) + f"| {price_str}")
+                print(f"{description_str}".ljust(57) + "|"+f"{'{:.2f}'.format(price_str)}".rjust(7))
                 total_sum += order.total_price
             total_sum = round(total_sum, 2)
-            print('-'*73)
-            print("Total cost:".ljust(65) + f"| £{'{:.2f}'.format(total_sum)}\n")
+            print('-'*67)
+            print("Total cost:".ljust(59) + "|"+f"{'{:.2f}'.format(total_sum)}".rjust(7))
+            # print(f"{key}) {value['label']}".ljust(indent_value) + "|"+ f"{'{:.2f}'.format(value['price'])}".rjust(7))
             print_extras_description()
             print("\n1) Place order")
             print("2) Add more items")
