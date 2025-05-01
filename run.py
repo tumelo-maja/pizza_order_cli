@@ -10,7 +10,7 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
 ]
 
-PIZZA_MENU = {
+Meal_MENU = {
     "1": {"name": "Hawaiian", "base_toppings": ["ham", "pineapple", "cheese"]},
     "2": {"name": "Pepperoni", "base_toppings": ["pepperoni", "cheese", "tomato sauce"]},
     "3": {"name": "Vegetarian", "base_toppings": ["mushrooms", "peppers", "onions", "olives"]},
@@ -63,7 +63,7 @@ SIDES_MENU = {
     "6": {"name": "16 x Chicken Wings", "price": 8.00},
 }
 
-PIZZA_SIZES = {
+Meal_SIZES = {
     "1": {
         "label": 'Small',
         "size_inch": '9"',
@@ -88,9 +88,9 @@ EXTRAS_NAMES=(('toppings','TPs'),('dips','DPs'),('sides','SDs'),('drinks','DKs')
 
 ORDER_NUMBER_LENGTH =12
 
-class Pizza():
+class Meal():
     """
-    Creates a Pizza instance
+    Creates a Meal instance
     """
 
     def __init__(self, name, base_toppings, size, base_price, toppings,dips,sides,drinks,quantity):
@@ -156,18 +156,18 @@ class Order():
 
     @property
     def order_ready_time(self):
-        BASE_PIZZA_PREP_TIME = 15
-        DELAY_PIZZA_PREP_TIME = 5
+        BASE_Meal_PREP_TIME = 15
+        DELAY_Meal_PREP_TIME = 5
     
-        pizza_count = sum([x.quantity for x in self.order_list])
+        Meal_count = sum([x.quantity for x in self.order_list])
         topping_sides = sum([x.toppings['counts']+x.sides['counts'] for x in self.order_list])
-        preparation_time = BASE_PIZZA_PREP_TIME
+        preparation_time = BASE_Meal_PREP_TIME
     
-        if pizza_count > 2:
-            preparation_time += ((pizza_count // 5) * DELAY_PIZZA_PREP_TIME)+DELAY_PIZZA_PREP_TIME
+        if Meal_count > 2:
+            preparation_time += ((Meal_count // 5) * DELAY_Meal_PREP_TIME)+DELAY_Meal_PREP_TIME
     
         if topping_sides > 0:
-            preparation_time += ((topping_sides // 5) * DELAY_PIZZA_PREP_TIME)+DELAY_PIZZA_PREP_TIME
+            preparation_time += ((topping_sides // 5) * DELAY_Meal_PREP_TIME)+DELAY_Meal_PREP_TIME
     
         ready_by_time = datetime.strptime(self.order_date, "%Y-%m-%d %H:%M:%S") + timedelta(minutes=preparation_time)
             
@@ -222,31 +222,31 @@ def connect_google_sheets(sheet_name):
     CREDS = Credentials.from_service_account_file('creds.json')
     SCOPED_CREDS = CREDS.with_scopes(SCOPE)
     GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
-    SHEET = GSPREAD_CLIENT.open('pizza_order_cli_gs')
+    SHEET = GSPREAD_CLIENT.open('meal_order_cli_gs')
 
     sheet_object = SHEET.worksheet(sheet_name)
 
     return sheet_object
 
-def create_order(pizza_list=[]):
+def create_order(meal_list=[]):
     """
-    Creates new pizza order from user's inpusts 
+    Creates new Meal order from user's inpusts 
 
     Returns
     -------
-    Pizza object.
+    Meal object.
 
     """
     continue_order = True
     while continue_order:
-        # choose pizza name
-        pizza_name, pizza_base = choose_pizza_name()
+        # choose Meal name
+        Meal_name, Meal_base = choose_Meal_name()
 
-        # choose pizza size
-        pizza_size, pizza_price = choose_pizza_size()
+        # choose Meal size
+        Meal_size, Meal_price = choose_Meal_size()
 
         # Choose extra toppigns
-        pizza_toppings = choose_extra_items('toppings',8)
+        Meal_toppings = choose_extra_items('toppings',8)
 
         # Choose extra dips
         dips = choose_extra_items('Dips',4)
@@ -260,11 +260,11 @@ def create_order(pizza_list=[]):
         # Repeat meals
         quantity = enter_meal_quantity()
         
-        pizza_object = Pizza(name=pizza_name,
-                             base_toppings=pizza_base,
-                             size=pizza_size,
-                             base_price=pizza_price,
-                             toppings=pizza_toppings,
+        Meal_object = Meal(name=Meal_name,
+                             base_toppings=Meal_base,
+                             size=Meal_size,
+                             base_price=Meal_price,
+                             toppings=Meal_toppings,
                              dips=dips,
                              sides=sides,
                              drinks=drinks,
@@ -272,9 +272,9 @@ def create_order(pizza_list=[]):
                              )
         
         # Print meal summary
-        print_pizza_summary(pizza_object)
+        print_Meal_summary(Meal_object)
 
-        pizza_list.append(pizza_object)
+        meal_list.append(Meal_object)
         
         while True:
             print("\nWould you like to add another meal? \n1) Yes \n2) No")
@@ -285,38 +285,38 @@ def create_order(pizza_list=[]):
         if add_more_meals == '2':
             continue_order = False
 
-    return pizza_list
+    return meal_list
 
-def choose_pizza_name():
+def choose_Meal_name():
     indent_value=18
-    print("\nChoose your Pizza (one pizza at a time):\n")
-    print("Our Pizzas \U0001F355 ".ljust(indent_value-2) + "| Base toppings")
+    print("\nChoose your Meal (one Meal at a time):\n")
+    print("Our Meals \U0001F355 ".ljust(indent_value-2) + "| Base toppings")
     print("-"*35)
     
     while True:
-        for key, value in PIZZA_MENU.items():
+        for key, value in Meal_MENU.items():
             print(f"{key}) {value['name']}".ljust(indent_value) + f"| {', '.join(value['base_toppings'])}")
             
-        pizza_ind = input("Enter your choice:\n")
-        if validate_single_entry(pizza_ind,1,5):
+        Meal_ind = input("Enter your choice:\n")
+        if validate_single_entry(Meal_ind,1,5):
             break
-    pizza_name = PIZZA_MENU[pizza_ind]['name']
-    pizza_base = PIZZA_MENU[pizza_ind]['base_toppings']
-    return pizza_name, pizza_base
+    Meal_name = Meal_MENU[Meal_ind]['name']
+    Meal_base = Meal_MENU[Meal_ind]['base_toppings']
+    return Meal_name, Meal_base
 
-def choose_pizza_size():
+def choose_Meal_size():
     indent_value=18
     while True:
-        print("\nChoose Pizza size | Price (£)")
+        print("\nChoose Meal size | Price (£)")
         print("-"*33)
-        for key, value in PIZZA_SIZES.items():
+        for key, value in Meal_SIZES.items():
             print(f"{key}) {value['label']}".ljust(indent_value) + "|"+ f"{'{:.2f}'.format(value['price'])}".rjust(7))
         size_ind = input("Enter your choice:\n")
         if validate_single_entry(size_ind,1,3):
             break
-    pizza_size = PIZZA_SIZES[size_ind]['label']
-    pizza_price = PIZZA_SIZES[size_ind]['price']
-    return pizza_size, pizza_price
+    Meal_size = Meal_SIZES[size_ind]['label']
+    Meal_price = Meal_SIZES[size_ind]['price']
+    return Meal_size, Meal_price
 
 def choose_extra_items(item_type,count_max):
     
@@ -367,18 +367,18 @@ def enter_meal_quantity():
 
     return int(quantity_input)
 
-def print_pizza_summary(pizza_object):
+def print_Meal_summary(Meal_object):
     print("\nOrder summary: ")
-    summary_str = f"{pizza_object.quantity} x {pizza_object.size} {pizza_object.name} pizza(s) with "
-    extras =pizza_object.extras_summary()
+    summary_str = f"{Meal_object.quantity} x {Meal_object.size} {Meal_object.name} Meal(s) with "
+    extras =Meal_object.extras_summary()
     if len(extras) >0:
         print(summary_str + "the following extra(s):")
         print_extras_description()
         indent_value=3
         
         for extra_full,extra_short in EXTRAS_NAMES:
-            extra_counts =getattr(pizza_object, extra_full).get('counts')
-            extra_label =getattr(pizza_object, extra_full).get('labels')
+            extra_counts =getattr(Meal_object, extra_full).get('counts')
+            extra_label =getattr(Meal_object, extra_full).get('labels')
             if extra_counts>0:
         
                 if len(extra_label) > 1:
@@ -406,7 +406,7 @@ def summary_order_confirm(input_list):
     
     if not len(input_list):
         print("\nThere are no items in this order")
-        input("- Press any key to return to pizza selection\n")
+        input("- Press any key to return to Meal selection\n")
         total_sum=0
         order_comfirmed="2"
 
@@ -501,22 +501,22 @@ def get_latest_order_ID():
 
 def prepare_new_order(last_orderID):
 
-    pizza_list=[]
+    meal_list=[]
     continue_loop= 1
     
     while continue_loop:
         
         if continue_loop == 1:
-            pizza_list= create_order(pizza_list)
+            meal_list= create_order(meal_list)
             
-            total_price, continue_loop  = confirm_order(pizza_list)
+            total_price, continue_loop  = confirm_order(meal_list)
         
         elif continue_loop == 2:
             continue_loop =1
             continue
         elif continue_loop == 3:
-            pizza_list = remove_order_items(pizza_list)
-            order_comfirmed, total_price= summary_order_confirm(pizza_list)
+            meal_list = remove_order_items(meal_list)
+            order_comfirmed, total_price= summary_order_confirm(meal_list)
           
             if order_comfirmed == "1":
                 continue_loop=0
@@ -527,7 +527,7 @@ def prepare_new_order(last_orderID):
             else:
                 print("Invalid input")            
 
-    order = Order(pizza_list, total_price, last_orderID)
+    order = Order(meal_list, total_price, last_orderID)
     return order
 
 def remove_order_items(input_list):
@@ -615,8 +615,8 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
 def welcome_page():
     
     dashes = "-"*19
-    welcome_str = f"/{dashes} \U0001F355   Welcome to PizzaPalace CLI!   \U0001F355 {dashes}\\"
-    second_line_str = "|---  Packed with incredible flavors - our pizzas are irresitably tasty! ---|"
+    welcome_str = f"/{dashes} \U0001F355   Welcome to MealPalace CLI!   \U0001F355 {dashes}\\"
+    second_line_str = "|---  Packed with incredible flavors - our Meals are irresitably tasty! ---|"
     print(" "+ "_"*75 )
     print(welcome_str)
     print("|"+"-"*75 +"|")
