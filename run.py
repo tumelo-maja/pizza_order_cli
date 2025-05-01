@@ -4,7 +4,6 @@ from collections import Counter
 from datetime import datetime, timedelta
 import pandas as pd
 
-
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
@@ -43,7 +42,6 @@ EXTRA_TOPPINGS = {
     "7": {"name": "Beef", "price": EXTRA_TOPPING_PRICE},
     "8": {"name": "Bacon", "price": EXTRA_TOPPING_PRICE},
 }
-
 
 EXTRA_DIP_PRICE = 0.60
 EXTRA_DIP = {
@@ -85,7 +83,6 @@ PIZZA_SIZES = {
         "price": 15.00
     }
 }
-
 
 EXTRAS_NAMES=(('toppings','TPs'),('dips','DPs'),('sides','SDs'),('drinks','DKs'))
 
@@ -206,7 +203,6 @@ class Order():
         
         return new_order_ID
 
-
 def connect_google_sheets(sheet_name):
     """
     Setup and connects API to the google sheet and links the input 'sheet_name'
@@ -231,7 +227,6 @@ def connect_google_sheets(sheet_name):
     sheet_object = SHEET.worksheet(sheet_name)
 
     return sheet_object
-
 
 def create_order(pizza_list=[]):
     """
@@ -276,7 +271,7 @@ def create_order(pizza_list=[]):
                              quantity=quantity
                              )
         
-        # Print summary
+        # Print meal summary
         print_pizza_summary(pizza_object)
 
         pizza_list.append(pizza_object)
@@ -291,7 +286,6 @@ def create_order(pizza_list=[]):
             continue_order = False
 
     return pizza_list
-
 
 def choose_pizza_name():
     indent_value=18
@@ -310,7 +304,6 @@ def choose_pizza_name():
     pizza_base = PIZZA_MENU[pizza_ind]['base_toppings']
     return pizza_name, pizza_base
 
-
 def choose_pizza_size():
     indent_value=18
     while True:
@@ -324,7 +317,6 @@ def choose_pizza_size():
     pizza_size = PIZZA_SIZES[size_ind]['label']
     pizza_price = PIZZA_SIZES[size_ind]['price']
     return pizza_size, pizza_price
-
 
 def choose_extra_items(item_type,count_max):
     
@@ -347,14 +339,9 @@ def choose_extra_items(item_type,count_max):
 
         for key, value in menu_list.items():
             if key == "0":
-                # print(f"{key}) {value}".ljust(indent_value)+ "|"+ "0.00".rjust(5))
                 print(f"{key}) {value}".ljust(indent_value)+ "|"+ "-".center(5))
             else:
-                # print(f"{key}) {value['name']}" + f"| £{value['price']}")
                 print(f"{key}) {value['name']}".ljust(indent_value) + "|"+ f"{'{:.2f}'.format(value['price'])}".rjust(5))
-                # print(f"6) 16 x Chicken Wings".ljust(18) + "|"+ f"8.00".rjust(5))
-                # print(f"0) None".ljust(18) + "|"+ f"0.00".rjust(5))
-
                 
         item_ind_list = input("Enter your choice(s):\n")
         if validate_multiple_entries(item_ind_list,0,len(menu_list)-1,count_max):
@@ -474,8 +461,6 @@ def print_order_summary(order_dict):
             
         else: 
             print(f"{label}".ljust(indent_value) + f"| {value}")
-
-
             
 def print_extras_description():
     extras_description = " - ".join(f"{short}: {full.capitalize()}" for full, short in EXTRAS_NAMES)
@@ -490,8 +475,7 @@ def update_orders_sheet(order):
     print("'orders' worksheet updated successfully.")
     print("\nThank you for sending your order. It is now being prepared...")
     print_order_summary(order.summary.values())
-
-    
+ 
     while True:
         print("\n1) Return to home page")
         print("2) Quit application")
@@ -503,7 +487,6 @@ def update_orders_sheet(order):
         return True
     else:
         return False
-
 
 def get_latest_order_ID():
     latest_order_ID = ORDERS_SHEET.col_values(1)[-1]
@@ -608,7 +591,6 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
         if count_max is not None and len(values) > count_max:
             raise ValueError(f"You've entered {len(values)} items, you may only add up to {count_max} items")
 
-
         for value in values:
             
             # 3) Check if there are leading zerpos
@@ -663,7 +645,6 @@ def track_order():
         elif not validate_order_number(order_number):
             continue
         
-        
         order_number= int(order_number)
         update_orders_status()
         orders_df = pd.DataFrame(ORDERS_SHEET.get_all_records())
@@ -675,9 +656,6 @@ def track_order():
         
         break
             
-
-         
-    
     order_dict = orders_df.iloc[order_index[0]].to_dict()
 
     status_str, order_dict = check_order_status(order_dict)     
@@ -724,7 +702,6 @@ def update_orders_status():
     status_values = [[status_str] for status_str in orders_df['Order status'].tolist()]
     ORDERS_SHEET.update(values=status_values,range_name=f'E2:E{len(status_values)+1}')
 
-
 def check_order_status(order_dict):
     print("Checking your order status...")
     
@@ -743,7 +720,6 @@ def check_order_status(order_dict):
         status_str = "Your order is ready now"
     
     return status_str, order_dict
-    
 
 def validate_order_number(number):
     
