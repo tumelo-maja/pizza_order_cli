@@ -93,28 +93,28 @@ class Meal():
     Creates a Meal instance
     """
 
-    def __init__(self, name, base_toppings, size, base_price, toppings,dips,sides,drinks,quantity):
-        self.name = name
-        self.base_toppings = base_toppings
-        self.size = size
-        self.base_price = base_price
-        self.toppings = toppings
-        self.dips = dips
+    def __init__(self, pizza_name, pizza_base_toppings, pizza_size, pizza_base_price, pizza_extra_toppings,pizza_dips,sides,drinks,quantity):
+        self.pizza_name = pizza_name
+        self.pizza_base_toppings = pizza_base_toppings
+        self.pizza_size = pizza_size
+        self.pizza_base_price = pizza_base_price
+        self.pizza_extra_toppings = pizza_extra_toppings
+        self.pizza_dips = pizza_dips
         self.sides = sides
         self.drinks = drinks
         self.quantity = quantity
 
     def summary(self):
         
-        description_str = f"{self.quantity} x {self.name} {self.size}\U0001F355{self.extras_summary()}"
+        description_str = f"{self.quantity} x {self.pizza_name} {self.pizza_size}\U0001F355{self.extras_summary()}"
         price_str = self.total_price
         return description_str, price_str
 
     @property
     def total_price(self):
         
-        toppings_prices = [EXTRA_TOPPINGS[x[0]]['price']*x[1] for x in self.toppings['item_indx']]
-        dips_prices = [EXTRA_DIP[x[0]]['price']*x[1] for x in self.dips['item_indx']]
+        toppings_prices = [EXTRA_TOPPINGS[x[0]]['price']*x[1] for x in self.pizza_extra_toppings['item_indx']]
+        dips_prices = [EXTRA_DIP[x[0]]['price']*x[1] for x in self.pizza_dips['item_indx']]
         sides_prices = [SIDES_MENU[x[0]]['price']*x[1] for x in self.sides['item_indx']]
         drinks_prices = [DRINKS_MENU[x[0]]['price']*x[1] for x in self.drinks['item_indx']]
         
@@ -156,12 +156,12 @@ class Order():
 
     @property
     def order_ready_time(self):
-        BASE_Meal_PREP_TIME = 15
+        BASE_MEAL_PREP_TIME = 15
         DELAY_Meal_PREP_TIME = 5
     
         Meal_count = sum([x.quantity for x in self.order_list])
-        topping_sides = sum([x.toppings['counts']+x.sides['counts'] for x in self.order_list])
-        preparation_time = BASE_Meal_PREP_TIME
+        topping_sides = sum([x.pizza_extra_toppings['counts']+x.sides['counts'] for x in self.order_list])
+        preparation_time = BASE_MEAL_PREP_TIME
     
         if Meal_count > 2:
             preparation_time += ((Meal_count // 5) * DELAY_Meal_PREP_TIME)+DELAY_Meal_PREP_TIME
@@ -180,7 +180,7 @@ class Order():
         for order_item in self.order_list:
 
             size_str = order_item.size.split(' - ')[0]
-            name_str = order_item.name
+            name_str = order_item.pizza_name
 
             full_order_str.append(f"{order_item.quantity} x {size_str} {name_str}{order_item.extras_summary('full')}")
 
@@ -240,13 +240,13 @@ def create_order(meal_list=[]):
     continue_order = True
     while continue_order:
         # choose Meal name
-        Meal_name, Meal_base = choose_Meal_name()
+        pizza_name, pizza_base = choose_pizza_name()
 
         # choose Meal size
-        Meal_size, Meal_price = choose_Meal_size()
+        pizza_size, Meal_price = choose_pizza_size()
 
         # Choose extra toppigns
-        Meal_toppings = choose_extra_items('toppings',8)
+        pizza_extra_toppings = choose_extra_items('toppings',8)
 
         # Choose extra dips
         dips = choose_extra_items('Dips',4)
@@ -260,11 +260,11 @@ def create_order(meal_list=[]):
         # Repeat meals
         quantity = enter_meal_quantity()
         
-        Meal_object = Meal(name=Meal_name,
-                             base_toppings=Meal_base,
-                             size=Meal_size,
+        Meal_object = Meal(name=pizza_name,
+                             pizza_base_toppings=pizza_base,
+                             size=pizza_size,
                              base_price=Meal_price,
-                             toppings=Meal_toppings,
+                             toppings=pizza_extra_toppings,
                              dips=dips,
                              sides=sides,
                              drinks=drinks,
@@ -287,7 +287,7 @@ def create_order(meal_list=[]):
 
     return meal_list
 
-def choose_Meal_name():
+def choose_pizza_name():
     indent_value=18
     print("\nChoose your Meal (one Meal at a time):\n")
     print("Our Meals \U0001F355 ".ljust(indent_value-2) + "| Base toppings")
@@ -304,7 +304,7 @@ def choose_Meal_name():
     Meal_base = Meal_MENU[Meal_ind]['base_toppings']
     return Meal_name, Meal_base
 
-def choose_Meal_size():
+def choose_pizza_size():
     indent_value=18
     while True:
         print("\nChoose Meal size | Price (£)")
@@ -369,7 +369,7 @@ def enter_meal_quantity():
 
 def print_Meal_summary(Meal_object):
     print("\nOrder summary: ")
-    summary_str = f"{Meal_object.quantity} x {Meal_object.size} {Meal_object.name} Meal(s) with "
+    summary_str = f"{Meal_object.quantity} x {Meal_object.size} {Meal_object.pizza_name} Pizza with "
     extras =Meal_object.extras_summary()
     if len(extras) >0:
         print(summary_str + "the following extra(s):")
