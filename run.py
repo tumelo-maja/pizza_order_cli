@@ -278,18 +278,22 @@ def create_order(meal_list=[]):
         
         while True:
             print("\nWould you like to add another meal? \n1) Yes \n2) No")
-            add_more_meals = strppied_input("Enter your choice:\n")
-            if validate_single_entry(add_more_meals,1,2):
+            user_input = strppied_input("Enter your choice:\n")
+            if user_input == '99':
+                main()
+                break
+            if validate_single_entry(user_input,1,2):
                 break
 
-        if add_more_meals == '2':
+        if user_input == '2':
             continue_order = False
 
     return meal_list
 
 def choose_pizza_name():
     indent_value=18
-    print("\nChoose your pizza (one pizza at a time):\n")
+    print("\nChoose your pizza (one pizza at a time)")
+    display_return_home_option()
     print("Our pizzas \U0001F355 ".ljust(indent_value-2) + "| Base toppings")
     print("-"*35)
     
@@ -297,25 +301,33 @@ def choose_pizza_name():
         for key, value in pizza_MENU.items():
             print(f"{key}) {value['name']}".ljust(indent_value) + f"| {', '.join(value['base_toppings'])}")
             
-        pizza_index = strppied_input("Enter your choice:\n")
-        if validate_single_entry(pizza_index,1,5):
+        user_input = strppied_input("Enter your choice:\n")
+        if user_input == '99':
+            main()
             break
-    pizza_name = pizza_MENU[pizza_index]['name']
-    pizza_base = pizza_MENU[pizza_index]['base_toppings']
+        if validate_single_entry(user_input,1,5):
+            break
+    pizza_name = pizza_MENU[user_input]['name']
+    pizza_base = pizza_MENU[user_input]['base_toppings']
     return pizza_name, pizza_base
 
 def choose_pizza_size():
     indent_value=18
     while True:
-        print("\nChoose pizza size | Price (£)")
+        print("\nChoose the size of your pizza")
+        display_return_home_option()        
+        print("Standard sizes | Price (£)")
         print("-"*33)
         for key, value in pizza_SIZES.items():
             print(f"{key}) {value['label']}".ljust(indent_value) + "|"+ f"{price_format(value['price'])}".rjust(7))
-        size_ind = strppied_input("Enter your choice:\n")
-        if validate_single_entry(size_ind,1,3):
+        user_input = strppied_input("Enter your choice:\n")
+        if user_input == '99':
+            main()
             break
-    pizza_size = pizza_SIZES[size_ind]['label']
-    pizza_price = pizza_SIZES[size_ind]['price']
+        if validate_single_entry(user_input,1,3):
+            break
+    pizza_size = pizza_SIZES[user_input]['label']
+    pizza_price = pizza_SIZES[user_input]['price']
     return pizza_size, pizza_price
 
 def choose_extra_items(item_type,count_max):
@@ -333,8 +345,10 @@ def choose_extra_items(item_type,count_max):
         
     indent_value=22
     while True:
-        print(f"\nAny {item_type}? (You can select up to {count_max} items,\n-  input(s) can be comma-separated integers):")
-        print("Toppings".center(indent_value)+"| Price (£)")
+        print(f"\nAny {item_type.lower()}? (You can select up to {count_max} items,")
+        print("-  input(s) can be comma-separated integers")
+        display_return_home_option()
+        print(f"{item_type.capitalize()}".center(indent_value)+"| Price (£)")
         print("-"*30)
 
         for key, value in menu_list.items():
@@ -343,12 +357,15 @@ def choose_extra_items(item_type,count_max):
             else:
                 print(f"{key}) {value['name']}".ljust(indent_value) + "|"+ f"{price_format(value['price'])}".rjust(5))
                 
-        item_ind_list = strppied_input("Enter your choice(s):\n")
-        if validate_multiple_entries(item_ind_list,0,len(menu_list)-1,count_max):
+        user_input = strppied_input("Enter your choice(s):\n")
+        if user_input == '99':
+            main()
+            break
+        if validate_multiple_entries(user_input,0,len(menu_list)-1,count_max):
             break
         
-    extra_items = [menu_list[x]['name'] for x in item_ind_list.split(",") if x != "0"]
-    extra_items_indx = [x for x in item_ind_list.split(",") if x != "0"]
+    extra_items = [menu_list[x]['name'] for x in user_input.split(",") if x != "0"]
+    extra_items_indx = [x for x in user_input.split(",") if x != "0"]
   
     extra_items_dict = {'labels': [f"{count} x {item}" if extra_items != ["None"] else None for item, count in Counter(extra_items).items()],
                         'item_indx': [[f"{item}",count] if extra_items != ["None"] else None for item, count in Counter(extra_items_indx).items()],
@@ -359,13 +376,16 @@ def choose_extra_items(item_type,count_max):
 def enter_meal_quantity():
     
     while True:
-        print("\nHow many qunatities of this meal would you like?:")
-
-        quantity_input = strppied_input("Enter your required quantity (1-50):\n")
-        if validate_single_entry(quantity_input,1,50):
+        print("\nHow many qunatities of this meal would you like?")
+        display_return_home_option()
+        user_input = strppied_input("Enter your required quantity (1-50):\n")
+        if user_input == '99':
+            main()
+            break
+        if validate_single_entry(user_input,1,50):
             break
 
-    return int(quantity_input)
+    return int(user_input)
 
 def print_meal_summary(meal_object):
     print("\nOrder summary: ")
@@ -406,9 +426,10 @@ def summary_order_confirm(input_list):
     
     if not len(input_list):
         print("\nThere are no items in this order")
-        input("- Press any key to return to home page\n")
+        input("- Press any key to return to main menu\n")
         total_sum=0
-        order_comfirmed="2"
+        user_input="2"
+        main()
 
     else:
         
@@ -418,11 +439,15 @@ def summary_order_confirm(input_list):
             print("\n1) Place order")
             print("2) Add more items")
             print("3) Remove items")
-            order_comfirmed = strppied_input("Enter your choice:\n")
-            if validate_single_entry(order_comfirmed,1,3):
+            print("99) Return to main menu")
+            user_input = strppied_input("Enter your choice:\n")
+            if user_input == '99':
+                main()
+                break
+            if validate_single_entry(user_input,1,3):
                 break
             
-    return order_comfirmed, total_sum
+    return user_input, total_sum
 
 def display_full_order(input_list):
 
@@ -451,7 +476,7 @@ def print_order_summary(order_dict):
 
     new_labels = ['Order ID','Time','Items','Ready time','Status','Total']
     
-    indent_value= 10
+    indent_value= 12
     
     for label,value in zip(new_labels,order_dict):
         
@@ -486,17 +511,8 @@ def update_orders_sheet(order):
     print("\nThank you for sending your order. It is now being prepared...")
     print_order_summary(order.summary.values())
  
-    while True:
-        print("\n1) Return to home page")
-        print("2) Quit application")
-        end_response= strppied_input("Enter your choice:\n")
-        if validate_single_entry(end_response,1,2):
-            break
-    
-    if end_response== "1":
-        return True
-    else:
-        return False
+    input("\n- Press any key to return to home page\n")
+    main()
 
 def get_latest_order_ID():
     latest_order_ID = ORDERS_SHEET.col_values(1)[-1]
@@ -532,10 +548,6 @@ def prepare_new_order(last_orderID):
                 continue_loop=0
             elif order_comfirmed == "2":
                 continue_loop=1
-            elif order_comfirmed == "3":
-                pass
-            else:
-                print("Invalid input")            
 
     order = Order(meal_list, total_price, last_orderID)
     return order
@@ -544,11 +556,15 @@ def remove_order_items(input_list):
     
     while True:
         print("\nSelect the order item(s) you wish to remove \n(inputs can be comma-separated integers)")
+        display_return_home_option()
         display_full_order(input_list)
-        remove_items= strppied_input("Enter your choice:\n")
-        if validate_multiple_entries(remove_items,1,len(input_list)):
+        user_input= strppied_input("Enter your choice:\n")
+        if user_input == '99':
+            main()
+            break
+        if validate_multiple_entries(user_input,1,len(input_list)):
             break    
-    removed_indexes = [int(x)-1 for x in remove_items.split(",")]
+    removed_indexes = [int(x)-1 for x in user_input.split(",")]
     
     new_list = [order for i, order in enumerate(input_list) if i not in removed_indexes]
     
@@ -635,18 +651,17 @@ def welcome_page():
         print("\nWhat would you like to do today? \U0001F600")
         print("1) Place an order".ljust(indent_value) + "\U0001F4DD")
         print("2) Track an order".ljust(indent_value) + "\U0001F50D")
-        print("0) Quit Application".ljust(indent_value) + "\U0000274C")
     
         task_to_do = strppied_input("Enter your choice:\n")
-        if validate_single_entry(task_to_do,0,2):
+        if validate_single_entry(task_to_do,1,2):
             break
     return task_to_do        
 
 def track_order():
     
+    print("Track order:")
     while True:
-        print("Track order:")
-        order_number = strppied_input("Enter your order number or 'x' to return to home page:\n")
+        order_number = strppied_input(f"Enter your {ORDER_NUMBER_LENGTH}-digit order number:\n")
         if order_number.lower() == 'x':
             break
         elif not validate_order_number(order_number):
@@ -669,15 +684,17 @@ def track_order():
         
         while True:
             print("\n1) Track another order")
-            print("2) Return to home page")
-            end_response= strppied_input("Enter your choice:\n")
-            if validate_single_entry(end_response,1,2):
+            print("99) Return to home page")
+            user_input= strppied_input("Enter your choice:\n")
+            if user_input == '99':
+                break
+            if validate_single_entry(user_input,1,2):
                 break
         
-        if end_response== "2":
-            break
+        main()
+        break
 
-    main()
+    
 
 def update_orders_status():
     print("Updating order status...")
@@ -750,6 +767,10 @@ def validate_order_number(number):
 def strppied_input(message):
     return input(message).replace(' ', '')
 
+def display_return_home_option():
+    print("-  enter 99 to return to the main menu\n")
+
+
 def main():
     """
     Run the application to initiate requests for user input
@@ -765,14 +786,9 @@ def main():
             last_orderID = get_latest_order_ID()
             order = prepare_new_order(last_orderID)
     
-            continue_app= update_orders_sheet(order)
+            update_orders_sheet(order)
         elif user_choice == "2":
-            continue_app = track_order()
-        else:
-            continue_app=False
-        
-        if not continue_app:
-            print("\nThank you for using our app. See you soon!! \U0001F609")
+            track_order()
 
 ORDERS_SHEET = connect_google_sheets('orders')        
 
