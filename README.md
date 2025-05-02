@@ -195,7 +195,6 @@ Other goals:
   **Tasks:**
     - Add 'main menu' option to all inputs fields groups throughout the application
     - Warn user and seek confirmation to prevent accidental order deletion
-    - Display message telling the user the Order 'cart' has been cleared.
 
 ### Flow charts
 
