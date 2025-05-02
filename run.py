@@ -432,14 +432,13 @@ def display_full_order(input_list):
     print("Items".center(str_indent+1)+"| Price (£)")
     print("-"*70)
 
-
     for ind,order in enumerate(input_list):
         description_str, price_str = order.summary()
         print(f"{ind+1}) {description_str}".ljust(str_indent) +"|"+ f"{price_format(price_str)}".rjust(price_indent))
         total_sum += order.total_price
     total_sum = round(total_sum, 2)
     print('_'*(str_indent+12))
-    print("Total cost:".ljust(str_indent+1) +"|"+ f"{price_format(total_sum)}".rjust(price_indent))
+    print("Total cost:".center(str_indent+1) +"|"+ f"{price_format(total_sum)}".rjust(price_indent))
     print_extras_description()
     
     return total_sum
