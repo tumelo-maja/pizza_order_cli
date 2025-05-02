@@ -280,8 +280,8 @@ def create_order(meal_list=[]):
             print("\nWould you like to add another meal? \n1) Yes \n2) No")
             user_input = strppied_input("Enter your choice:\n")
             if user_input == '99':
-                main_menu()
-                break
+               confirm_exit()
+               continue
             if validate_single_entry(user_input,1,2):
                 break
 
@@ -290,21 +290,32 @@ def create_order(meal_list=[]):
 
     return meal_list
 
+def confirm_exit():
+    print("\nReturning to the main menu will clear all items in your current order.")
+    while True:
+        user_input = strppied_input("     Are you sure you want to continue? \n1) Yes \n2) No\n")
+
+        if validate_single_entry(user_input,1,2):
+            break
+    if user_input == "1":
+        main_menu()
+
 def choose_pizza_name():
     indent_value=18
-    print("\nChoose your pizza (one pizza at a time)")
-    display_return_home_option()
-    print("Our pizzas \U0001F355 ".ljust(indent_value-2) + "| Base toppings")
-    print("-"*35)
+
     
     while True:
+        print("\nChoose your pizza (one pizza at a time)")
+        display_return_home_option()
+        print("Our pizzas \U0001F355 ".ljust(indent_value-2) + "| Base toppings")
+        print("-"*35)
         for key, value in pizza_MENU.items():
             print(f"{key}) {value['name']}".ljust(indent_value) + f"| {', '.join(value['base_toppings'])}")
             
         user_input = strppied_input("Enter your choice:\n")
         if user_input == '99':
-            main_menu()
-            break
+            confirm_exit()
+            continue
         if validate_single_entry(user_input,1,5):
             break
     pizza_name = pizza_MENU[user_input]['name']
@@ -322,8 +333,8 @@ def choose_pizza_size():
             print(f"{key}) {value['label']}".ljust(indent_value) + "|"+ f"{price_format(value['price'])}".rjust(7))
         user_input = strppied_input("Enter your choice:\n")
         if user_input == '99':
-            main_menu()
-            break
+            confirm_exit()
+            continue
         if validate_single_entry(user_input,1,3):
             break
     pizza_size = pizza_SIZES[user_input]['label']
@@ -359,8 +370,8 @@ def choose_extra_items(item_type,count_max):
                 
         user_input = strppied_input("Enter your choice(s):\n")
         if user_input == '99':
-            main_menu()
-            break
+            confirm_exit()
+            continue
         if validate_multiple_entries(user_input,0,len(menu_list)-1,count_max):
             break
         
@@ -380,8 +391,8 @@ def enter_meal_quantity():
         display_return_home_option()
         user_input = strppied_input("Enter your required quantity (1-50):\n")
         if user_input == '99':
-            main_menu()
-            break
+            confirm_exit()
+            continue
         if validate_single_entry(user_input,1,50):
             break
 
@@ -442,8 +453,8 @@ def summary_order_confirm(input_list):
             print("99) Return to main menu")
             user_input = strppied_input("Enter your choice:\n")
             if user_input == '99':
-                main_menu()
-                break
+                confirm_exit()
+                continue
             if validate_single_entry(user_input,1,3):
                 break
             
@@ -560,8 +571,8 @@ def remove_order_items(input_list):
         display_full_order(input_list)
         user_input= strppied_input("Enter your choice:\n")
         if user_input == '99':
-            main_menu()
-            break
+            confirm_exit()
+            continue
         if validate_multiple_entries(user_input,1,len(input_list)):
             break    
     removed_indexes = [int(x)-1 for x in user_input.split(",")]
