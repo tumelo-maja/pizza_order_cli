@@ -25,6 +25,8 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 
 ### Features Left to Implement
 
+Future releases should use a proper database. Currently only order summaries are saved to the google sheet. The specific items are not saved i.e. google sheet has only number of drinks and not exactly which drink type e.g Orange Juice.
+
 ## Project planning
 In this section, we provide all tasks related to project planning for development of the application. User stories and business goals are presented in this section
 
