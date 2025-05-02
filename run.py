@@ -93,13 +93,13 @@ class Meal():
     Creates a Meal instance
     """
 
-    def __init__(self, pizza_name, pizza_base_toppings, pizza_size, pizza_base_price, pizza_extra_toppings,pizza_dips,sides,drinks,quantity):
+    def __init__(self, pizza_name, pizza_base_toppings, pizza_size, pizza_price, toppings,dips,sides,drinks,quantity):
         self.pizza_name = pizza_name
         self.pizza_base_toppings = pizza_base_toppings
         self.pizza_size = pizza_size
-        self.pizza_base_price = pizza_base_price
-        self.pizza_extra_toppings = pizza_extra_toppings
-        self.pizza_dips = pizza_dips
+        self.pizza_price = pizza_price
+        self.toppings = toppings
+        self.dips = dips
         self.sides = sides
         self.drinks = drinks
         self.quantity = quantity
@@ -113,12 +113,12 @@ class Meal():
     @property
     def total_price(self):
         
-        toppings_prices = [EXTRA_TOPPINGS[x[0]]['price']*x[1] for x in self.pizza_extra_toppings['item_indx']]
-        dips_prices = [EXTRA_DIP[x[0]]['price']*x[1] for x in self.pizza_dips['item_indx']]
+        toppings_prices = [EXTRA_TOPPINGS[x[0]]['price']*x[1] for x in self.toppings['item_indx']]
+        dips_prices = [EXTRA_DIP[x[0]]['price']*x[1] for x in self.dips['item_indx']]
         sides_prices = [SIDES_MENU[x[0]]['price']*x[1] for x in self.sides['item_indx']]
         drinks_prices = [DRINKS_MENU[x[0]]['price']*x[1] for x in self.drinks['item_indx']]
         
-        items_total = self.quantity * (self.base_price + 
+        items_total = self.quantity * (self.pizza_price + 
                        sum(toppings_prices) + 
                        sum(dips_prices) +
                        sum(sides_prices) +
@@ -160,7 +160,7 @@ class Order():
         DELAY_Meal_PREP_TIME = 5
     
         Meal_count = sum([x.quantity for x in self.order_list])
-        topping_sides = sum([x.pizza_extra_toppings['counts']+x.sides['counts'] for x in self.order_list])
+        topping_sides = sum([x.toppings['counts']+x.sides['counts'] for x in self.order_list])
         preparation_time = BASE_MEAL_PREP_TIME
     
         if Meal_count > 2:
@@ -179,7 +179,7 @@ class Order():
         full_order_str = []
         for order_item in self.order_list:
 
-            size_str = order_item.size.split(' - ')[0]
+            size_str = order_item.pizza_size.split(' - ')[0]
             name_str = order_item.pizza_name
 
             full_order_str.append(f"{order_item.quantity} x {size_str} {name_str}{order_item.extras_summary('full')}")
@@ -243,7 +243,7 @@ def create_order(meal_list=[]):
         pizza_name, pizza_base = choose_pizza_name()
 
         # choose Meal size
-        pizza_size, Meal_price = choose_pizza_size()
+        pizza_size, pizza_price = choose_pizza_size()
 
         # Choose extra toppigns
         pizza_extra_toppings = choose_extra_items('toppings',8)
@@ -260,10 +260,10 @@ def create_order(meal_list=[]):
         # Repeat meals
         quantity = enter_meal_quantity()
         
-        Meal_object = Meal(name=pizza_name,
+        Meal_object = Meal(pizza_name=pizza_name,
                              pizza_base_toppings=pizza_base,
-                             size=pizza_size,
-                             base_price=Meal_price,
+                             pizza_size=pizza_size,
+                             pizza_price=pizza_price,
                              toppings=pizza_extra_toppings,
                              dips=dips,
                              sides=sides,
@@ -369,7 +369,7 @@ def enter_meal_quantity():
 
 def print_Meal_summary(Meal_object):
     print("\nOrder summary: ")
-    summary_str = f"{Meal_object.quantity} x {Meal_object.size} {Meal_object.pizza_name} Pizza with "
+    summary_str = f"{Meal_object.quantity} x {Meal_object.pizza_size} {Meal_object.pizza_name} Pizza with "
     extras =Meal_object.extras_summary()
     if len(extras) >0:
         print(summary_str + "the following extra(s):")
@@ -416,14 +416,14 @@ def summary_order_confirm(input_list):
             print("\nConfirm your full order:")
             total_sum = 0
             print("Items".center(59)+"| Price (£)")
-            print("_"*67)
+            print("-"*67)
 
             for order in input_list:
                 description_str, price_str = order.summary()
                 print(f"{description_str}".ljust(57) + "|"+f"{'{:.2f}'.format(price_str)}".rjust(7))
                 total_sum += order.total_price
             total_sum = round(total_sum, 2)
-            print('-'*67)
+            print('_'*67)
             print("Total cost:".ljust(59) + "|"+f"{'{:.2f}'.format(total_sum)}".rjust(7))
             # print(f"{key}) {value['label']}".ljust(indent_value) + "|"+ f"{'{:.2f}'.format(value['price'])}".rjust(7))
             print_extras_description()
