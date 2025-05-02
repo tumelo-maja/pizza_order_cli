@@ -280,7 +280,7 @@ def create_order(meal_list=[]):
             print("\nWould you like to add another meal? \n1) Yes \n2) No")
             user_input = strppied_input("Enter your choice:\n")
             if user_input == '99':
-                main()
+                main_menu()
                 break
             if validate_single_entry(user_input,1,2):
                 break
@@ -303,7 +303,7 @@ def choose_pizza_name():
             
         user_input = strppied_input("Enter your choice:\n")
         if user_input == '99':
-            main()
+            main_menu()
             break
         if validate_single_entry(user_input,1,5):
             break
@@ -322,7 +322,7 @@ def choose_pizza_size():
             print(f"{key}) {value['label']}".ljust(indent_value) + "|"+ f"{price_format(value['price'])}".rjust(7))
         user_input = strppied_input("Enter your choice:\n")
         if user_input == '99':
-            main()
+            main_menu()
             break
         if validate_single_entry(user_input,1,3):
             break
@@ -359,7 +359,7 @@ def choose_extra_items(item_type,count_max):
                 
         user_input = strppied_input("Enter your choice(s):\n")
         if user_input == '99':
-            main()
+            main_menu()
             break
         if validate_multiple_entries(user_input,0,len(menu_list)-1,count_max):
             break
@@ -380,7 +380,7 @@ def enter_meal_quantity():
         display_return_home_option()
         user_input = strppied_input("Enter your required quantity (1-50):\n")
         if user_input == '99':
-            main()
+            main_menu()
             break
         if validate_single_entry(user_input,1,50):
             break
@@ -429,7 +429,7 @@ def summary_order_confirm(input_list):
         input("- Press any key to return to main menu\n")
         total_sum=0
         user_input="2"
-        main()
+        main_menu()
 
     else:
         
@@ -442,7 +442,7 @@ def summary_order_confirm(input_list):
             print("99) Return to main menu")
             user_input = strppied_input("Enter your choice:\n")
             if user_input == '99':
-                main()
+                main_menu()
                 break
             if validate_single_entry(user_input,1,3):
                 break
@@ -512,7 +512,7 @@ def update_orders_sheet(order):
     print_order_summary(order.summary.values())
  
     input("\n- Press any key to return to home page\n")
-    main()
+    main_menu()
 
 def get_latest_order_ID():
     latest_order_ID = ORDERS_SHEET.col_values(1)[-1]
@@ -560,7 +560,7 @@ def remove_order_items(input_list):
         display_full_order(input_list)
         user_input= strppied_input("Enter your choice:\n")
         if user_input == '99':
-            main()
+            main_menu()
             break
         if validate_multiple_entries(user_input,1,len(input_list)):
             break    
@@ -691,7 +691,7 @@ def track_order():
             if validate_single_entry(user_input,1,2):
                 break
         
-        main()
+        main_menu()
         break
 
     
@@ -771,7 +771,7 @@ def display_return_home_option():
     print("-  enter 99 to return to the main menu\n")
 
 
-def main():
+def main_menu():
     """
     Run the application to initiate requests for user input
     """    
@@ -792,7 +792,7 @@ def main():
 
 ORDERS_SHEET = connect_google_sheets('orders')        
 
-main()
+main_menu()
 
 
 
