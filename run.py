@@ -644,7 +644,7 @@ def track_order():
         print("Track order:")
         order_number = strppied_input("Enter your order number or '99' to return to home page:\n")
         if order_number == '99':
-            return True
+            break
         elif not validate_order_number(order_number):
             continue
         
@@ -658,17 +658,13 @@ def track_order():
             continue
             
         order_dict = orders_df.iloc[order_index[0]].to_dict()
-    
         status_str, order_dict = check_order_status(order_dict)     
-        
-        print(f"Chosen one: {order_dict.values()}")
-        print(order_dict.values())
     
         print_order_summary(order_dict.values())
         print(f"\n{status_str}")
         
         while True:
-            print("1) Track another order")
+            print("\n1) Track another order")
             print("2) Return to home page")
             end_response= strppied_input("Enter your choice:\n")
             if validate_single_entry(end_response,1,2):
@@ -677,7 +673,7 @@ def track_order():
         if end_response== "2":
             break
 
-    welcome_page()
+    main()
 
 def update_orders_status():
     print("Updating order status...")
