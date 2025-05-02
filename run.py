@@ -6,7 +6,7 @@ import pandas as pd
 import colorama
 from colorama import Fore, Style, init
 
-init(autoreset=True)
+# init(autoreset=True)
 
 
 SCOPE = [
@@ -654,23 +654,27 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
 def welcome_page():
     
     dashes = "-"*19
-    welcome_str = f"/{dashes} \U0001F355   Welcome to PizzaPalace CLI!   \U0001F355 {dashes}\\"
+    welcome_str = f"/{dashes} \U0001F355   Welcome to PizzaPalace CLI! \U0001F355 {dashes}\\"
     second_line_str = "|---  Packed with incredible flavors - our pizzas are irresitably tasty! ---|"
-    print(" "+ "_"*75 )
-    print(welcome_str)
-    print("|"+"-"*75 +"|")
-    print(second_line_str) 
-    print("\\"+"_"*75 +"/")
+    print(color_text(" "+ "_"*75 ,82))
+    print(color_text(welcome_str,82))
+    print(color_text("|"+"-"*75 +"|",82))
+    print(color_text(second_line_str,82)) 
+    print(color_text("\\"+"_"*75 +"/",82))
     indent_value =21
     
     while True:
         print("\nWhat would you like to do today? \U0001F600")
-        print(Fore.GREEN + "1) Place an order".ljust(indent_value) + "\U0001F4DD")
+        print(Fore.GREEN + Style.BRIGHT + "1) Place an order".ljust(indent_value) + "\U0001F4DD")
+        print(Fore.GREEN +"1) Place an order".ljust(indent_value) + "\U0001F4DD")
         print(Fore.YELLOW + "2) Track an order".ljust(indent_value) + "\U0001F50D")
+        print(Fore.YELLOW + "2) Track an order".ljust(indent_value) + "\U0001F50D")
+        print(Fore.YELLOW + Style.BRIGHT + "2) Track an order".ljust(indent_value) + "\U0001F50D")
         
         print(f'\033[38;5;208m{"Hellow new test"}\033[0m')
         print(color_text('Whole new text',82))
-        task_to_do = strppied_input("Enter your choice:\n")
+        print(color_text('Bright White text',15))
+        task_to_do = strppied_input(Fore.YELLOW +"Enter your choice:\n")
         if validate_single_entry(task_to_do,1,2):
             break
     return task_to_do        
