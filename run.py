@@ -3,6 +3,11 @@ from google.oauth2.service_account import Credentials
 from collections import Counter
 from datetime import datetime, timedelta
 import pandas as pd
+import colorama
+from colorama import Fore, Style, init
+
+init(autoreset=True)
+
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -660,9 +665,11 @@ def welcome_page():
     
     while True:
         print("\nWhat would you like to do today? \U0001F600")
-        print("1) Place an order".ljust(indent_value) + "\U0001F4DD")
-        print("2) Track an order".ljust(indent_value) + "\U0001F50D")
-    
+        print(Fore.GREEN + "1) Place an order".ljust(indent_value) + "\U0001F4DD")
+        print(Fore.YELLOW + "2) Track an order".ljust(indent_value) + "\U0001F50D")
+        
+        print(f'\033[38;5;208m{"Hellow new test"}\033[0m')
+        print(color_text('Whole new text',82))
         task_to_do = strppied_input("Enter your choice:\n")
         if validate_single_entry(task_to_do,1,2):
             break
@@ -780,6 +787,10 @@ def strppied_input(message):
 
 def display_return_home_option():
     print("-  enter 99 to return to the main menu\n")
+
+def color_text(message,color_code):
+
+    return f"\033[38;5;{color_code}m{message}\033[0m"
 
 
 def main_menu():

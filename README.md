@@ -213,6 +213,9 @@ Other goals:
 
 Unicode for emojis - (https://apps.timwhitlock.info/emoji/tables/unicode)
 Python program to print Emojis - (https://www.geeksforgeeks.org/python-program-to-print-emojis/)
+colorrama - (https://www.geeksforgeeks.org/introduction-to-python-colorama/)
+breaking lines python - (https://www.pythonmorsels.com/breaking-long-lines-code-python/)
+ANSI escape codes - (https://jakob-bagterp.github.io/colorist-for-python/ansi-escape-codes/extended-256-colors/#structure)
 
 ### Tutorials and other resources
 
