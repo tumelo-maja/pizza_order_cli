@@ -310,7 +310,7 @@ def choose_pizza_size():
         print("\nChoose Meal size | Price (£)")
         print("-"*33)
         for key, value in Meal_SIZES.items():
-            print(f"{key}) {value['label']}".ljust(indent_value) + "|"+ f"{'{:,.2f}'.format(value['price'])}".rjust(7))
+            print(f"{key}) {value['label']}".ljust(indent_value) + "|"+ f"{price_format(value['price'])}".rjust(7))
         size_ind = input("Enter your choice:\n")
         if validate_single_entry(size_ind,1,3):
             break
@@ -341,7 +341,7 @@ def choose_extra_items(item_type,count_max):
             if key == "0":
                 print(f"{key}) {value}".ljust(indent_value)+ "|"+ "-".center(5))
             else:
-                print(f"{key}) {value['name']}".ljust(indent_value) + "|"+ f"{'{:,.2f}'.format(value['price'])}".rjust(5))
+                print(f"{key}) {value['name']}".ljust(indent_value) + "|"+ f"{price_format(value['price'])}".rjust(5))
                 
         item_ind_list = input("Enter your choice(s):\n")
         if validate_multiple_entries(item_ind_list,0,len(menu_list)-1,count_max):
@@ -421,11 +421,11 @@ def summary_order_confirm(input_list):
 
             for order in input_list:
                 description_str, price_str = order.summary()
-                print(f"{description_str}".ljust(57) +"|"+ f"{'{:,.2f}'.format(price_str)}".rjust(price_indent))
+                print(f"{description_str}".ljust(57) +"|"+ f"{price_format(price_str)}".rjust(price_indent))
                 total_sum += order.total_price
             total_sum = round(total_sum, 2)
             print('_'*69)
-            print("Total cost:".ljust(59) +f"| {'{:,.2f}'.format(total_sum)}".rjust(price_indent))
+            print("Total cost:".ljust(59) +f"| {price_format(total_sum)}".rjust(price_indent))
             print_extras_description()
             print("\n1) Place order")
             print("2) Add more items")
@@ -435,6 +435,9 @@ def summary_order_confirm(input_list):
                 break
             
     return order_comfirmed, total_sum
+
+def price_format(value):
+    return '{:,.2f}'.format(value)
 
 def print_order_summary(order_dict):
     print("Here's your order summary:\n")
@@ -446,7 +449,7 @@ def print_order_summary(order_dict):
     for label,value in zip(new_labels,order_dict):
         
         if label== 'Total':
-            value = value if isinstance(value, str) else f"£{'{:,.2f}'.format(value)}"
+            value = value if isinstance(value, str) else f"£ {price_format(value)}"
             
         if 'time' in label:
             print("Date".ljust(indent_value) + f"| {value.split(' ')[0]}")
