@@ -260,7 +260,7 @@ def create_order(meal_list=[]):
         # Repeat meals
         quantity = enter_meal_quantity()
         
-        Meal_object = Meal(pizza_name=pizza_name,
+        meal_object = Meal(pizza_name=pizza_name,
                              pizza_base_toppings=pizza_base,
                              pizza_size=pizza_size,
                              pizza_price=pizza_price,
@@ -272,9 +272,9 @@ def create_order(meal_list=[]):
                              )
         
         # Print meal summary
-        print_Meal_summary(Meal_object)
+        print_Meal_summary(meal_object)
 
-        meal_list.append(Meal_object)
+        meal_list.append(meal_object)
         
         while True:
             print("\nWould you like to add another meal? \n1) Yes \n2) No")
@@ -310,7 +310,7 @@ def choose_pizza_size():
         print("\nChoose Meal size | Price (£)")
         print("-"*33)
         for key, value in Meal_SIZES.items():
-            print(f"{key}) {value['label']}".ljust(indent_value) + "|"+ f"{'{:.2f}'.format(value['price'])}".rjust(7))
+            print(f"{key}) {value['label']}".ljust(indent_value) + "|"+ f"{'{:,.2f}'.format(value['price'])}".rjust(7))
         size_ind = input("Enter your choice:\n")
         if validate_single_entry(size_ind,1,3):
             break
@@ -341,7 +341,7 @@ def choose_extra_items(item_type,count_max):
             if key == "0":
                 print(f"{key}) {value}".ljust(indent_value)+ "|"+ "-".center(5))
             else:
-                print(f"{key}) {value['name']}".ljust(indent_value) + "|"+ f"{'{:.2f}'.format(value['price'])}".rjust(5))
+                print(f"{key}) {value['name']}".ljust(indent_value) + "|"+ f"{'{:,.2f}'.format(value['price'])}".rjust(5))
                 
         item_ind_list = input("Enter your choice(s):\n")
         if validate_multiple_entries(item_ind_list,0,len(menu_list)-1,count_max):
@@ -367,18 +367,18 @@ def enter_meal_quantity():
 
     return int(quantity_input)
 
-def print_Meal_summary(Meal_object):
+def print_Meal_summary(meal_object):
     print("\nOrder summary: ")
-    summary_str = f"{Meal_object.quantity} x {Meal_object.pizza_size} {Meal_object.pizza_name} Pizza with "
-    extras =Meal_object.extras_summary()
+    summary_str = f"{meal_object.quantity} x {meal_object.pizza_size} {meal_object.pizza_name} Pizza with "
+    extras =meal_object.extras_summary()
     if len(extras) >0:
         print(summary_str + "the following extra(s):")
         print_extras_description()
         indent_value=3
         
         for extra_full,extra_short in EXTRAS_NAMES:
-            extra_counts =getattr(Meal_object, extra_full).get('counts')
-            extra_label =getattr(Meal_object, extra_full).get('labels')
+            extra_counts =getattr(meal_object, extra_full).get('counts')
+            extra_label =getattr(meal_object, extra_full).get('labels')
             if extra_counts>0:
         
                 if len(extra_label) > 1:
@@ -416,16 +416,16 @@ def summary_order_confirm(input_list):
             print("\nConfirm your full order:")
             total_sum = 0
             print("Items".center(59)+"| Price (£)")
-            print("-"*67)
+            print("-"*70)
+            price_indent=9
 
             for order in input_list:
                 description_str, price_str = order.summary()
-                print(f"{description_str}".ljust(57) + "|"+f"{'{:.2f}'.format(price_str)}".rjust(7))
+                print(f"{description_str}".ljust(57) +"|"+ f"{'{:,.2f}'.format(price_str)}".rjust(price_indent))
                 total_sum += order.total_price
             total_sum = round(total_sum, 2)
-            print('_'*67)
-            print("Total cost:".ljust(59) + "|"+f"{'{:.2f}'.format(total_sum)}".rjust(7))
-            # print(f"{key}) {value['label']}".ljust(indent_value) + "|"+ f"{'{:.2f}'.format(value['price'])}".rjust(7))
+            print('_'*69)
+            print("Total cost:".ljust(59) +f"| {'{:,.2f}'.format(total_sum)}".rjust(price_indent))
             print_extras_description()
             print("\n1) Place order")
             print("2) Add more items")
@@ -433,7 +433,7 @@ def summary_order_confirm(input_list):
             order_comfirmed = input("Enter your choice:\n")
             if validate_single_entry(order_comfirmed,1,3):
                 break
-        
+            
     return order_comfirmed, total_sum
 
 def print_order_summary(order_dict):
@@ -446,7 +446,7 @@ def print_order_summary(order_dict):
     for label,value in zip(new_labels,order_dict):
         
         if label== 'Total':
-            value = value if isinstance(value, str) else f"£{'{:.2f}'.format(value)}"
+            value = value if isinstance(value, str) else f"£{'{:,.2f}'.format(value)}"
             
         if 'time' in label:
             print("Date".ljust(indent_value) + f"| {value.split(' ')[0]}")
@@ -599,12 +599,12 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
             
             # 4) Check if digit
             if not value.isdigit():
-                raise ValueError(f"'{value}' is not an integer. The input values must be between {min_value} and {max_value}")
+                raise ValueError(f"'{value}' is not an integer. The input values must be integers between {min_value} and {max_value}")
             value = int(value)
             
             # 5 check if within range
             if value < min_value or value>max_value:
-                raise ValueError(f"Value '{value}' is out of range. The input values must be between {min_value} and {max_value}")
+                raise ValueError(f"Value '{value}' is out of range. The input values must be integers between {min_value} and {max_value}")
 
     except ValueError as e:
         print(f"\nInvalid entry: {e}, please try again.")
