@@ -272,7 +272,7 @@ def create_order(meal_list=[]):
                              )
         
         # Print meal summary
-        print_Meal_summary(meal_object)
+        print_meal_summary(meal_object)
 
         meal_list.append(meal_object)
         
@@ -367,7 +367,7 @@ def enter_meal_quantity():
 
     return int(quantity_input)
 
-def print_Meal_summary(meal_object):
+def print_meal_summary(meal_object):
     print("\nOrder summary: ")
     summary_str = f"{meal_object.quantity} x {meal_object.pizza_size} {meal_object.pizza_name} Pizza with "
     extras =meal_object.extras_summary()
