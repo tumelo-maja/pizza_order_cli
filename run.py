@@ -414,19 +414,7 @@ def summary_order_confirm(input_list):
         
         while True:
             print("\nConfirm your full order:")
-            total_sum = 0
-            print("Items".center(59)+"| Price (£)")
-            print("-"*70)
-            price_indent=9
-
-            for order in input_list:
-                description_str, price_str = order.summary()
-                print(f"{description_str}".ljust(57) +"|"+ f"{price_format(price_str)}".rjust(price_indent))
-                total_sum += order.total_price
-            total_sum = round(total_sum, 2)
-            print('_'*69)
-            print("Total cost:".ljust(59) +"|"+ f"{price_format(total_sum)}".rjust(price_indent))
-            print_extras_description()
+            total_sum = display_full_order(input_list)
             print("\n1) Place order")
             print("2) Add more items")
             print("3) Remove items")
@@ -435,6 +423,26 @@ def summary_order_confirm(input_list):
                 break
             
     return order_comfirmed, total_sum
+
+def display_full_order(input_list):
+
+    total_sum = 0
+    price_indent=9
+    str_indent=60
+    print("Items".center(str_indent+1)+"| Price (£)")
+    print("-"*70)
+
+
+    for ind,order in enumerate(input_list):
+        description_str, price_str = order.summary()
+        print(f"{ind+1}) {description_str}".ljust(str_indent) +"|"+ f"{price_format(price_str)}".rjust(price_indent))
+        total_sum += order.total_price
+    total_sum = round(total_sum, 2)
+    print('_'*(str_indent+12))
+    print("Total cost:".ljust(str_indent+1) +"|"+ f"{price_format(total_sum)}".rjust(price_indent))
+    print_extras_description()
+    
+    return total_sum
 
 def price_format(value):
     return '{:,.2f}'.format(value)
@@ -535,12 +543,9 @@ def prepare_new_order(last_orderID):
 
 def remove_order_items(input_list):
     
-    indent_value= 60
     while True:
         print("\nSelect the order item(s) you wish to remove \n(inputs can be comma-separated integers)")
-        for ind, order in enumerate(input_list):
-            description_str, price_str = order.summary()
-            print(f"{ind+1}) {description_str}".ljust(indent_value) + f"| {price_str}")
+        display_full_order(input_list)
         remove_items= strppied_input("Enter your choice:\n")
         if validate_multiple_entries(remove_items,1,len(input_list)):
             break    
