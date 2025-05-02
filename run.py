@@ -656,30 +656,28 @@ def track_order():
         if not len(order_index):
             print(f"Order number {order_number} not found. Please check the number and try again.\n")
             continue
-        
-        break
             
-    order_dict = orders_df.iloc[order_index[0]].to_dict()
-
-    status_str, order_dict = check_order_status(order_dict)     
+        order_dict = orders_df.iloc[order_index[0]].to_dict()
     
-    print(f"Chosen one: {order_dict.values()}")
-    print(order_dict.values())
-
-    print_order_summary(order_dict.values())
-    print(f"\n{status_str}")
+        status_str, order_dict = check_order_status(order_dict)     
+        
+        print(f"Chosen one: {order_dict.values()}")
+        print(order_dict.values())
     
-    while True:
-        print("1) Return to home page")
-        print("2) Quit application")
-        end_response= strppied_input("Enter your choice:\n")
-        if validate_single_entry(end_response,1,2):
+        print_order_summary(order_dict.values())
+        print(f"\n{status_str}")
+        
+        while True:
+            print("1) Track another order")
+            print("2) Return to home page")
+            end_response= strppied_input("Enter your choice:\n")
+            if validate_single_entry(end_response,1,2):
+                break
+        
+        if end_response== "2":
             break
-    
-    if end_response== "1":
-        return True
-    else:
-        return False
+
+    welcome_page()
 
 def update_orders_status():
     print("Updating order status...")
