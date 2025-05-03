@@ -654,13 +654,13 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
 def welcome_page():
     
     dashes = "-"*19
-    welcome_str = f"/{dashes} \U0001F355   Welcome to PizzaPalace CLI! \U0001F355 {dashes}\\"
-    second_line_str = "|---  Packed with incredible flavors - our pizzas are irresitably tasty! ---|"
-    print(color_text(" "+ "_"*75 ,82))
-    print(color_text(welcome_str,82))
-    print(color_text("|"+"-"*75 +"|",82))
-    print(color_text(second_line_str,82)) 
-    print(color_text("\\"+"_"*75 +"/",82))
+    welcome_str = f"{color_text('/'+dashes,166)} \U0001F355   {color_text('Welcome to PizzaPalace CLI!',82)} \U0001F355 {color_text(dashes+'\\',166)}"
+    second_line_str = f"{color_text('|--- ',166)} {color_text('Packed with incredible',82)} {color_text('flavors',196)} {color_text('- our pizzas are irresitably',82)} {color_text('tasty!',196)} {color_text('---|',166)}"
+    print(color_text(" "+ "_"*75,166))
+    print(welcome_str)
+    print(color_text("|"+"-"*75 +"|",166))
+    print(second_line_str) 
+    print(color_text("\\"+"_"*75 +"/",166))
     indent_value =21
     
     while True:
@@ -672,7 +672,7 @@ def welcome_page():
         print(Fore.YELLOW + Style.BRIGHT + "2) Track an order".ljust(indent_value) + "\U0001F50D")
         
         print(f'\033[38;5;208m{"Hellow new test"}\033[0m')
-        print(color_text('Whole new text',82))
+        print('This is '+color_text('Whole new text',82))
         print(color_text('Bright White text',15))
         task_to_do = strppied_input(Fore.YELLOW +"Enter your choice:\n")
         if validate_single_entry(task_to_do,1,2):
