@@ -608,7 +608,7 @@ def validate_single_entry(value, min_value=None, max_value=None):
             raise ValueError(f"Value '{value}' is out of range. The input value must be between {min_value} and {max_value}")
 
     except ValueError as e:
-        print(color_text(f"\nInvalid entry: {e}, please try again.\n",196))
+        print(color_text(f"\nInvalid entry: {e}, please try again.",196))
         return False
 
     return True
@@ -646,7 +646,7 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
                 raise ValueError(f"Value '{value}' is out of range. The input values must be integers between {min_value} and {max_value}")
 
     except ValueError as e:
-        print(color_text(f"\nInvalid entry: {e}, please try again.\n",196))
+        print(color_text(f"\nInvalid entry: {e}, please try again.",196))
         return False
 
     return True
