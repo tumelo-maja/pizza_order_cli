@@ -283,7 +283,7 @@ def create_order(meal_list=[]):
         
         while True:
             print("\nWould you like to add another meal? \n1) Yes \n2) No")
-            user_input = strppied_input("Enter your choice:\n")
+            user_input = strppied_input(color_text("Enter your choice:\n",166))
             if user_input == '99':
                confirm_exit()
                continue
@@ -298,7 +298,7 @@ def create_order(meal_list=[]):
 def confirm_exit():
     print("\nReturning to the main menu will clear all items in your current order.")
     while True:
-        user_input = strppied_input("     Are you sure you want to continue? \n1) Yes \n2) No\n")
+        user_input = strppied_input(color_text("     Are you sure you want to continue? \n1) Yes \n2) No\n",166))
 
         if validate_single_entry(user_input,1,2):
             break
@@ -312,10 +312,10 @@ def choose_pizza_name():
     while True:
         print(color_text("\nChoose your pizza (one pizza at a time)",15))
         display_return_home_option()
-        print("Our pizzas \U0001F355 ".ljust(indent_value) + "| Base toppings")
-        print("-"*35)
+        print(color_text("Our pizzas \U0001F355 ".ljust(indent_value) + "| Base toppings",82))
+        print(color_text("-"*35,82))
         for key, value in pizza_MENU.items():
-            print(f"{key}) {value['name']}".ljust(indent_value) + f"| {', '.join(value['base_toppings'])}")
+            print(color_text(f"{key}) {value['name']}".ljust(indent_value) + f"| {', '.join(value['base_toppings'])}",82))
             
         user_input = strppied_input(color_text("Enter your choice:\n",166))
         if user_input == '99':
@@ -336,7 +336,7 @@ def choose_pizza_size():
         print("-"*33)
         for key, value in pizza_SIZES.items():
             print(f"{key}) {value['label']}".ljust(indent_value) + "|"+ f"{price_format(value['price'])}".rjust(7))
-        user_input = strppied_input("Enter your choice:\n")
+        user_input = strppied_input(color_text("Enter your choice:\n",166))
         if user_input == '99':
             confirm_exit()
             continue
@@ -373,7 +373,7 @@ def choose_extra_items(item_type,count_max):
             else:
                 print(f"{key}) {value['name']}".ljust(indent_value) + "|"+ f"{price_format(value['price'])}".rjust(5))
                 
-        user_input = strppied_input("Enter your choice(s):\n")
+        user_input = strppied_input(color_text("Enter your choice(s):\n",166))
         if user_input == '99':
             confirm_exit()
             continue
@@ -394,7 +394,7 @@ def enter_meal_quantity():
     while True:
         print("\nHow many qunatities of this meal would you like?")
         display_return_home_option()
-        user_input = strppied_input("Enter your required quantity (1-50):\n")
+        user_input = strppied_input(color_text("Enter your required quantity (1-50):\n",166))
         if user_input == '99':
             confirm_exit()
             continue
@@ -442,7 +442,7 @@ def summary_order_confirm(input_list):
     
     if not len(input_list):
         print("\nThere are no items in this order")
-        input("- Press any key to return to main menu\n")
+        input(color_text("- Press any key to return to main menu\n",166))
         total_sum=0
         user_input="2"
         main_menu()
@@ -456,7 +456,7 @@ def summary_order_confirm(input_list):
             print("2) Add more items")
             print("3) Remove items")
             print("99) Return to main menu")
-            user_input = strppied_input("Enter your choice:\n")
+            user_input = strppied_input(color_text("Enter your choice:\n",166))
             if user_input == '99':
                 confirm_exit()
                 continue
@@ -527,7 +527,7 @@ def update_orders_sheet(order):
     print("\nThank you for sending your order. It is now being prepared...")
     print_order_summary(order.summary.values())
  
-    input("\n- Press any key to return to home page\n")
+    input(color_text("\n- Press any key to return to the main menu\n",166))
     main_menu()
 
 def get_latest_order_ID():
@@ -574,7 +574,7 @@ def remove_order_items(input_list):
         print("\nSelect the order item(s) you wish to remove \n(inputs can be comma-separated integers)")
         display_return_home_option()
         display_full_order(input_list)
-        user_input= strppied_input("Enter your choice:\n")
+        user_input = strppied_input(color_text("Enter your choice:\n",166))
         if user_input == '99':
             confirm_exit()
             continue
@@ -677,7 +677,7 @@ def track_order():
     
     print("Track order:")
     while True:
-        order_number = strppied_input(f"Enter your {ORDER_NUMBER_LENGTH}-digit order number:\n")
+        order_number = strppied_input(color_text(f"Enter your {ORDER_NUMBER_LENGTH}-digit order number:\n",166))
         if order_number.lower() == 'x':
             break
         elif not validate_order_number(order_number):
@@ -701,7 +701,7 @@ def track_order():
         while True:
             print("\n1) Track another order")
             print("99) Return to home page")
-            user_input= strppied_input("Enter your choice:\n")
+            user_input = strppied_input(color_text("Enter your choice:\n",166))
             if user_input == '99':
                 break
             if validate_single_entry(user_input,1,2):
