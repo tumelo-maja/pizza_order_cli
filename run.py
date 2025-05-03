@@ -310,14 +310,14 @@ def choose_pizza_name():
 
     
     while True:
-        print("\nChoose your pizza (one pizza at a time)")
+        print(color_text("\nChoose your pizza (one pizza at a time)",15))
         display_return_home_option()
-        print("Our pizzas \U0001F355 ".ljust(indent_value-2) + "| Base toppings")
+        print("Our pizzas \U0001F355 ".ljust(indent_value) + "| Base toppings")
         print("-"*35)
         for key, value in pizza_MENU.items():
             print(f"{key}) {value['name']}".ljust(indent_value) + f"| {', '.join(value['base_toppings'])}")
             
-        user_input = strppied_input("Enter your choice:\n")
+        user_input = strppied_input(color_text("Enter your choice:\n",166))
         if user_input == '99':
             confirm_exit()
             continue
@@ -608,7 +608,7 @@ def validate_single_entry(value, min_value=None, max_value=None):
             raise ValueError(f"Value '{value}' is out of range. The input value must be between {min_value} and {max_value}")
 
     except ValueError as e:
-        print(f"\nInvalid entry: {e}, please try again.\n")
+        print(color_text(f"\nInvalid entry: {e}, please try again.\n",196))
         return False
 
     return True
@@ -646,7 +646,7 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
                 raise ValueError(f"Value '{value}' is out of range. The input values must be integers between {min_value} and {max_value}")
 
     except ValueError as e:
-        print(f"\nInvalid entry: {e}, please try again.")
+        print(color_text(f"\nInvalid entry: {e}, please try again.\n",196))
         return False
 
     return True
@@ -664,17 +664,11 @@ def welcome_page():
     indent_value =21
     
     while True:
-        print("\nWhat would you like to do today? \U0001F600")
-        print(Fore.GREEN + Style.BRIGHT + "1) Place an order".ljust(indent_value) + "\U0001F4DD")
-        print(Fore.GREEN +"1) Place an order".ljust(indent_value) + "\U0001F4DD")
-        print(Fore.YELLOW + "2) Track an order".ljust(indent_value) + "\U0001F50D")
-        print(Fore.YELLOW + "2) Track an order".ljust(indent_value) + "\U0001F50D")
-        print(Fore.YELLOW + Style.BRIGHT + "2) Track an order".ljust(indent_value) + "\U0001F50D")
-        
-        print(f'\033[38;5;208m{"Hellow new test"}\033[0m')
-        print('This is '+color_text('Whole new text',82))
-        print(color_text('Bright White text',15))
-        task_to_do = strppied_input(Fore.YELLOW +"Enter your choice:\n")
+        print(color_text("\nWhat would you like to do today? \U0001F600",15))
+        print(color_text("1) Place an order".ljust(indent_value) + "\U0001F4DD",82))
+        print(color_text("2) Track an order".ljust(indent_value) + "\U0001F50D",82))
+
+        task_to_do = strppied_input(color_text("Enter your choice:\n",166))
         if validate_single_entry(task_to_do,1,2):
             break
     return task_to_do        
@@ -781,7 +775,7 @@ def validate_order_number(number):
             raise ValueError(f"Order number must have exactly 12 integers - you provided {len(number)}")
         
     except ValueError as e:
-        print(f"\nInvalid entry: {e}, please try again.\n")
+        print(color_text(f"\nInvalid entry: {e}, please try again.\n",196))
         return False
 
     return True
@@ -790,7 +784,7 @@ def strppied_input(message):
     return input(message).replace(' ', '')
 
 def display_return_home_option():
-    print("-  enter 99 to return to the main menu\n")
+    print(color_text("-  enter 99 to return to the main menu\n",166))
 
 def color_text(message,color_code):
 
