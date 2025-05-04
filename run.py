@@ -20,7 +20,7 @@ pizza_MENU = {
     "1": {"name": "Hawaiian", "base_toppings": ["ham", "pineapple", "cheese"]},
     "2": {"name": "Pepperoni", "base_toppings": ["pepperoni", "cheese", "tomato sauce"]},
     "3": {"name": "Vegetarian", "base_toppings": ["mushrooms", "peppers", "onions", "olives"]},
-    "4": {"name": "All Meaty", "base_toppings": ["pepperoni", "sausage", "ham", "bacon", "beef"]},
+    "4": {"name": "All Meaty", "base_toppings": ["pepperoni", "sausage", "ham", "olives", "beef"]},
     "5": {"name": "Spicy Chicken", "base_toppings": ["spicy chicken", "jalapenos", "onions", "cheese"]},
 }
 
@@ -69,7 +69,7 @@ SIDES_MENU = {
     "6": {"name": "16 x Chicken Wings", "price": 8.00},
 }
 
-pizza_SIZES = {
+PIZZA_SIZES = {
     "1": {
         "label": 'Small',
         "size_inch": '9"',
@@ -112,7 +112,7 @@ class Meal():
 
     def summary(self):
         
-        description_str = f"{self.quantity} x {self.pizza_name} {self.pizza_size}\U0001F355{self.extras_summary()}"
+        description_str = f"{self.quantity} x {self.pizza_name} {self.pizza_size} {chr(0x1F355)}{self.extras_summary()}"
         price_str = self.total_price
         return description_str, price_str
 
@@ -284,7 +284,7 @@ def create_order(meal_list=[]):
         
         while True:
             print(color_text("\nWould you like to add another meal?",15))
-            print(color_text("1) Yes \n2) No",82))
+            print(color_text(f"1) Yes {chr(0x2705)} \n2) No  {chr(0x274C)}",82))
             user_input = strppied_input(color_text("Enter your choice:\n",166))
             if user_input == '99':
                confirm_exit()
@@ -298,9 +298,9 @@ def create_order(meal_list=[]):
     return meal_list
 
 def confirm_exit():
-    print("\nReturning to the main menu will clear all items in your current order.")
+    print(f"\n{chr(0x26A0)} Returning to the main menu will clear all items in your current order.")
     while True:
-        user_input = strppied_input(color_text("     Are you sure you want to continue? \n1) Yes \n2) No\n",166))
+        user_input = strppied_input(color_text(f"     Are you sure you want to continue? \n1) Yes {chr(0x2705)} \n2) No  {chr(0x274C)}\n",166))
 
         if validate_single_entry(user_input,1,2):
             break
@@ -314,7 +314,7 @@ def choose_pizza_name():
     while True:
         print(color_text("\nChoose your pizza (one pizza at a time)",15))
         display_return_home_option()
-        print(color_text("Our pizzas \U0001F355 ".ljust(indent_value) + "| Base toppings",15))
+        print(color_text(f"Our pizzas {chr(0x1F355)}".ljust(17) + "| Base toppings",15))
         print(color_text("-"*35,15))
         for key, value in pizza_MENU.items():
             print(color_text(f"{key}) {value['name']}".ljust(indent_value),82) + color_text("|",15)+color_text(f" {', '.join(value['base_toppings'])}",82))
@@ -331,22 +331,22 @@ def choose_pizza_name():
 
 def choose_pizza_size():
     clear_console()
-    indent_value=18
+    indent_value=21
     while True:
         print(color_text("\nChoose the size of your pizza",15))
         display_return_home_option()        
-        print(color_text("Standard sizes | Price (£)",15))
+        print(color_text(f"Pizza size {chr(0x1F355)}".ljust(20) + "| Price (£)",15))
         print(color_text("-"*33,15))
-        for key, value in pizza_SIZES.items():
-            print(color_text(f"{key}) {value['label']}".ljust(indent_value),82) + color_text("|",15)+color_text(f"{price_format(value['price'])}".rjust(7),82))
+        for key, value in PIZZA_SIZES.items():
+            print(color_text(f"{key}) {value['label']} {value['size_inch']}({value['size_cm']})".ljust(indent_value),82) + color_text("|",15)+color_text(f"{price_format(value['price'])}".rjust(7),82))
         user_input = strppied_input(color_text("Enter your choice:\n",166))
         if user_input == '99':
             confirm_exit()
             continue
         if validate_single_entry(user_input,1,3):
             break
-    pizza_size = pizza_SIZES[user_input]['label']
-    pizza_price = pizza_SIZES[user_input]['price']
+    pizza_size = PIZZA_SIZES[user_input]['label']
+    pizza_price = PIZZA_SIZES[user_input]['price']
     return pizza_size, pizza_price
 
 def choose_extra_items(item_type,count_max):
@@ -448,20 +448,20 @@ def summary_order_confirm(input_list):
     clear_console()
     if not len(input_list):
         print("\nThere are no items in this order")
-        input(color_text("- Press any key to return to main menu\n",166))
+        input(color_text("- Press any key to Main Menu\n",166))
         total_sum=0
         user_input="2"
         main_menu()
 
     else:
-        
+        indent_value=18
         while True:
             print(color_text("\nConfirm your full order:",15))
             total_sum = display_full_order(input_list)
-            print(color_text("\n1) Place order",82))
-            print(color_text("2) Add more items",82))
-            print(color_text("3) Remove items",82))
-            print(color_text("99) Return to main menu",82))
+            print(color_text("\n1) Place order".ljust(indent_value+1)+chr(0x1F6D2),82))
+            print(color_text("2) Add more items".ljust(indent_value)+chr(0x2795),82))
+            print(color_text("3) Remove items".ljust(indent_value)+chr(0x2796),82))
+            print(color_text("99) Main Menu".ljust(indent_value)+chr(0x1F3E0),82))
             user_input = strppied_input(color_text("Enter your choice:\n",166))
             if user_input == '99':
                 confirm_exit()
@@ -485,7 +485,7 @@ def display_full_order(input_list):
         total_sum += order.total_price
     total_sum = round(total_sum, 2)
     print(color_text('_'*(str_indent+12),15))
-    print(color_text("Total cost:".center(str_indent+1) +"|",15)+ color_text(f"{price_format(total_sum)}".rjust(price_indent),220))
+    print(color_text(f"Total cost: {chr(0x1F4B7)}".center(str_indent) +"|",15)+ color_text(f"{price_format(total_sum)}".rjust(price_indent),220))
     print_extras_description()
     
     return total_sum
@@ -506,9 +506,8 @@ def print_order_summary(order_dict):
             value = value if isinstance(value, str) else f"£ {price_format(value)}"
             
         if 'time' in label:
-            print("Date".ljust(indent_value) + f"| {value.split(' ')[0]}")
+            print(color_text("Date".ljust(indent_value) + f"| {value.split(' ')[0]}",15))
             value = value.split(' ')[1][:-3]
-
         
         if label =='Items' and ',' in value:
             align_space = " " * len(f"{label}".ljust(indent_value)) + color_text("|",15)
@@ -520,10 +519,9 @@ def print_order_summary(order_dict):
             print(color_text(f"{label}".ljust(indent_value) + "|",15) +color_text(f" {value}",220)) 
         elif label =='Status': 
             if value != 'Ready':
-                text_color=166
+                print(color_text(f"{label}".ljust(indent_value) + "|",15) +f" {chr(0x231B)}"+color_text(f" {value}",166))
             else:
-                text_color=82
-            print(color_text(f"{label}".ljust(indent_value) + "|",15) +color_text(f" {value}",text_color))
+                print(color_text(f"{label}".ljust(indent_value) + "|",15) +f" {chr(0x2705)}"+color_text(f" {value}",82))
                 
         else: 
             print(color_text(f"{label}".ljust(indent_value) + "|" +f" {value}",15))
@@ -540,7 +538,7 @@ def update_orders_sheet(order):
     ORDERS_SHEET.append_row(order_list_item)
 
     print(color_text("'orders' worksheet updated successfully.",220))
-    print(color_text("\nThank you for sending your order. It is now being prepared...",220))
+    print(color_text(f"\nSuccess!{chr(0x2705)} {chr(0x1F38A)} Thank you for sending your order. It is now being prepared...",220))
     print_order_summary(order.summary.values())
  
     input(color_text("\n- Press any key to return to the main menu\n",166))
@@ -629,7 +627,7 @@ def validate_single_entry(value, min_value=None, max_value=None):
             raise ValueError(f"Value '{value}' is out of range. The input value must be between {min_value} and {max_value}")
 
     except ValueError as e:
-        print(color_text(f"\nInvalid entry: {e}, please try again.",196))
+        print(color_text(f"\n{chr(0x274C)} Invalid entry: {e}, please try again.",196))
         return False
 
     return True
@@ -667,17 +665,17 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
                 raise ValueError(f"Value '{value}' is out of range. The input values must be integers between {min_value} and {max_value}")
 
     except ValueError as e:
-        print(color_text(f"\nInvalid entry: {e}, please try again.",196))
+        print(color_text(f"\n{chr(0x274C)} Invalid entry: {e}, please try again.",196))
         return False
 
     return True
 
 def welcome_page():
-    clear_console()
+    # clear_console()
     dashes = "-"*20
     dashes_slogan= "-"*16
     string_len = 75
-    welcome_str = f"{color_text('/'+dashes,166)}{chr(0x1F355)} {color_text('Welcome to PizzaPalace CLI!',82)} {chr(0x1F355)}-{color_text(dashes+'\\',166)}"
+    welcome_str = f"{color_text('/'+dashes,166)}{chr(0x1F355)} {color_text('Welcome to PizzaPalace CLI!',82)} {chr(0x1F355)}{color_text(dashes+'\\',166)}"
     second_line_str = f"{color_text('|'+dashes_slogan,166)}{chr(0x1F336)*2} {color_text('Packed with incredible',82)} {color_text('flavors!',196)} {chr(0x1F525)*2}{color_text(dashes_slogan+'|',166)}"
     print(color_text(" "+ "_"*string_len,166))
     print(welcome_str)
@@ -687,9 +685,9 @@ def welcome_page():
     indent_value =21
     
     while True:
-        print(color_text("\nWhat would you like to do today? \U0001F600",15))
-        print(color_text("1) Place an order".ljust(indent_value) + "\U0001F4DD",82))
-        print(color_text("2) Track an order".ljust(indent_value) + "\U0001F50D",82))
+        print(color_text(f"\nWhat would you like to do today? {chr(0x1F600)}",15))
+        print(color_text("1) Place an order".ljust(indent_value) + chr(0x1F4DD),82))
+        print(color_text("2) Track an order".ljust(indent_value) + chr(0x1F50D),82))
 
         task_to_do = strppied_input(color_text("Enter your choice:\n",166))
         if validate_single_entry(task_to_do,1,2):
@@ -699,7 +697,7 @@ def welcome_page():
 def track_order():
     clear_console()
     while True:
-        print("Track order:")
+        print(color_text("Track order:",15))
         display_return_home_option()
         user_input = strppied_input(color_text(f"Enter your {ORDER_NUMBER_LENGTH}-digit order number:\n",166))
         if user_input== '99':
@@ -714,7 +712,8 @@ def track_order():
         order_index = orders_df[orders_df['Order ID'] == order_number].index
         
         if not len(order_index):
-            print(f"Order number {order_number} not found. Please check the number and try again.\n")
+            print(color_text(f"\n{chr(0x274C)} Order number {order_number} not found. Please check the number and try again.\n",196))
+
             continue
             
         order_dict = orders_df.iloc[order_index[0]].to_dict()
@@ -722,10 +721,10 @@ def track_order():
     
         print_order_summary(order_dict.values())
         print(f"\n{status_str}")
-        
+        indent_value=23
         while True:
-            print(color_text("\n1) Track another order",82))
-            print(color_text("99) Return to home page",82))
+            print(color_text("\n1) Track another order ".ljust(indent_value) + chr(0x1F50D),82))
+            print(color_text("99) Main Menu".ljust(indent_value)+chr(0x1F3E0),82))
             user_input = strppied_input(color_text("Enter your choice:\n",166))
             if user_input == '99':
                 main_menu()
@@ -800,7 +799,7 @@ def validate_order_number(number):
             raise ValueError(f"Order number must have exactly 12 integers - you provided {len(number)}")
         
     except ValueError as e:
-        print(color_text(f"\nInvalid entry: {e}, please try again.\n",196))
+        print(color_text(f"\n{chr(0x274C)} Invalid entry: {e}, please try again.\n",196))
         return False
 
     return True
