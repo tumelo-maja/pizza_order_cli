@@ -583,15 +583,20 @@ def prepare_new_order(last_orderID):
 def remove_order_items(input_list):
     
     while True:
-        print("\nSelect the order item(s) you wish to remove \n(inputs can be comma-separated integers)")
+        print(color_text("\nSelect the order item(s) you wish to remove \n(inputs can be comma-separated integers)",15))
+        print(color_text("-  enter 0 for no changes",166))
         display_return_home_option()
         display_full_order(input_list)
         user_input = strppied_input(color_text("Enter your choice:\n",166))
         if user_input == '99':
             confirm_exit()
             continue
+        if user_input == '0':
+            return input_list
+            
         if validate_multiple_entries(user_input,1,len(input_list)):
-            break    
+            break
+        
     removed_indexes = [int(x)-1 for x in user_input.split(",")]
     
     new_list = [order for i, order in enumerate(input_list) if i not in removed_indexes]
