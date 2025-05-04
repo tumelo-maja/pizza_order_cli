@@ -696,9 +696,9 @@ def welcome_page():
 
 def track_order():
     clear_console()
-    print("Track order:")
-    display_return_home_option()
     while True:
+        print("Track order:")
+        display_return_home_option()
         user_input = strppied_input(color_text(f"Enter your {ORDER_NUMBER_LENGTH}-digit order number:\n",166))
         if user_input== '99':
             main_menu()
