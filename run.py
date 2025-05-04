@@ -674,14 +674,16 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
 
 def welcome_page():
     clear_console()
-    dashes = "-"*19
-    welcome_str = f"{color_text('/'+dashes,166)} \U0001F355   {color_text('Welcome to PizzaPalace CLI!',82)} \U0001F355 {color_text(dashes+'\\',166)}"
-    second_line_str = f"{color_text('|--- ',166)} {color_text('Packed with incredible',82)} {color_text('flavors',196)} {color_text('- our pizzas are irresitably',82)} {color_text('tasty!',196)} {color_text('---|',166)}"
-    print(color_text(" "+ "_"*75,166))
+    dashes = "-"*20
+    dashes_slogan= "-"*16
+    string_len = 75
+    welcome_str = f"{color_text('/'+dashes,166)}{chr(0x1F355)} {color_text('Welcome to PizzaPalace CLI!',82)} {chr(0x1F355)}-{color_text(dashes+'\\',166)}"
+    second_line_str = f"{color_text('|'+dashes_slogan,166)}{chr(0x1F336)*2} {color_text('Packed with incredible',82)} {color_text('flavors!',196)} {chr(0x1F525)*2}{color_text(dashes_slogan+'|',166)}"
+    print(color_text(" "+ "_"*string_len,166))
     print(welcome_str)
-    print(color_text("|"+"-"*75 +"|",166))
+    print(color_text("|"+"-"*string_len +"|",166))
     print(second_line_str) 
-    print(color_text("\\"+"_"*75 +"/",166))
+    print(color_text("\\"+"_"*string_len +"/",166))
     indent_value =21
     
     while True:
