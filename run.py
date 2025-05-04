@@ -306,6 +306,7 @@ def confirm_exit():
             break
     if user_input == "1":
         main_menu()
+    clear_console()
 
 def choose_pizza_name():
     clear_console()
@@ -696,14 +697,16 @@ def welcome_page():
 def track_order():
     clear_console()
     print("Track order:")
+    display_return_home_option()
     while True:
-        order_number = strppied_input(color_text(f"Enter your {ORDER_NUMBER_LENGTH}-digit order number:\n",166))
-        if order_number.lower() == 'x':
+        user_input = strppied_input(color_text(f"Enter your {ORDER_NUMBER_LENGTH}-digit order number:\n",166))
+        if user_input== '99':
+            main_menu()
             break
-        elif not validate_order_number(order_number):
+        elif not validate_order_number(user_input):
             continue
         
-        order_number= int(order_number)
+        order_number= int(user_input)
         update_orders_status()
         orders_df = pd.DataFrame(ORDERS_SHEET.get_all_records())
         order_index = orders_df[orders_df['Order ID'] == order_number].index
@@ -723,15 +726,15 @@ def track_order():
             print(color_text("99) Return to home page",82))
             user_input = strppied_input(color_text("Enter your choice:\n",166))
             if user_input == '99':
+                main_menu()
                 break
-            if validate_single_entry(user_input,1,2):
+            if validate_single_entry(user_input,1,1):
                 break
-        
-        main_menu()
-        break
-
+            
+        if user_input=='1':
+            clear_console()
+            continue
     
-
 def update_orders_status():
     print(color_text("Updating order status...",220))
     orders_df = pd.DataFrame(ORDERS_SHEET.get_all_records())
