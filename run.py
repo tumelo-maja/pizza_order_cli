@@ -26,47 +26,47 @@ pizza_MENU = {
 
 DRINKS_MENU = {
     "0": "None",
-    "1": {"name": "Coke Zero 330ml", "price": 1.20},
-    "2": {"name": "Coke 330ml", "price": 1.30},
-    "3": {"name": "Sprite 330ml", "price": 1.30},
-    "4": {"name": "Pepsi 330ml", "price": 1.20},
-    "5": {"name": "Apple Juice 330ml", "price": 1.50},
-    "6": {"name": "Mango Juice 330ml", "price": 1.50},
-    "7": {"name": "Orange Juice 330ml", "price": 1.50},
-    "8": {"name": "Still Water 500ml", "price": 1.00},
+    "1": {"name": "Coke Zero 330ml", "price": 1.20,'icon':chr(0x1F964)},
+    "2": {"name": "Coke 330ml", "price": 1.30,'icon':chr(0x1F964)},
+    "3": {"name": "Sprite 330ml", "price": 1.30,'icon':chr(0x1F964)},
+    "4": {"name": "Pepsi 330ml", "price": 1.20,'icon':chr(0x1F964)},
+    "5": {"name": "Apple Juice 330ml", "price": 1.50,'icon':chr(0x1F9C3)},
+    "6": {"name": "Mango Juice 330ml", "price": 1.50,'icon':chr(0x1F9C3)},
+    "7": {"name": "Orange Juice 330ml", "price": 1.50,'icon':chr(0x1F9C3)},
+    "8": {"name": "Still Water 500ml", "price": 1.00,'icon':chr(0x1F4A7)},
 }
 
 EXTRA_TOPPING_PRICE = 1.50
 EXTRA_TOPPINGS = {
     "0": "None",
-    "1": {"name": "Mushrooms", "price": EXTRA_TOPPING_PRICE},
-    "2": {"name": "Mixed Peppers", "price": EXTRA_TOPPING_PRICE},
-    "3": {"name": "Jalapenos", "price": EXTRA_TOPPING_PRICE},
-    "4": {"name": "Cheese", "price": EXTRA_TOPPING_PRICE},
-    "5": {"name": "Pepperoni", "price": EXTRA_TOPPING_PRICE},
-    "6": {"name": "Chicken", "price": EXTRA_TOPPING_PRICE},
-    "7": {"name": "Beef", "price": EXTRA_TOPPING_PRICE},
-    "8": {"name": "Bacon", "price": EXTRA_TOPPING_PRICE},
+    "1": {"name": "Mushrooms", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F344)},
+    "2": {"name": "Pineapple", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F34D)},
+    "3": {"name": "Jalapenos", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F336)},
+    "4": {"name": "Cheese", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F9C0)},
+    "5": {"name": "Olives", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1FAD2)},
+    "6": {"name": "Chicken", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F357)},
+    "7": {"name": "Beef", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F969)},
+    "8": {"name": "Sweet Corn", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F33D)},
 }
 
 EXTRA_DIP_PRICE = 0.60
 EXTRA_DIP = {
     "0": "None",
-    "1": {"name": "Garlic & Herb Dip", "price": EXTRA_DIP_PRICE},
-    "2": {"name": "BBQ Dip", "price": EXTRA_DIP_PRICE},
-    "3": {"name": "Sriracha Dip", "price": EXTRA_DIP_PRICE},
-    "4": {"name": "Ranch Dip", "price": EXTRA_DIP_PRICE},
+    "1": {"name": "Garlic & Herb", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F9C4) + chr(0x1F33F)},
+    "2": {"name": "BBQ", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F356)+chr(0x1F525)},
+    "3": {"name": "Sriracha", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F336) + chr(0x1F525)},
+    "4": {"name": "Ranch", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F95B) + chr(0x1F33F)},
 }
 
 SIDES_PRICE = 1.50
 SIDES_MENU = {
     "0": "None",
-    "1": {"name": "Small Fries", "price": 1.80},
-    "2": {"name": "Medium Fries", "price": 2.30},
-    "3": {"name": "Large Fries", "price": 2.80},
-    "4": {"name": "8 x Chicken Wings", "price": 4.50},
-    "5": {"name": "12 x Chicken Wings", "price": 6.50},
-    "6": {"name": "16 x Chicken Wings", "price": 8.00},
+    "1": {"name": "Small Fries", "price": 1.80,'icon':chr(0x1F35F)},
+    "2": {"name": "Medium Fries", "price": 2.30,'icon':chr(0x1F35F)},
+    "3": {"name": "Large Fries", "price": 2.80,'icon':chr(0x1F35F)},
+    "4": {"name": "8 x Chicken Wings", "price": 4.50,'icon':chr(0x1F357)},
+    "5": {"name": "12 x Chicken Wings", "price": 6.50,'icon':chr(0x1F357)},
+    "6": {"name": "16 x Chicken Wings", "price": 8.00,'icon':chr(0x1F357)},
 }
 
 PIZZA_SIZES = {
@@ -351,8 +351,10 @@ def choose_pizza_size():
 
 def choose_extra_items(item_type,count_max):
     clear_console()
+    indent_value=22
     if item_type=='toppings':
         menu_list = EXTRA_TOPPINGS
+        indent_value=22
         item_type = f'extra {item_type}'
     elif item_type=='Dips':
         menu_list = EXTRA_DIP 
@@ -362,10 +364,10 @@ def choose_extra_items(item_type,count_max):
     elif item_type=='sides':
         menu_list = SIDES_MENU
         
-    indent_value=22
+    
     while True:
         print(color_text(f"\nAny {item_type.lower()}? (You can select up to {count_max} items",15))
-        print(color_text("-  input(s) can be comma-separated integers",166))
+        print(color_text("- input(s) can be comma-separated integers",166))
         display_return_home_option()
         print(color_text(f"{item_type.capitalize()}".center(indent_value)+"| Price (£)",15))
         print(color_text("-"*30,15))
@@ -374,7 +376,7 @@ def choose_extra_items(item_type,count_max):
             if key == "0":
                 print(color_text(f"{key}) {value}".ljust(indent_value),82) + color_text("|",15) + color_text("-".center(5),82))
             else:
-                print(color_text(f"{key}) {value['name']}".ljust(indent_value),82) + color_text("|",15)+ color_text(f"{price_format(value['price'])}".rjust(5),82))
+                print(color_text(f"{key}){value.get('icon', ' ')} {value['name']}".ljust(indent_value),82) + color_text("|",15)+ color_text(f"{price_format(value['price'])}".rjust(5),82))
                 
         user_input = strppied_input(color_text("Enter your choice(s):\n",166))
         if user_input == '99':
@@ -808,7 +810,7 @@ def strppied_input(message):
     return input(message).replace(' ', '')
 
 def display_return_home_option():
-    print(color_text("-  enter 99 to return to the main menu\n",166))
+    print(color_text("- enter 99 to return to the main menu\n",166))
 
 def color_text(message,color_code):
 
