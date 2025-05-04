@@ -218,6 +218,7 @@ Python program to print Emojis - (https://www.geeksforgeeks.org/python-program-t
 colorrama - (https://www.geeksforgeeks.org/introduction-to-python-colorama/)
 breaking lines python - (https://www.pythonmorsels.com/breaking-long-lines-code-python/)
 ANSI escape codes - (https://jakob-bagterp.github.io/colorist-for-python/ansi-escape-codes/extended-256-colors/#structure)
+clear console - (https://stackoverflow.com/questions/517970/how-can-i-clear-the-interpreter-console)
 
 ### Tutorials and other resources
 

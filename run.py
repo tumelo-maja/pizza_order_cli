@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 import pandas as pd
 import colorama
 from colorama import Fore, Style, init
+import os
 
 # init(autoreset=True)
 
@@ -307,9 +308,8 @@ def confirm_exit():
         main_menu()
 
 def choose_pizza_name():
+    clear_console()
     indent_value=18
-
-    
     while True:
         print(color_text("\nChoose your pizza (one pizza at a time)",15))
         display_return_home_option()
@@ -329,6 +329,7 @@ def choose_pizza_name():
     return pizza_name, pizza_base
 
 def choose_pizza_size():
+    clear_console()
     indent_value=18
     while True:
         print(color_text("\nChoose the size of your pizza",15))
@@ -348,7 +349,7 @@ def choose_pizza_size():
     return pizza_size, pizza_price
 
 def choose_extra_items(item_type,count_max):
-    
+    clear_console()
     if item_type=='toppings':
         menu_list = EXTRA_TOPPINGS
         item_type = f'extra {item_type}'
@@ -391,7 +392,7 @@ def choose_extra_items(item_type,count_max):
     return extra_items_dict    
    
 def enter_meal_quantity():
-    
+    clear_console()    
     while True:
         print(color_text("\nHow many qunatities of this meal would you like?",15))
         display_return_home_option()
@@ -405,6 +406,7 @@ def enter_meal_quantity():
     return int(user_input)
 
 def print_meal_summary(meal_object):
+    clear_console()
     print(color_text("\nOrder summary: ",15))
     summary_str = f"{meal_object.quantity} x {meal_object.pizza_size} {meal_object.pizza_name} Pizza with "
     extras =meal_object.extras_summary()
@@ -442,7 +444,7 @@ def confirm_order(input_list):
         print("Invalid answer")
 
 def summary_order_confirm(input_list):
-    
+    clear_console()
     if not len(input_list):
         print("\nThere are no items in this order")
         input(color_text("- Press any key to return to main menu\n",166))
@@ -530,6 +532,7 @@ def print_extras_description():
     print(color_text(f'\n * {extras_description}',166))
 
 def update_orders_sheet(order):
+    clear_console()
     print(color_text("Updating 'order' worksheet...",220))
     order_list_item = list(order.summary.values())
     
@@ -581,7 +584,7 @@ def prepare_new_order(last_orderID):
     return order
 
 def remove_order_items(input_list):
-    
+    clear_console()
     while True:
         print(color_text("\nSelect the order item(s) you wish to remove \n(inputs can be comma-separated integers)",15))
         print(color_text("-  enter 0 for no changes",166))
@@ -669,7 +672,7 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
     return True
 
 def welcome_page():
-    
+    clear_console()
     dashes = "-"*19
     welcome_str = f"{color_text('/'+dashes,166)} \U0001F355   {color_text('Welcome to PizzaPalace CLI!',82)} \U0001F355 {color_text(dashes+'\\',166)}"
     second_line_str = f"{color_text('|--- ',166)} {color_text('Packed with incredible',82)} {color_text('flavors',196)} {color_text('- our pizzas are irresitably',82)} {color_text('tasty!',196)} {color_text('---|',166)}"
@@ -691,7 +694,7 @@ def welcome_page():
     return task_to_do        
 
 def track_order():
-    
+    clear_console()
     print("Track order:")
     while True:
         order_number = strppied_input(color_text(f"Enter your {ORDER_NUMBER_LENGTH}-digit order number:\n",166))
@@ -807,6 +810,8 @@ def color_text(message,color_code):
 
     return f"\033[38;5;{color_code}m{message}\033[0m"
 
+def clear_console():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def main_menu():
     """
