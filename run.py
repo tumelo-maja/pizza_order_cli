@@ -485,8 +485,8 @@ def welcome_page():
     dashes = "-"*21
     dashes_slogan= "-"*18
     string_len = 75
-    welcome_str = f"{color_text('/'+dashes,166)}{chr(0x1F355)}  {color_text('Welcome to PizzaPalace CLI!',82)} {chr(0x1F355)}{color_text(dashes+'\\',166)}"
-    second_line_str = f"{color_text('|'+dashes_slogan,166)}{color_text(chr(0x1F336),196)*2}  {color_text('Packed with incredible',82)} {color_text('flavors!',196)} {chr(0x1F525)*2}{color_text(dashes_slogan+'|',166)}"
+    welcome_str = f"{color_text('/'+dashes,166)}{chr(0x1F355)}  {color_text('Welcome to PizzaPalace CLI!',82)} {chr(0x1F355)}{color_text(dashes+'-\\',166)}"
+    second_line_str = f"{color_text('|'+dashes_slogan,166)}{color_text(chr(0x1F336),196)*2}  {color_text('Packed with incredible',82)} {color_text('flavors!',196)} {chr(0x1F525)*2}{color_text(dashes_slogan+'-|',166)}"
     print(color_text(" "+ "_"*string_len,166))
     print(welcome_str)
     print(color_text("|"+"-"*string_len +"|",166))
