@@ -295,14 +295,14 @@ def display_full_order(input_list):
     price_indent=9
     str_indent=62
     print(color_text("Items".center(str_indent)+"| Price (£)",15))
-    print(color_text("-"*70,15))
+    print(color_text("-"*(str_indent+10),15))
 
     for ind,order in enumerate(input_list):
         description_str, price_str = order.summary()
         print(color_text(f"{ind+1}) {description_str}".ljust(str_indent),220) +color_text("|",15)+ color_text(f"{price_format(price_str)}".rjust(price_indent),220))
         total_sum += order.total_price
     total_sum = round(total_sum, 2)
-    print(color_text('_'*(str_indent+12),15))
+    print(color_text('_'*(str_indent+10),15))
     print(color_text(f"Total cost {chr(0x1F4B7)}:".center(str_indent) +"|",15)+ color_text(f"{price_format(total_sum)}".rjust(price_indent),220))
     print_extras_description()
     
@@ -356,7 +356,7 @@ def update_orders_sheet(order):
     ORDERS_SHEET.append_row(order_list_item)
 
     print(color_text("'orders' worksheet updated successfully.",220))
-    print(color_text(f"\nSuccess!{chr(0x2705)}  {chr(0x1F4AF)}  {chr(0x1F603)} Thank you for sending your order. It is now being prepared...",220))
+    print(color_text(f"\nSuccess!{chr(0x2705)}  {chr(0x1F4AF)}  {chr(0x1F603)}  Thank you for sending your order. It is now being prepared...",220))
     print_order_summary(order.summary.values())
  
     input(color_text(f"\n- Press any key to return to the main menu {chr(0x1F3E0)}\n",166))
