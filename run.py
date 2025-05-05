@@ -303,10 +303,10 @@ def confirm_exit():
             break
     if user_input == "1":
         main_menu()
-    #clear_console()
+    clear_console()
 
 def choose_pizza_name():
-    #clear_console()
+    clear_console()
     indent_value=18
     while True:
         print(color_text("\nChoose your pizza (one pizza at a time)",15))
@@ -327,7 +327,7 @@ def choose_pizza_name():
     return pizza_name, pizza_base
 
 def choose_pizza_size():
-    #clear_console()
+    clear_console()
     indent_value=21
     while True:
         print(color_text("\nChoose the size of your pizza",15))
@@ -347,7 +347,7 @@ def choose_pizza_size():
     return pizza_size, pizza_price
 
 def choose_extra_items(item_type,count_max):
-    #clear_console()
+    clear_console()
     if item_type=='toppings':
         menu_list = EXTRA_TOPPINGS
         indent_value=16
@@ -396,7 +396,7 @@ def choose_extra_items(item_type,count_max):
     return extra_items_dict    
    
 def enter_meal_quantity():
-    #clear_console()    
+    clear_console()    
     while True:
         print(color_text("\nHow many qunatities of this meal would you like?",15))
         display_return_home_option()
@@ -410,7 +410,7 @@ def enter_meal_quantity():
     return int(user_input)
 
 def print_meal_summary(meal_object):
-    #clear_console()
+    clear_console()
     print(color_text("\nOrder summary: ",15))
     summary_str = f"{meal_object.quantity} x {meal_object.pizza_size} {meal_object.pizza_name} Pizza with "
     extras =meal_object.extras_summary()
@@ -448,7 +448,7 @@ def confirm_order(input_list):
         print("Invalid answer")
 
 def summary_order_confirm(input_list):
-    #clear_console()
+    clear_console()
     if not len(input_list):
         print("\nThere are no items in this order")
         input(color_text(f"- Press any key to Main Menu {chr(0x1F3E0)}\n",166))
@@ -534,7 +534,7 @@ def print_extras_description():
     print(color_text(f'\n * {extras_description}',166))
 
 def update_orders_sheet(order):
-    #clear_console()
+    clear_console()
     print(color_text("Updating 'order' worksheet...",220))
     order_list_item = list(order.summary.values())
     
@@ -586,7 +586,7 @@ def prepare_new_order(last_orderID):
     return order
 
 def remove_order_items(input_list):
-    #clear_console()
+    clear_console()
     while True:
         print(color_text("\nSelect the order item(s) you wish to remove \n(inputs can be comma-separated integers)",15))
         print(color_text("-  enter 0 for no changes",166))
@@ -666,7 +666,7 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
     return True
 
 def welcome_page():
-    # #clear_console()
+    # clear_console()
     dashes = "-"*20
     dashes_slogan= "-"*16
     string_len = 75
@@ -690,7 +690,7 @@ def welcome_page():
     return task_to_do        
 
 def track_order():
-    #clear_console()
+    clear_console()
     while True:
         print(color_text("Track order:",15))
         display_return_home_option()
@@ -728,7 +728,7 @@ def track_order():
                 break
             
         if user_input=='1':
-            #clear_console()
+            clear_console()
             continue
     
 def update_orders_status():
