@@ -16,7 +16,7 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
 ]
 
-pizza_MENU = {
+PIZZA_MENU = {
     "1": {"name": "Hawaiian", "base_toppings": ["ham", "pineapple", "cheese"]},
     "2": {"name": "Pepperoni", "base_toppings": ["pepperoni", "cheese", "tomato sauce"]},
     "3": {"name": "Vegetarian", "base_toppings": ["mushrooms", "peppers", "onions", "olives"]},
@@ -25,7 +25,7 @@ pizza_MENU = {
 }
 
 DRINKS_MENU = {
-    "0": "None",
+    "0": {"name": "None",'icon': chr(0x274C)},
     "1": {"name": "Coke Zero 330ml", "price": 1.20,'icon':chr(0x1F964)},
     "2": {"name": "Coke 330ml", "price": 1.30,'icon':chr(0x1F964)},
     "3": {"name": "Sprite 330ml", "price": 1.30,'icon':chr(0x1F964)},
@@ -38,7 +38,7 @@ DRINKS_MENU = {
 
 EXTRA_TOPPING_PRICE = 1.50
 EXTRA_TOPPINGS = {
-    "0": "None",
+    "0": {"name": "None",'icon': chr(0x274C)},
     "1": {"name": "Mushrooms", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F344)},
     "2": {"name": "Pineapple", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F34D)},
     "3": {"name": "Jalapenos", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F336)},
@@ -51,16 +51,16 @@ EXTRA_TOPPINGS = {
 
 EXTRA_DIP_PRICE = 0.60
 EXTRA_DIP = {
-    "0": "None",
-    "1": {"name": "Garlic & Herb", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F9C4) + chr(0x1F33F)},
-    "2": {"name": "BBQ", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F356)+chr(0x1F525)},
-    "3": {"name": "Sriracha", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F336) + chr(0x1F525)},
-    "4": {"name": "Ranch", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F95B) + chr(0x1F33F)},
+    "0": {"name": "None",'icon': chr(0x274C) + "\u00A0"},
+    "1": {"name": "Garlic & Herb", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F9C4)},
+    "2": {"name": "BBQ", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F356)},
+    "3": {"name": "Sriracha", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F336)},
+    "4": {"name": "Ranch", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F95B)},
 }
 
 SIDES_PRICE = 1.50
 SIDES_MENU = {
-    "0": "None",
+    "0": {"name": "None",'icon': chr(0x274C)},
     "1": {"name": "Small Fries", "price": 1.80,'icon':chr(0x1F35F)},
     "2": {"name": "Medium Fries", "price": 2.30,'icon':chr(0x1F35F)},
     "3": {"name": "Large Fries", "price": 2.80,'icon':chr(0x1F35F)},
@@ -306,17 +306,17 @@ def confirm_exit():
             break
     if user_input == "1":
         main_menu()
-    clear_console()
+    #clear_console()
 
 def choose_pizza_name():
-    clear_console()
+    #clear_console()
     indent_value=18
     while True:
         print(color_text("\nChoose your pizza (one pizza at a time)",15))
         display_return_home_option()
         print(color_text(f"Our pizzas {chr(0x1F355)}".ljust(17) + "| Base toppings",15))
         print(color_text("-"*35,15))
-        for key, value in pizza_MENU.items():
+        for key, value in PIZZA_MENU.items():
             print(color_text(f"{key}) {value['name']}".ljust(indent_value),82) + color_text("|",15)+color_text(f" {', '.join(value['base_toppings'])}",82))
             
         user_input = strppied_input(color_text("Enter your choice:\n",166))
@@ -325,12 +325,12 @@ def choose_pizza_name():
             continue
         if validate_single_entry(user_input,1,5):
             break
-    pizza_name = pizza_MENU[user_input]['name']
-    pizza_base = pizza_MENU[user_input]['base_toppings']
+    pizza_name = PIZZA_MENU[user_input]['name']
+    pizza_base = PIZZA_MENU[user_input]['base_toppings']
     return pizza_name, pizza_base
 
 def choose_pizza_size():
-    clear_console()
+    #clear_console()
     indent_value=21
     while True:
         print(color_text("\nChoose the size of your pizza",15))
@@ -350,18 +350,20 @@ def choose_pizza_size():
     return pizza_size, pizza_price
 
 def choose_extra_items(item_type,count_max):
-    clear_console()
-    indent_value=22
+    #clear_console()
     if item_type=='toppings':
         menu_list = EXTRA_TOPPINGS
-        indent_value=22
+        indent_value=16
         item_type = f'extra {item_type}'
     elif item_type=='Dips':
         menu_list = EXTRA_DIP 
+        indent_value=20
         item_type = f'extra {item_type}'
     elif item_type=='drinks':
+        indent_value=24
         menu_list = DRINKS_MENU
     elif item_type=='sides':
+        indent_value=24
         menu_list = SIDES_MENU
         
     
@@ -369,14 +371,16 @@ def choose_extra_items(item_type,count_max):
         print(color_text(f"\nAny {item_type.lower()}? (You can select up to {count_max} items",15))
         print(color_text("- input(s) can be comma-separated integers",166))
         display_return_home_option()
-        print(color_text(f"{item_type.capitalize()}".center(indent_value)+"| Price (£)",15))
+        print(color_text(f"{item_type.capitalize():^{indent_value+2}}"+"| Price (£)",15))
         print(color_text("-"*30,15))
 
         for key, value in menu_list.items():
+            
+            item_str = f"{key}) {value.get('icon', ' ')} {value['name']}"
             if key == "0":
-                print(color_text(f"{key}) {value}".ljust(indent_value),82) + color_text("|",15) + color_text("-".center(5),82))
+                print(color_text(f"{item_str:<{indent_value}}",82) + color_text("|",15) + color_text("-".center(5),82))
             else:
-                print(color_text(f"{key}){value.get('icon', ' ')} {value['name']}".ljust(indent_value),82) + color_text("|",15)+ color_text(f"{price_format(value['price'])}".rjust(5),82))
+                print(color_text(f"{item_str:<{indent_value}}",82) + color_text("|",15)+ color_text(f"{price_format(value['price'])}".rjust(5),82))
                 
         user_input = strppied_input(color_text("Enter your choice(s):\n",166))
         if user_input == '99':
@@ -395,7 +399,7 @@ def choose_extra_items(item_type,count_max):
     return extra_items_dict    
    
 def enter_meal_quantity():
-    clear_console()    
+    #clear_console()    
     while True:
         print(color_text("\nHow many qunatities of this meal would you like?",15))
         display_return_home_option()
@@ -409,7 +413,7 @@ def enter_meal_quantity():
     return int(user_input)
 
 def print_meal_summary(meal_object):
-    clear_console()
+    #clear_console()
     print(color_text("\nOrder summary: ",15))
     summary_str = f"{meal_object.quantity} x {meal_object.pizza_size} {meal_object.pizza_name} Pizza with "
     extras =meal_object.extras_summary()
@@ -447,10 +451,10 @@ def confirm_order(input_list):
         print("Invalid answer")
 
 def summary_order_confirm(input_list):
-    clear_console()
+    #clear_console()
     if not len(input_list):
         print("\nThere are no items in this order")
-        input(color_text("- Press any key to Main Menu\n",166))
+        input(color_text(f"- Press any key to Main Menu {chr(0x1F3E0)}\n",166))
         total_sum=0
         user_input="2"
         main_menu()
@@ -533,17 +537,17 @@ def print_extras_description():
     print(color_text(f'\n * {extras_description}',166))
 
 def update_orders_sheet(order):
-    clear_console()
+    #clear_console()
     print(color_text("Updating 'order' worksheet...",220))
     order_list_item = list(order.summary.values())
     
     ORDERS_SHEET.append_row(order_list_item)
 
     print(color_text("'orders' worksheet updated successfully.",220))
-    print(color_text(f"\nSuccess!{chr(0x2705)} {chr(0x1F38A)} Thank you for sending your order. It is now being prepared...",220))
+    print(color_text(f"\nSuccess!{chr(0x2705)} {chr(0x1F4AF)}{chr(0x1F603)} Thank you for sending your order. It is now being prepared...",220))
     print_order_summary(order.summary.values())
  
-    input(color_text("\n- Press any key to return to the main menu\n",166))
+    input(color_text(f"\n- Press any key to return to the main menu {chr(0x1F3E0)}\n",166))
     main_menu()
 
 def get_latest_order_ID():
@@ -585,7 +589,7 @@ def prepare_new_order(last_orderID):
     return order
 
 def remove_order_items(input_list):
-    clear_console()
+    #clear_console()
     while True:
         print(color_text("\nSelect the order item(s) you wish to remove \n(inputs can be comma-separated integers)",15))
         print(color_text("-  enter 0 for no changes",166))
@@ -673,7 +677,7 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
     return True
 
 def welcome_page():
-    # clear_console()
+    # #clear_console()
     dashes = "-"*20
     dashes_slogan= "-"*16
     string_len = 75
@@ -697,7 +701,7 @@ def welcome_page():
     return task_to_do        
 
 def track_order():
-    clear_console()
+    #clear_console()
     while True:
         print(color_text("Track order:",15))
         display_return_home_option()
@@ -735,7 +739,7 @@ def track_order():
                 break
             
         if user_input=='1':
-            clear_console()
+            #clear_console()
             continue
     
 def update_orders_status():
