@@ -1,9 +1,12 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from collections import Counter
-from datetime import datetime, timedelta
+# from datetime import datetime, timedelta
+from datetime import datetime
 import pandas as pd
 import os
+from pizza_meals import Meal, Order
+from menu_items import (EXTRA_TOPPINGS,EXTRA_DIP, SIDES_MENU,DRINKS_MENU, EXTRAS_NAMES,PIZZA_MENU,PIZZA_SIZES)
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -11,200 +14,200 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
 ]
 
-PIZZA_MENU = {
-    "1": {"name": "Hawaiian", "base_toppings": ["ham", "pineapple", "cheese"]},
-    "2": {"name": "Pepperoni", "base_toppings": ["pepperoni", "cheese", "tomato sauce"]},
-    "3": {"name": "Vegetarian", "base_toppings": ["mushrooms", "peppers", "onions", "olives"]},
-    "4": {"name": "All Meaty", "base_toppings": ["pepperoni", "sausage", "ham", "olives", "beef"]},
-    "5": {"name": "Spicy Chicken", "base_toppings": ["spicy chicken", "jalapenos", "onions", "cheese"]},
-}
+# PIZZA_MENU = {
+#     "1": {"name": "Hawaiian", "base_toppings": ["ham", "pineapple", "cheese"]},
+#     "2": {"name": "Pepperoni", "base_toppings": ["pepperoni", "cheese", "tomato sauce"]},
+#     "3": {"name": "Vegetarian", "base_toppings": ["mushrooms", "peppers", "onions", "olives"]},
+#     "4": {"name": "All Meaty", "base_toppings": ["pepperoni", "sausage", "ham", "olives", "beef"]},
+#     "5": {"name": "Spicy Chicken", "base_toppings": ["spicy chicken", "jalapenos", "onions", "cheese"]},
+# }
 
-DRINKS_MENU = {
-    "0": {"name": "None",'icon': chr(0x274C)},
-    "1": {"name": "Coke Zero 330ml", "price": 1.20,'icon':chr(0x1F964)},
-    "2": {"name": "Coke 330ml", "price": 1.30,'icon':chr(0x1F964)},
-    "3": {"name": "Sprite 330ml", "price": 1.30,'icon':chr(0x1F964)},
-    "4": {"name": "Pepsi 330ml", "price": 1.20,'icon':chr(0x1F964)},
-    "5": {"name": "Apple Juice 330ml", "price": 1.50,'icon':chr(0x1F9C3)},
-    "6": {"name": "Mango Juice 330ml", "price": 1.50,'icon':chr(0x1F9C3)},
-    "7": {"name": "Orange Juice 330ml", "price": 1.50,'icon':chr(0x1F9C3)},
-    "8": {"name": "Still Water 500ml", "price": 1.00,'icon':chr(0x1F4A7)},
-}
+# DRINKS_MENU = {
+#     "0": {"name": "None",'icon': chr(0x274C)},
+#     "1": {"name": "Coke Zero 330ml", "price": 1.20,'icon':chr(0x1F964)},
+#     "2": {"name": "Coke 330ml", "price": 1.30,'icon':chr(0x1F964)},
+#     "3": {"name": "Sprite 330ml", "price": 1.30,'icon':chr(0x1F964)},
+#     "4": {"name": "Pepsi 330ml", "price": 1.20,'icon':chr(0x1F964)},
+#     "5": {"name": "Apple Juice 330ml", "price": 1.50,'icon':chr(0x1F9C3)},
+#     "6": {"name": "Mango Juice 330ml", "price": 1.50,'icon':chr(0x1F9C3)},
+#     "7": {"name": "Orange Juice 330ml", "price": 1.50,'icon':chr(0x1F9C3)},
+#     "8": {"name": "Still Water 500ml", "price": 1.00,'icon':chr(0x1F4A7)},
+# }
 
-EXTRA_TOPPING_PRICE = 1.50
-EXTRA_TOPPINGS = {
-    "0": {"name": "None",'icon': chr(0x274C)},
-    "1": {"name": "Mushrooms", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F344)},
-    "2": {"name": "Pineapple", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F34D)},
-    "3": {"name": "Jalapenos", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F336)},
-    "4": {"name": "Cheese", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F9C0)},
-    "5": {"name": "Olives", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1FAD2)},
-    "6": {"name": "Chicken", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F357)},
-    "7": {"name": "Beef", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F969)},
-    "8": {"name": "Sweet Corn", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F33D)},
-}
+# EXTRA_TOPPING_PRICE = 1.50
+# EXTRA_TOPPINGS = {
+#     "0": {"name": "None",'icon': chr(0x274C)},
+#     "1": {"name": "Mushrooms", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F344)},
+#     "2": {"name": "Pineapple", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F34D)},
+#     "3": {"name": "Jalapenos", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F336)},
+#     "4": {"name": "Cheese", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F9C0)},
+#     "5": {"name": "Olives", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1FAD2)},
+#     "6": {"name": "Chicken", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F357)},
+#     "7": {"name": "Beef", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F969)},
+#     "8": {"name": "Sweet Corn", "price": EXTRA_TOPPING_PRICE,'icon':chr(0x1F33D)},
+# }
 
-EXTRA_DIP_PRICE = 0.60
-EXTRA_DIP = {
-    "0": {"name": "None",'icon': chr(0x274C) + "\u00A0"},
-    "1": {"name": "Garlic & Herb", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F9C4)},
-    "2": {"name": "BBQ", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F356)},
-    "3": {"name": "Sriracha", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F336)},
-    "4": {"name": "Ranch", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F95B)},
-}
+# EXTRA_DIP_PRICE = 0.60
+# EXTRA_DIP = {
+#     "0": {"name": "None",'icon': chr(0x274C) + "\u00A0"},
+#     "1": {"name": "Garlic & Herb", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F9C4)},
+#     "2": {"name": "BBQ", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F356)},
+#     "3": {"name": "Sriracha", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F336)},
+#     "4": {"name": "Ranch", "price": EXTRA_DIP_PRICE,'icon':chr(0x1F95B)},
+# }
 
-SIDES_PRICE = 1.50
-SIDES_MENU = {
-    "0": {"name": "None",'icon': chr(0x274C)},
-    "1": {"name": "Small Fries", "price": 1.80,'icon':chr(0x1F35F)},
-    "2": {"name": "Medium Fries", "price": 2.30,'icon':chr(0x1F35F)},
-    "3": {"name": "Large Fries", "price": 2.80,'icon':chr(0x1F35F)},
-    "4": {"name": "8 x Chicken Wings", "price": 4.50,'icon':chr(0x1F357)},
-    "5": {"name": "12 x Chicken Wings", "price": 6.50,'icon':chr(0x1F357)},
-    "6": {"name": "16 x Chicken Wings", "price": 8.00,'icon':chr(0x1F357)},
-}
+# SIDES_PRICE = 1.50
+# SIDES_MENU = {
+#     "0": {"name": "None",'icon': chr(0x274C)},
+#     "1": {"name": "Small Fries", "price": 1.80,'icon':chr(0x1F35F)},
+#     "2": {"name": "Medium Fries", "price": 2.30,'icon':chr(0x1F35F)},
+#     "3": {"name": "Large Fries", "price": 2.80,'icon':chr(0x1F35F)},
+#     "4": {"name": "8 x Chicken Wings", "price": 4.50,'icon':chr(0x1F357)},
+#     "5": {"name": "12 x Chicken Wings", "price": 6.50,'icon':chr(0x1F357)},
+#     "6": {"name": "16 x Chicken Wings", "price": 8.00,'icon':chr(0x1F357)},
+# }
 
-PIZZA_SIZES = {
-    "1": {
-        "label": 'Small',
-        "size_inch": '9"',
-        "size_cm": '23 cm',
-        "price": 9.00
-    },
-    "2": {
-        "label": 'Medium',
-        "size_inch": '12"',
-        "size_cm": '30 cm',
-        "price": 11.00
-    },
-    "3": {
-        "label": 'Large',
-        "size_inch": '15"',
-        "size_cm": '38 cm',
-        "price": 15.00
-    }
-}
+# PIZZA_SIZES = {
+#     "1": {
+#         "label": 'Small',
+#         "size_inch": '9"',
+#         "size_cm": '23 cm',
+#         "price": 9.00
+#     },
+#     "2": {
+#         "label": 'Medium',
+#         "size_inch": '12"',
+#         "size_cm": '30 cm',
+#         "price": 11.00
+#     },
+#     "3": {
+#         "label": 'Large',
+#         "size_inch": '15"',
+#         "size_cm": '38 cm',
+#         "price": 15.00
+#     }
+# }
 
-EXTRAS_NAMES=(('toppings','TPs'),('dips','DPs'),('sides','SDs'),('drinks','DKs'))
+# EXTRAS_NAMES=(('toppings','TPs'),('dips','DPs'),('sides','SDs'),('drinks','DKs'))
 
 ORDER_NUMBER_LENGTH =12
 DATETIME_FORMAT ="%Y-%m-%d %H:%M:%S"
 DATETIME_FORMAT_ORDER="%Y%m%d"
 
-class Meal():
-    """
-    Creates a Meal instance
-    """
+# class Meal():
+#     """
+#     Creates a Meal instance
+#     """
 
-    def __init__(self, pizza_name, pizza_base_toppings, pizza_size, pizza_price, toppings,dips,sides,drinks,quantity):
-        self.pizza_name = pizza_name
-        self.pizza_base_toppings = pizza_base_toppings
-        self.pizza_size = pizza_size
-        self.pizza_price = pizza_price
-        self.toppings = toppings
-        self.dips = dips
-        self.sides = sides
-        self.drinks = drinks
-        self.quantity = quantity
+#     def __init__(self, pizza_name, pizza_base_toppings, pizza_size, pizza_price, toppings,dips,sides,drinks,quantity):
+#         self.pizza_name = pizza_name
+#         self.pizza_base_toppings = pizza_base_toppings
+#         self.pizza_size = pizza_size
+#         self.pizza_price = pizza_price
+#         self.toppings = toppings
+#         self.dips = dips
+#         self.sides = sides
+#         self.drinks = drinks
+#         self.quantity = quantity
 
-    def summary(self):
+#     def summary(self):
         
-        description_str = f"{self.quantity} x {self.pizza_name} {self.pizza_size} {chr(0x1F355)}{self.extras_summary()}"
-        price_str = self.total_price
-        return description_str, price_str
+#         description_str = f"{self.quantity} x {self.pizza_name} {self.pizza_size} {chr(0x1F355)}{self.extras_summary()}"
+#         price_str = self.total_price
+#         return description_str, price_str
 
-    @property
-    def total_price(self):
+#     @property
+#     def total_price(self):
         
-        toppings_prices = [EXTRA_TOPPINGS[x[0]]['price']*x[1] for x in self.toppings['item_indx']]
-        dips_prices = [EXTRA_DIP[x[0]]['price']*x[1] for x in self.dips['item_indx']]
-        sides_prices = [SIDES_MENU[x[0]]['price']*x[1] for x in self.sides['item_indx']]
-        drinks_prices = [DRINKS_MENU[x[0]]['price']*x[1] for x in self.drinks['item_indx']]
+#         toppings_prices = [EXTRA_TOPPINGS[x[0]]['price']*x[1] for x in self.toppings['item_indx']]
+#         dips_prices = [EXTRA_DIP[x[0]]['price']*x[1] for x in self.dips['item_indx']]
+#         sides_prices = [SIDES_MENU[x[0]]['price']*x[1] for x in self.sides['item_indx']]
+#         drinks_prices = [DRINKS_MENU[x[0]]['price']*x[1] for x in self.drinks['item_indx']]
         
-        items_total = self.quantity * (self.pizza_price + 
-                       sum(toppings_prices) + 
-                       sum(dips_prices) +
-                       sum(sides_prices) +
-                       sum(drinks_prices)
-                       )
-        return round(items_total, 2)
+#         items_total = self.quantity * (self.pizza_price + 
+#                        sum(toppings_prices) + 
+#                        sum(dips_prices) +
+#                        sum(sides_prices) +
+#                        sum(drinks_prices)
+#                        )
+#         return round(items_total, 2)
     
-    def extras_summary(self,label_type='short'):
+#     def extras_summary(self,label_type='short'):
         
-        extras_str_list=[]
-        for extra_full,extra_short in EXTRAS_NAMES:
-            extra_counts =getattr(self, extra_full).get('counts')
-            if extra_counts>0:
-                if label_type == 'full':
-                    extras_str_list.append(f"{extra_full}:{extra_counts}")
-                else:
-                    extras_str_list.append(f"*{extra_short}:{extra_counts}")
+#         extras_str_list=[]
+#         for extra_full,extra_short in EXTRAS_NAMES:
+#             extra_counts =getattr(self, extra_full).get('counts')
+#             if extra_counts>0:
+#                 if label_type == 'full':
+#                     extras_str_list.append(f"{extra_full}:{extra_counts}")
+#                 else:
+#                     extras_str_list.append(f"*{extra_short}:{extra_counts}")
 
 
-        extras_str = f" - {' '.join(extras_str_list)}" if len(extras_str_list) > 0 else ''
+#         extras_str = f" - {' '.join(extras_str_list)}" if len(extras_str_list) > 0 else ''
         
-        return extras_str
+#         return extras_str
 
-class Order():
-    """
-    Creates an instance order.
-    """
+# class Order():
+#     """
+#     Creates an instance order.
+#     """
 
-    def __init__(self, order_list, total_price,last_orderID):
-        self.order_list = order_list
-        self.total_price = total_price
-        self.order_date = datetime.now().strftime(DATETIME_FORMAT)
-        self.last_orderID = last_orderID
-        self.order_ID = self.create_order_ID()
+#     def __init__(self, order_list, total_price,last_orderID):
+#         self.order_list = order_list
+#         self.total_price = total_price
+#         self.order_date = datetime.now().strftime(DATETIME_FORMAT)
+#         self.last_orderID = last_orderID
+#         self.order_ID = self.create_order_ID()
 
-    @property
-    def order_ready_time(self):
-        BASE_MEAL_PREP_TIME = 15
-        DELAY_pizza_PREP_TIME = 5
+#     @property
+#     def order_ready_time(self):
+#         BASE_MEAL_PREP_TIME = 15
+#         DELAY_pizza_PREP_TIME = 5
     
-        pizza_count = sum([x.quantity for x in self.order_list])
-        topping_sides = sum([x.toppings['counts']+x.sides['counts'] for x in self.order_list])
-        preparation_time = BASE_MEAL_PREP_TIME
+#         pizza_count = sum([x.quantity for x in self.order_list])
+#         topping_sides = sum([x.toppings['counts']+x.sides['counts'] for x in self.order_list])
+#         preparation_time = BASE_MEAL_PREP_TIME
     
-        if pizza_count > 2:
-            preparation_time += ((pizza_count // 5) * DELAY_pizza_PREP_TIME)+DELAY_pizza_PREP_TIME
+#         if pizza_count > 2:
+#             preparation_time += ((pizza_count // 5) * DELAY_pizza_PREP_TIME)+DELAY_pizza_PREP_TIME
     
-        if topping_sides > 0:
-            preparation_time += ((topping_sides // 5) * DELAY_pizza_PREP_TIME)+DELAY_pizza_PREP_TIME
+#         if topping_sides > 0:
+#             preparation_time += ((topping_sides // 5) * DELAY_pizza_PREP_TIME)+DELAY_pizza_PREP_TIME
     
-        ready_by_time = datetime.strptime(self.order_date, DATETIME_FORMAT) + timedelta(minutes=preparation_time)
+#         ready_by_time = datetime.strptime(self.order_date, DATETIME_FORMAT) + timedelta(minutes=preparation_time)
             
-        return ready_by_time.replace(second=0).strftime(DATETIME_FORMAT)
+#         return ready_by_time.replace(second=0).strftime(DATETIME_FORMAT)
 
-    @property
-    def order_items(self):
+#     @property
+#     def order_items(self):
 
-        full_order_str = []
-        for order_item in self.order_list:
+#         full_order_str = []
+#         for order_item in self.order_list:
 
-            size_str = order_item.pizza_size.split(' - ')[0]
-            name_str = order_item.pizza_name
+#             size_str = order_item.pizza_size.split(' - ')[0]
+#             name_str = order_item.pizza_name
 
-            full_order_str.append(f"{order_item.quantity} x {size_str} {name_str}{order_item.extras_summary('full')}")
+#             full_order_str.append(f"{order_item.quantity} x {size_str} {name_str}{order_item.extras_summary('full')}")
 
-        return ', '.join(full_order_str)
+#         return ', '.join(full_order_str)
 
-    @property
-    def summary(self):
+#     @property
+#     def summary(self):
 
-        return {
-            "Order ID": self.order_ID,
-            "Order date": self.order_date,
-            "Order items": self.order_items,
-            "Order ready time": self.order_ready_time,
-            "Order status": 'Preparing',
-            "Order total": self.total_price,
-        }
+#         return {
+#             "Order ID": self.order_ID,
+#             "Order date": self.order_date,
+#             "Order items": self.order_items,
+#             "Order ready time": self.order_ready_time,
+#             "Order status": 'Preparing',
+#             "Order total": self.total_price,
+#         }
 
-    def create_order_ID(self):
-        new_order_ID = datetime.today().strftime(DATETIME_FORMAT_ORDER) + '{:04}'.format(self.last_orderID+1)
+#     def create_order_ID(self):
+#         new_order_ID = datetime.today().strftime(DATETIME_FORMAT_ORDER) + '{:04}'.format(self.last_orderID+1)
         
-        return new_order_ID
+#         return new_order_ID
 
 def connect_google_sheets(sheet_name):
     """
@@ -303,10 +306,10 @@ def confirm_exit():
             break
     if user_input == "1":
         main_menu()
-    clear_console()
+    #clear_console()
 
 def choose_pizza_name():
-    clear_console()
+    #clear_console()
     indent_value=18
     while True:
         print(color_text("\nChoose your pizza (one pizza at a time)",15))
@@ -327,7 +330,7 @@ def choose_pizza_name():
     return pizza_name, pizza_base
 
 def choose_pizza_size():
-    clear_console()
+    #clear_console()
     indent_value=21
     while True:
         print(color_text("\nChoose the size of your pizza",15))
@@ -347,7 +350,7 @@ def choose_pizza_size():
     return pizza_size, pizza_price
 
 def choose_extra_items(item_type,count_max):
-    clear_console()
+    #clear_console()
     if item_type=='toppings':
         menu_list = EXTRA_TOPPINGS
         indent_value=16
@@ -396,7 +399,7 @@ def choose_extra_items(item_type,count_max):
     return extra_items_dict    
    
 def enter_meal_quantity():
-    clear_console()    
+    #clear_console()    
     while True:
         print(color_text("\nHow many qunatities of this meal would you like?",15))
         display_return_home_option()
@@ -410,7 +413,7 @@ def enter_meal_quantity():
     return int(user_input)
 
 def print_meal_summary(meal_object):
-    clear_console()
+    #clear_console()
     print(color_text("\nOrder summary: ",15))
     summary_str = f"{meal_object.quantity} x {meal_object.pizza_size} {meal_object.pizza_name} Pizza with "
     extras =meal_object.extras_summary()
@@ -448,7 +451,7 @@ def confirm_order(input_list):
         print("Invalid answer")
 
 def summary_order_confirm(input_list):
-    clear_console()
+    #clear_console()
     if not len(input_list):
         print("\nThere are no items in this order")
         input(color_text(f"- Press any key to Main Menu {chr(0x1F3E0)}\n",166))
@@ -534,7 +537,7 @@ def print_extras_description():
     print(color_text(f'\n * {extras_description}',166))
 
 def update_orders_sheet(order):
-    clear_console()
+    #clear_console()
     print(color_text("Updating 'order' worksheet...",220))
     order_list_item = list(order.summary.values())
     
@@ -586,7 +589,7 @@ def prepare_new_order(last_orderID):
     return order
 
 def remove_order_items(input_list):
-    clear_console()
+    #clear_console()
     while True:
         print(color_text("\nSelect the order item(s) you wish to remove \n(inputs can be comma-separated integers)",15))
         print(color_text("-  enter 0 for no changes",166))
@@ -666,7 +669,7 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
     return True
 
 def welcome_page():
-    # clear_console()
+    # #clear_console()
     dashes = "-"*20
     dashes_slogan= "-"*16
     string_len = 75
@@ -690,7 +693,7 @@ def welcome_page():
     return task_to_do        
 
 def track_order():
-    clear_console()
+    #clear_console()
     while True:
         print(color_text("Track order:",15))
         display_return_home_option()
@@ -728,7 +731,7 @@ def track_order():
                 break
             
         if user_input=='1':
-            clear_console()
+            #clear_console()
             continue
     
 def update_orders_status():

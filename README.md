@@ -220,6 +220,10 @@ breaking lines python - (https://www.pythonmorsels.com/breaking-long-lines-code-
 ANSI escape codes - (https://jakob-bagterp.github.io/colorist-for-python/ansi-escape-codes/extended-256-colors/#structure)
 clear console - (https://stackoverflow.com/questions/517970/how-can-i-clear-the-interpreter-console)
 
+importing custom class in same directory - (https://stackoverflow.com/questions/4142151/how-to-import-the-class-within-the-same-directory-or-sub-directory)
+
+import varaibles - (https://www.geeksforgeeks.org/how-to-import-variables-from-another-file-in-python/)
+
 ### Tutorials and other resources
 
 
