@@ -303,7 +303,7 @@ def display_full_order(input_list):
         total_sum += order.total_price
     total_sum = round(total_sum, 2)
     print(color_text('_'*(str_indent+10),15))
-    print(color_text(f"Total cost {chr(0x1F4B7)}:".center(str_indent) +"|",15)+ color_text(f"{price_format(total_sum)}".rjust(price_indent),220))
+    print(color_text(f"Total cost {chr(0x1F4B7)} :".center(str_indent) +"|",15)+ color_text(f"{price_format(total_sum)}".rjust(price_indent),220))
     print_extras_description()
     
     return total_sum
@@ -482,8 +482,8 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
 
 def welcome_page():
     # #clear_console()
-    dashes = "-"*20
-    dashes_slogan= "-"*16
+    dashes = "-"*21
+    dashes_slogan= "-"*18
     string_len = 75
     welcome_str = f"{color_text('/'+dashes,166)}{chr(0x1F355)}  {color_text('Welcome to PizzaPalace CLI!',82)} {chr(0x1F355)}{color_text(dashes+'\\',166)}"
     second_line_str = f"{color_text('|'+dashes_slogan,166)}{color_text(chr(0x1F336),196)*2}  {color_text('Packed with incredible',82)} {color_text('flavors!',196)} {chr(0x1F525)*2}{color_text(dashes_slogan+'|',166)}"
