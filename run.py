@@ -484,8 +484,8 @@ def display_full_order(input_list):
 
     total_sum = 0
     price_indent=9
-    str_indent=60
-    print(color_text("Items".center(str_indent+1)+"| Price (£)",15))
+    str_indent=62
+    print(color_text("Items".center(str_indent)+"| Price (£)",15))
     print(color_text("-"*70,15))
 
     for ind,order in enumerate(input_list):
@@ -494,7 +494,7 @@ def display_full_order(input_list):
         total_sum += order.total_price
     total_sum = round(total_sum, 2)
     print(color_text('_'*(str_indent+12),15))
-    print(color_text(f"Total cost: {chr(0x1F4B7)}".center(str_indent) +"|",15)+ color_text(f"{price_format(total_sum)}".rjust(price_indent),220))
+    print(color_text(f"Total cost {chr(0x1F4B7)}:".center(str_indent) +"|",15)+ color_text(f"{price_format(total_sum)}".rjust(price_indent),220))
     print_extras_description()
     
     return total_sum
@@ -528,9 +528,9 @@ def print_order_summary(order_dict):
             print(color_text(f"{label}".ljust(indent_value) + "|",15) +color_text(f" {value}",220)) 
         elif label =='Status': 
             if value != 'Ready':
-                print(color_text(f"{label}".ljust(indent_value) + "|",15) +f" {chr(0x231B)}"+color_text(f" {value}",166))
+                print(color_text(f"{label}".ljust(indent_value) + "|",15) +f" {chr(0x231B)}"+color_text(f"  {value}",166))
             else:
-                print(color_text(f"{label}".ljust(indent_value) + "|",15) +f" {chr(0x2705)}"+color_text(f" {value}",82))
+                print(color_text(f"{label}".ljust(indent_value) + "|",15) +f" {chr(0x2705)}"+color_text(f"  {value}",82))
                 
         else: 
             print(color_text(f"{label}".ljust(indent_value) + "|" +f" {value}",15))
@@ -547,7 +547,7 @@ def update_orders_sheet(order):
     ORDERS_SHEET.append_row(order_list_item)
 
     print(color_text("'orders' worksheet updated successfully.",220))
-    print(color_text(f"\nSuccess!{chr(0x2705)} {chr(0x1F4AF)}{chr(0x1F603)} Thank you for sending your order. It is now being prepared...",220))
+    print(color_text(f"\nSuccess!{chr(0x2705)}  {chr(0x1F4AF)}  {chr(0x1F603)} Thank you for sending your order. It is now being prepared...",220))
     print_order_summary(order.summary.values())
  
     input(color_text(f"\n- Press any key to return to the main menu {chr(0x1F3E0)}\n",166))
@@ -632,7 +632,7 @@ def validate_single_entry(value, min_value=None, max_value=None):
             raise ValueError(f"Value '{value}' is out of range. The input value must be between {min_value} and {max_value}")
 
     except ValueError as e:
-        print(color_text(f"\n{chr(0x274C)} Invalid entry: {e}, please try again.",196))
+        print(color_text(f"\n{chr(0x274C)}  Invalid entry: {e}, please try again.",196))
         return False
 
     return True
@@ -666,7 +666,7 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
                 raise ValueError(f"Value '{value}' is out of range. The input values must be integers between {min_value} and {max_value}")
 
     except ValueError as e:
-        print(color_text(f"\n{chr(0x274C)} Invalid entry: {e}, please try again.",196))
+        print(color_text(f"\n{chr(0x274C)}  Invalid entry: {e}, please try again.",196))
         return False
 
     return True
@@ -798,7 +798,7 @@ def validate_order_number(number):
             raise ValueError(f"Order number must have exactly 12 integers - you provided {len(number)}")
         
     except ValueError as e:
-        print(color_text(f"\n{chr(0x274C)} Invalid entry: {e}, please try again.\n",196))
+        print(color_text(f"\n{chr(0x274C)}  Invalid entry: {e}, please try again.\n",196))
         return False
 
     return True

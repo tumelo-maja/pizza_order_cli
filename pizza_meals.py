@@ -23,7 +23,7 @@ class Meal():
 
     def summary(self):
         
-        description_str = f"{self.quantity} x {self.pizza_name} {self.pizza_size} {chr(0x1F355)}{self.extras_summary()}"
+        description_str = f"{self.quantity} x {self.pizza_name} {self.pizza_size} {chr(0x1F355)} {self.extras_summary()}"
         price_str = self.total_price
         return description_str, price_str
 
