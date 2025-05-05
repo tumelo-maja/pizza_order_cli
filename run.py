@@ -376,7 +376,7 @@ def choose_extra_items(item_type,count_max):
 
         for key, value in menu_list.items():
             
-            item_str = f"{key}) {value.get('icon', ' ')} {value['name']}"
+            item_str = f"{key}) {value.get('icon', ' ')}  {value['name']}"
             if key == "0":
                 print(color_text(f"{item_str:<{indent_value}}",82) + color_text("|",15) + color_text("-".center(5),82))
             else:
@@ -682,7 +682,7 @@ def welcome_page():
     dashes_slogan= "-"*16
     string_len = 75
     welcome_str = f"{color_text('/'+dashes,166)}{chr(0x1F355)} {color_text('Welcome to PizzaPalace CLI!',82)} {chr(0x1F355)}{color_text(dashes+'\\',166)}"
-    second_line_str = f"{color_text('|'+dashes_slogan,166)}{chr(0x1F336)*2} {color_text('Packed with incredible',82)} {color_text('flavors!',196)} {chr(0x1F525)*2}{color_text(dashes_slogan+'|',166)}"
+    second_line_str = f"{color_text('|'+dashes_slogan,166)}{color_text(chr(0x1F336),196)*2}  {color_text('Packed with incredible',82)} {color_text('flavors!',196)} {chr(0x1F525)*2}{color_text(dashes_slogan+'|',166)}"
     print(color_text(" "+ "_"*string_len,166))
     print(welcome_str)
     print(color_text("|"+"-"*string_len +"|",166))
