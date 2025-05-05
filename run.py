@@ -1,7 +1,6 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from collections import Counter
-# from datetime import datetime, timedelta
 from datetime import datetime
 import pandas as pd
 import os
@@ -353,17 +352,21 @@ def choose_extra_items(item_type,count_max):
     #clear_console()
     if item_type=='toppings':
         menu_list = EXTRA_TOPPINGS
-        indent_value=16
+        indent_value=18
+        row_dashes=32
         item_type = f'extra {item_type}'
     elif item_type=='Dips':
         menu_list = EXTRA_DIP 
-        indent_value=20
+        indent_value=22
+        row_dashes=36
         item_type = f'extra {item_type}'
     elif item_type=='drinks':
-        indent_value=24
+        indent_value=26
+        row_dashes=40
         menu_list = DRINKS_MENU
     elif item_type=='sides':
-        indent_value=24
+        indent_value=26
+        row_dashes=40
         menu_list = SIDES_MENU
         
     
@@ -371,8 +374,8 @@ def choose_extra_items(item_type,count_max):
         print(color_text(f"\nAny {item_type.lower()}? (You can select up to {count_max} items",15))
         print(color_text("- input(s) can be comma-separated integers",166))
         display_return_home_option()
-        print(color_text(f"{item_type.capitalize():^{indent_value+2}}"+"| Price (£)",15))
-        print(color_text("-"*30,15))
+        print(color_text(f"{item_type.capitalize():^{indent_value+1}}"+"| Price (£)",15))
+        print(color_text("-"*row_dashes,15))
 
         for key, value in menu_list.items():
             
@@ -673,7 +676,7 @@ def welcome_page():
     dashes = "-"*20
     dashes_slogan= "-"*16
     string_len = 75
-    welcome_str = f"{color_text('/'+dashes,166)}{chr(0x1F355)} {color_text('Welcome to PizzaPalace CLI!',82)} {chr(0x1F355)}{color_text(dashes+'\\',166)}"
+    welcome_str = f"{color_text('/'+dashes,166)}{chr(0x1F355)}  {color_text('Welcome to PizzaPalace CLI!',82)} {chr(0x1F355)}{color_text(dashes+'\\',166)}"
     second_line_str = f"{color_text('|'+dashes_slogan,166)}{color_text(chr(0x1F336),196)*2}  {color_text('Packed with incredible',82)} {color_text('flavors!',196)} {chr(0x1F525)*2}{color_text(dashes_slogan+'|',166)}"
     print(color_text(" "+ "_"*string_len,166))
     print(welcome_str)
