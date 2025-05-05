@@ -313,7 +313,7 @@ def choose_pizza_name():
     while True:
         print(color_text("\nChoose your pizza (one pizza at a time)",15))
         display_return_home_option()
-        print(color_text(f"Our pizzas {chr(0x1F355)}".ljust(17) + "| Base toppings",15))
+        print(color_text(f"Our pizzas {chr(0x1F355)}".ljust(indent_value) + "| Base toppings",15))
         print(color_text("-"*35,15))
         for key, value in PIZZA_MENU.items():
             print(color_text(f"{key}) {value['name']}".ljust(indent_value),82) + color_text("|",15)+color_text(f" {', '.join(value['base_toppings'])}",82))
@@ -334,7 +334,7 @@ def choose_pizza_size():
     while True:
         print(color_text("\nChoose the size of your pizza",15))
         display_return_home_option()        
-        print(color_text(f"Pizza size {chr(0x1F355)}".ljust(20) + "| Price (£)",15))
+        print(color_text(f"Pizza size {chr(0x1F355)}".ljust(indent_value) + "| Price (£)",15))
         print(color_text("-"*33,15))
         for key, value in PIZZA_SIZES.items():
             print(color_text(f"{key}) {value['label']} {value['size_inch']}({value['size_cm']})".ljust(indent_value),82) + color_text("|",15)+color_text(f"{price_format(value['price'])}".rjust(7),82))
@@ -374,7 +374,7 @@ def choose_extra_items(item_type,count_max):
         print(color_text(f"\nAny {item_type.lower()}? (You can select up to {count_max} items",15))
         print(color_text("- input(s) can be comma-separated integers",166))
         display_return_home_option()
-        print(color_text(f"{item_type.capitalize():^{indent_value+1}}"+"| Price (£)",15))
+        print(color_text(f"{item_type.capitalize():^{indent_value}}"+"| Price (£)",15))
         print(color_text("-"*row_dashes,15))
 
         for key, value in menu_list.items():
