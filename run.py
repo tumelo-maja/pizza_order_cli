@@ -617,20 +617,16 @@ def validate_single_entry(value, min_value=None, max_value=None):
     
     try:
         
-        # 1) Check if there are any spaces ' '
-        if ' ' in value:
-            raise ValueError(f"'{value}' is not a valid entry. The input value must not contain any spaces")
-        
-        # 2) Check if there are leading zerpos
+        # Check if there are leading zerpos
         if len(value)> 1 and value.startswith("0"):
                 raise ValueError(f"'{value}' is not a valid entry. Leading zeros are not allowed")
         
-        # 3) Check if digit
+        # Check if input is integer type 
         if not value.isdigit():
             raise ValueError(f"'{value}' is not an integer")
         value = int(value)
         
-        # 5 check if within range
+        # check if input is within range
         if value < min_value or value>max_value:
             raise ValueError(f"Value '{value}' is out of range. The input value must be between {min_value} and {max_value}")
 
@@ -645,30 +641,26 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
     try:
         values = [x for x in values_input.split(",")]
         
-        # 1) Check if zeros in included with outher numbers
+        #  Check if zero in selected with other options
         if len(values)> 1 and '0' in values:
                 raise ValueError(f"'{values_input}' is not a valid entry. You cannot select '0' with any other values")
-        
-        # 2) Check if there are any spaces ' '
-        if ' ' in values_input:
-            raise ValueError(f"'{values_input}' is not a valid entry. The input value must not contain any spaces")
 
-        # 3) Check number of inputs does not exceed limit
+        # Check number of inputs does not exceed limit
         if count_max is not None and len(values) > count_max:
             raise ValueError(f"You've entered {len(values)} items, you may only add up to {count_max} items")
 
         for value in values:
             
-            # 3) Check if there are leading zerpos
+            # Check if input elements have leading zeros
             if len(value)> 1 and value.startswith("0"):
                     raise ValueError(f"'{value}' is not a valid entry. Leading zeros are not allowed")
             
-            # 4) Check if digit
+            # Check if input strictly has integer type only
             if not value.isdigit():
                 raise ValueError(f"'{value}' is not an integer. The input values must be integers between {min_value} and {max_value}")
             value = int(value)
             
-            # 5 check if within range
+            # check if input is within range
             if value < min_value or value>max_value:
                 raise ValueError(f"Value '{value}' is out of range. The input values must be integers between {min_value} and {max_value}")
 
