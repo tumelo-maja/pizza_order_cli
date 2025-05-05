@@ -93,6 +93,8 @@ PIZZA_SIZES = {
 EXTRAS_NAMES=(('toppings','TPs'),('dips','DPs'),('sides','SDs'),('drinks','DKs'))
 
 ORDER_NUMBER_LENGTH =12
+DATETIME_FORMAT ="%Y-%m-%d %H:%M:%S"
+DATETIME_FORMAT_ORDER="%Y%m%d"
 
 class Meal():
     """
@@ -156,7 +158,7 @@ class Order():
     def __init__(self, order_list, total_price,last_orderID):
         self.order_list = order_list
         self.total_price = total_price
-        self.order_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        self.order_date = datetime.now().strftime(DATETIME_FORMAT)
         self.last_orderID = last_orderID
         self.order_ID = self.create_order_ID()
 
@@ -175,9 +177,9 @@ class Order():
         if topping_sides > 0:
             preparation_time += ((topping_sides // 5) * DELAY_pizza_PREP_TIME)+DELAY_pizza_PREP_TIME
     
-        ready_by_time = datetime.strptime(self.order_date, "%Y-%m-%d %H:%M:%S") + timedelta(minutes=preparation_time)
+        ready_by_time = datetime.strptime(self.order_date, DATETIME_FORMAT) + timedelta(minutes=preparation_time)
             
-        return ready_by_time.replace(second=0).strftime("%Y-%m-%d %H:%M:%S")
+        return ready_by_time.replace(second=0).strftime(DATETIME_FORMAT)
 
     @property
     def order_items(self):
@@ -205,7 +207,7 @@ class Order():
         }
 
     def create_order_ID(self):
-        new_order_ID = datetime.today().strftime("%Y%m%d") + '{:04}'.format(self.last_orderID+1)
+        new_order_ID = datetime.today().strftime(DATETIME_FORMAT_ORDER) + '{:04}'.format(self.last_orderID+1)
         
         return new_order_ID
 
@@ -552,7 +554,7 @@ def update_orders_sheet(order):
 
 def get_latest_order_ID():
     latest_order_ID = ORDERS_SHEET.col_values(1)[-1]
-    today_date = datetime.today().strftime("%Y%m%d")
+    today_date = datetime.today().strftime(DATETIME_FORMAT_ORDER)
     
     if today_date not in latest_order_ID:
         last_orderID = 0
@@ -751,9 +753,8 @@ def update_orders_status():
         
         if status_value != 'Ready':
             
-            time_format ="%Y-%m-%d %H:%M:%S"
             current_time = datetime.now()
-            ready_time = datetime.strptime(status_value,time_format)
+            ready_time = datetime.strptime(status_value,DATETIME_FORMAT)
             
             time_difference =int((current_time -ready_time).total_seconds())
             
@@ -769,12 +770,11 @@ def update_orders_status():
 def check_order_status(order_dict):
     print(color_text("Checking your order status...",220))
     
-    order_ready_datetime = datetime.strptime(order_dict['Order ready time'], "%Y-%m-%d %H:%M:%S")
+    order_ready_datetime = datetime.strptime(order_dict['Order ready time'], DATETIME_FORMAT)
     current_time = datetime.now()
     time_difference =int((current_time -order_ready_datetime).total_seconds() )
-    #202504230001
     
-    order_ready_datestr=order_ready_datetime.strftime("%Y-%m-%d %H:%M")
+    order_ready_datestr=order_ready_datetime.strftime(DATETIME_FORMAT)[:-3]
         
     if time_difference >0:
         status_str = color_text(f"Your order has been ready since {order_ready_datestr}",82)
