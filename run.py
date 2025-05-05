@@ -3,12 +3,7 @@ from google.oauth2.service_account import Credentials
 from collections import Counter
 from datetime import datetime, timedelta
 import pandas as pd
-import colorama
-from colorama import Fore, Style, init
 import os
-
-# init(autoreset=True)
-
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
