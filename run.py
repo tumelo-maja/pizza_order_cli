@@ -491,7 +491,7 @@ def get_latest_order_ID():
     """
     Retrieves the latest order ID from the Google Sheet and extracts the last sequence number for today.
 
-    If no order has been placed today, 0 is return to start the count. 
+    If no order has been placed today, 0 is returned to start the count. 
     Otherwise, the latest order number in the last 4 digits is returned.
 
     Returns:
@@ -508,7 +508,18 @@ def get_latest_order_ID():
     return last_orderID
 
 def prepare_new_order(last_orderID):
+    """
+    Handles adding and modifying meal items and creating an order object.
 
+    This function run create_order() to build a list of meal items.
+    User can review the order summary to add or remove items, or confirms the final order. 
+
+    Args:
+        last_orderID (int): The last used sequence number for today's orders.
+
+    Returns:
+        Order: An Order object containing the finalized meal list, total price, and order ID.
+    """
     meal_list=[]
     continue_loop= 1
     
