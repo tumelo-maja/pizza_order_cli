@@ -449,6 +449,14 @@ def print_order_summary(order_dict):
             print(color_text(f"{label}".ljust(indent_value) + "|" +f" {value}",15))
             
 def print_extras_description():
+    """
+    Prints a legend note explaining the shorthand labels used for extra items in order summaries.
+
+    The labels are taken from a global EXTRAS_NAMES constant and formatted for display.
+
+    Returns:
+        None
+    """    
     extras_description = " - ".join(f"{short}: {full.capitalize()}" for full, short in EXTRAS_NAMES)
     print(color_text(f'\n * {extras_description}',166))
 
