@@ -529,13 +529,13 @@ def create_new_order(last_orderID):
             meal_list= create_meal(meal_list)
             continue_loop, total_price= summary_order_confirm(meal_list)
         elif continue_loop == 2:
-            meal_list = remove_order_items(meal_list)
+            meal_list = remove_meal_items(meal_list)
             continue_loop, total_price= summary_order_confirm(meal_list)
 
     order = Order(meal_list, total_price, last_orderID)
     return order
 
-def remove_order_items(input_list):
+def remove_meal_items(input_list):
     """
     Removes one or more meals from the current order.
 
