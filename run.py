@@ -609,7 +609,7 @@ def validate_single_entry(value, min_value, max_value):
         
 def validate_multiple_entries(values_input, min_value, max_value,count_max,repeat_allowed=True):
     """
-    Validates multiple comma-separated integer inputs against specified conditions.
+    Validates multiple comma-separated inputs against specified conditions.
 
     This function checks that :
       - input contains numeric characters only, 
@@ -619,9 +619,6 @@ def validate_multiple_entries(values_input, min_value, max_value,count_max,repea
       - '0' option is not selected with any other options
     
     If the input is invalid, an error message is displayed.    
-
-    This function ensures all values are integers, within a specified range, and comply with rules 
-    regarding duplicates, maximum count, and formatting (e.g., no leading zeros, no mixing with zero).
 
     Args:
         values_input (str): The raw comma-separated user input string to validate.
@@ -671,12 +668,16 @@ def validate_multiple_entries(values_input, min_value, max_value,count_max,repea
     return True
 
 def welcome_page():
-    '''
-    Displays the welcome screen for the CLI and prompts user to select an action to initiate.
+    """
+    Displays the welcome message and main menu options.
+
+    Prompts the user to start an order or track an existing order. 
+    All user inputs are validated.
 
     Returns:
-        str: The user's input selection, can be of either of these options (1 - start an order or 2 - track an existing order).
-    '''
+        str: A validated user input - '1' to place a new order or '2' to track an existing order.
+
+    """
     # #clear_console()
     dashes = "-"*21
     dashes_slogan= "-"*18
