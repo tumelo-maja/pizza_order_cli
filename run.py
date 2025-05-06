@@ -488,6 +488,15 @@ def update_orders_sheet(order):
     main_menu()
 
 def get_latest_order_ID():
+    """
+    Retrieves the latest order ID from the Google Sheet and extracts the last sequence number for today.
+
+    If no order has been placed today, 0 is return to start the count. 
+    Otherwise, the latest order number in the last 4 digits is returned.
+
+    Returns:
+        int: The last sequence number used for today's orders or 0 if there are no was placed today.
+    """    
     latest_order_ID = ORDERS_SHEET.col_values(1)[-1]
     today_date = datetime.today().strftime(DATETIME_FORMAT_ORDER)
     
