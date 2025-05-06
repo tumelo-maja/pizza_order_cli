@@ -704,7 +704,7 @@ def welcome_page():
 
 def track_order():
     """
-    Prompts the user to enter an order number and displays the status and details of the matching order if it exist.
+    Prompts the user to enter an order number and displays the status and details of the order if it exists.
 
     This function runs validate_order_number() to validate order number and update_orders_status() to update orders records.
     if order number exists in the google sheets, order summary is displayed including the status ('Ready' or 'Preparing').
@@ -748,11 +748,6 @@ def track_order():
                 break
             if validate_single_entry(user_input,1,1):
                 break
-
-        # user_input = str(int(user_input))
-        # if user_input==1:
-        #     #clear_console()
-        #     continue
     
 def update_orders_status():
     print(color_text("Updating order status...",220))
