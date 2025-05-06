@@ -576,7 +576,7 @@ def validate_single_entry(value, min_value, max_value):
     """
     Validates a single digit input according to specific conditions.
 
-    This function checks that input:
+    This function checks that the input:
       - is numeric (no other charatcetrs are allowed), 
       - is within the allowed range specified,
     
@@ -608,7 +608,31 @@ def validate_single_entry(value, min_value, max_value):
     return True
         
 def validate_multiple_entries(values_input, min_value=None, max_value=None,count_max=None,repeat_allowed=True):
+    """
+    Validates multiple comma-separated integer inputs against specified conditions.
+
+    This function checks that :
+      - input contains numeric characters only, 
+      - each character in the input lies within the range specified,
+      - number of characters do not exceed the count limit
+      - values are not repeated, where repitition is prohibited 
+      - '0' option is not selected with any other options
     
+    If the input is invalid, an error message is displayed.    
+
+    This function ensures all values are integers, within a specified range, and comply with rules 
+    regarding duplicates, maximum count, and formatting (e.g., no leading zeros, no mixing with zero).
+
+    Args:
+        values_input (str): The raw comma-separated user input string to validate.
+        min_value (int): The minimum allowed value for entries.
+        max_value (int): The maximum allowed value for entries.
+        count_max (int,): The maximum number of items allowed in the input.
+        repeat_allowed (bool, optional): Whether repeated values are permitted. Defaults is True.
+
+    Returns:
+        bool: True if all input values are valid, otherwise False.
+    """    
     try:
         values = [x for x in values_input.split(",")]
         
