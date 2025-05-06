@@ -157,7 +157,7 @@ def choose_pizza_name():
             break
     pizza_name = PIZZA_MENU[user_input]['name']
     pizza_base = PIZZA_MENU[user_input]['base_toppings']
-    
+
     return pizza_name, pizza_base
 
 def choose_pizza_size():
@@ -193,6 +193,22 @@ def choose_pizza_size():
     return pizza_size, pizza_price
 
 def choose_extra_items(item_type,count_max):
+    """
+    Displays a list of extra items and their prices for a specified item_type.
+
+    It prompts user to select none or more of the options to proceed. Mutliple selection are allowed up to a specified limit i.e. 'count_max'. 
+    Validates user's inputs and allows user to return to main menu.
+
+    Args:
+        item_type (str): The category of extras to display ('toppings', 'Dips', 'drinks', or 'sides').
+        count_max (int): The maximum number of items the user can select for a specified item_type.
+
+    Returns:
+        dict: A dictionary containing:
+            - 'labels' (list): labels of selected items and their counts.
+            - 'item_indx' (list): Indexes and counts of selected for accessing other properties of the item_type menu.
+            - 'counts' (int): Total number of selected items.
+    """
     #clear_console()
     if item_type=='toppings':
         menu_list = EXTRA_TOPPINGS
