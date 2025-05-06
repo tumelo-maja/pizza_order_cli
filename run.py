@@ -406,12 +406,22 @@ def price_format(value):
     return '{:,.2f}'.format(value)
 
 def print_order_summary(order_dict):
+    """
+    Displays a formatted summary of an order.
+
+    The summary includes the order ID, date and time, ordered items, ready time, 
+    status, and total cost. Each meal items is displayed on a individual row for for readability.
+
+    Args:
+        order_dict (iterable): A dictionary containing the order details.
+
+    Returns:
+        None
+    """    
     print(color_text("Here's your order summary:\n",15))
 
     new_labels = ['Order ID','Time','Items','Ready time','Status','Total']
-    
     indent_value= 12
-    
     for label,value in zip(new_labels,order_dict):
         
         if label== 'Total':
