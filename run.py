@@ -750,6 +750,15 @@ def track_order():
                 break
     
 def update_orders_status():
+    """
+    Updates the status of all orders in the worksheet based on their ready time.
+
+    This function checks each order's 'Order ready time' against the current time.
+    If the ready time has passed, the status is updated to 'Ready'.
+
+    Returns:
+        None
+    """    
     print(color_text("Updating order status...",220))
     orders_df = pd.DataFrame(ORDERS_SHEET.get_all_records())
     
