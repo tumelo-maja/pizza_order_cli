@@ -507,7 +507,7 @@ def get_latest_order_ID():
         
     return last_orderID
 
-def prepare_new_order(last_orderID):
+def create_new_order(last_orderID):
     """
     Handles adding and modifying meal items and creating an order object.
 
@@ -779,7 +779,7 @@ def main_menu():
         if user_choice == "1":
             
             last_orderID = get_latest_order_ID()
-            order = prepare_new_order(last_orderID)
+            order = create_new_order(last_orderID)
     
             update_orders_sheet(order)
         elif user_choice == "2":
