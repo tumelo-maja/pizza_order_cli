@@ -224,6 +224,8 @@ importing custom class in same directory - (https://stackoverflow.com/questions/
 
 import varaibles - (https://www.geeksforgeeks.org/how-to-import-variables-from-another-file-in-python/)
 
+python docstrings - (https://www.datacamp.com/tutorial/docstrings-python)
+
 ### Tutorials and other resources
 
 

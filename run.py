@@ -19,7 +19,7 @@ DATETIME_FORMAT_ORDER="%Y%m%d"
 
 def connect_google_sheets(sheet_name):
     """
-    Setup and connects API to the google sheet and links the input 'sheet_name'
+    Setup and connects API to the google sheet and links the input 'sheet_name' using private API key.
 
     Parameters
     ----------
@@ -481,6 +481,12 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
     return True
 
 def welcome_page():
+    '''
+    Displays the welcome screen for the CLI and prompts user to select an action to initiate.
+
+    Returns:
+        str: The user's input selection, can be of either of these options (1 - start an order or 2 - track an existing order).
+    '''
     # #clear_console()
     dashes = "-"*21
     dashes_slogan= "-"*18
