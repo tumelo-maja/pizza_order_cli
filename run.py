@@ -44,7 +44,7 @@ def connect_google_sheets(sheet_name):
 
 def create_meal(meal_list):
     """
-    Creates a list Meal objects built from a sequence of inputs 
+    Creates a list of Meal objects built from a sequence of inputs 
 
     Args:
         meal_list (list): A list to store Meal objects or append to existing objects int the list.
@@ -536,6 +536,18 @@ def create_new_order(last_orderID):
     return order
 
 def remove_order_items(input_list):
+    """
+    Removes one or more meals from the current order.
+
+    User prompted to enter indexes of items to remove from the order.
+    The input is validated, and the corresponding items are excluded from the returned list.
+
+    Args:
+        input_list (list): A list of Meal objects representing the current order.
+
+    Returns:
+        list: An updated list of Meal objects with the selected items removed.
+    """    
     #clear_console()
     while True:
         print(color_text("\nSelect the order item(s) you wish to remove \n(inputs can be comma-separated integers)",15))
