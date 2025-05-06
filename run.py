@@ -356,8 +356,7 @@ def summary_order_confirm(input_list):
 
     return int(user_input)-1,total_sum
 
-def display_full_order(input_list):
-    
+def display_full_order(input_list): 
     """
     Displays the full order summary with all meal items and their prices and total cost.
 
@@ -395,6 +394,15 @@ def display_full_order(input_list):
     return total_sum
 
 def price_format(value):
+    """
+    Formats a numeric value as a price string with two decimal places and comma separators.
+
+    Args:
+        value (float or int): The numeric value to format.
+
+    Returns:
+        str: The formatted price string.
+    """    
     return '{:,.2f}'.format(value)
 
 def print_order_summary(order_dict):
