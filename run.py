@@ -131,10 +131,13 @@ def choose_pizza_name():
     '''
     Displays the list of available pizza options and their base toppings.
     
-    User is prompted to select one of the options to proceed. User's input is validated and they can return to main menu.
+    It prompts user to select one of the options to proceed. 
+    Validates user's input and allows user to return to main menu.
 
     Returns:
-        tuple: A tuple containing the selected pizza name (str) and its corresponding base toppings (in a list).
+        tuple:
+            str: The selected pizza name.
+            list: The list of base toppings for the selected pizza.
     '''    
     #clear_console()
     indent_value=18
@@ -154,9 +157,21 @@ def choose_pizza_name():
             break
     pizza_name = PIZZA_MENU[user_input]['name']
     pizza_base = PIZZA_MENU[user_input]['base_toppings']
+    
     return pizza_name, pizza_base
 
 def choose_pizza_size():
+    '''
+    Displays the list of available pizza size options and their prices.
+    
+    It prompts user to select one of the options to proceed. 
+    Validates user's input and allows user to return to main menu.
+
+    Returns:
+        tuple:
+            str: The selected pizza size label.
+            float: The price of the selected pizza size.
+    '''     
     #clear_console()
     indent_value=21
     while True:
@@ -174,6 +189,7 @@ def choose_pizza_size():
             break
     pizza_size = PIZZA_SIZES[user_input]['label']
     pizza_price = PIZZA_SIZES[user_input]['price']
+
     return pizza_size, pizza_price
 
 def choose_extra_items(item_type,count_max):
