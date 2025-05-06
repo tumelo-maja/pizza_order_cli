@@ -42,7 +42,7 @@ def connect_google_sheets(sheet_name):
 
     return sheet_object
 
-def create_order(meal_list):
+def create_meal(meal_list):
     """
     Creates a list Meal objects built from a sequence of inputs 
 
@@ -511,7 +511,7 @@ def create_new_order(last_orderID):
     """
     Handles adding and modifying meal items and creating an order object.
 
-    This function run create_order() to build a list of meal items.
+    This function run create_meal() to build a list of meal items.
     User can review the order summary to add or remove items, or confirms the final order. 
 
     Args:
@@ -526,7 +526,7 @@ def create_new_order(last_orderID):
     while continue_loop:
         
         if continue_loop == 1:
-            meal_list= create_order(meal_list)
+            meal_list= create_meal(meal_list)
             continue_loop, total_price= summary_order_confirm(meal_list)
         elif continue_loop == 2:
             meal_list = remove_order_items(meal_list)
