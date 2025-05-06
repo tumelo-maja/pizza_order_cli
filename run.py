@@ -102,7 +102,7 @@ def create_meal(meal_list):
                continue
             if validate_single_entry(user_input,1,2):
                 break
-        user_input = str(int(user_input))
+        user_input = int(user_input)
         if user_input == 2:
             continue_order = False
 
@@ -254,9 +254,9 @@ def choose_extra_items(item_type,count_max):
             continue
         if validate_multiple_entries(user_input,0,len(menu_list)-1,count_max):
             break
-        
-    extra_items = [menu_list[x]['name'] for x in user_input.split(",") if x != "0"]
-    extra_items_indx = [x for x in user_input.split(",") if x != "0"]
+
+    extra_items_indx = [str(int(x)) for x in user_input.split(",") if x != "0"]
+    extra_items = [menu_list[x]['name'] for x in extra_items_indx if x != "0"]
   
     extra_items_dict = {'labels': [f"{count} x {item}" if extra_items != ["None"] else None for item, count in Counter(extra_items).items()],
                         'item_indx': [[f"{item}",count] if extra_items != ["None"] else None for item, count in Counter(extra_items_indx).items()],
@@ -607,7 +607,7 @@ def validate_single_entry(value, min_value, max_value):
 
     return True
         
-def validate_multiple_entries(values_input, min_value=None, max_value=None,count_max=None,repeat_allowed=True):
+def validate_multiple_entries(values_input, min_value, max_value,count_max,repeat_allowed=True):
     """
     Validates multiple comma-separated integer inputs against specified conditions.
 
@@ -627,7 +627,7 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
         values_input (str): The raw comma-separated user input string to validate.
         min_value (int): The minimum allowed value for entries.
         max_value (int): The maximum allowed value for entries.
-        count_max (int,): The maximum number of items allowed in the input.
+        count_max (int): The maximum number of items allowed in the input.
         repeat_allowed (bool, optional): Whether repeated values are permitted. Defaults is True.
 
     Returns:
@@ -644,15 +644,16 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
         if count_max is not None and len(values) > count_max:
             raise ValueError(f"You've entered {len(values)} items, you may only add up to {count_max} items")
         
+        # Check for repeated numbers 
         if not repeat_allowed:
             if len(values) != len(set(values)):
                     raise ValueError(f"'{values_input}' is not a valid entry. Duplicate entries are not allowed")
 
         for value in values:
             
-            # Check if input elements have leading zeros
-            if len(value)> 1 and value.startswith("0"):
-                    raise ValueError(f"'{value}' is not a valid entry. Leading zeros are not allowed")
+            #  Check if zero in selected with other options
+            if len(value)> 1 and '0' in value:
+                raise ValueError(f"'{values_input}' is not a valid entry. You cannot select '0' with any other values")
             
             # Check if input strictly has integer type only
             if not value.isdigit():
