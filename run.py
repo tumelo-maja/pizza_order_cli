@@ -128,6 +128,14 @@ def confirm_exit():
     #clear_console()
 
 def choose_pizza_name():
+    '''
+    Displays the list of available pizza options and their base toppings.
+    
+    User is prompted to select one of the options to proceed. User's input is validated and they can return to main menu.
+
+    Returns:
+        tuple: A tuple containing the selected pizza name (str) and its corresponding base toppings (in a list).
+    '''    
     #clear_console()
     indent_value=18
     while True:
