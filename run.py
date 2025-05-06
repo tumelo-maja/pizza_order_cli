@@ -109,6 +109,14 @@ def create_order(meal_list):
     return meal_list
 
 def confirm_exit():
+    '''
+    Displays a warning message showing that returning to main menu mid-order will clear all current order items.
+
+    If the user confirms, the application navigates back to the main menu.
+
+    Returns:
+        None
+    '''
     print(f"\n{chr(0x26A0)} Returning to the main menu will clear all items in your current order.")
     while True:
         user_input = strppied_input(color_text(f"     Are you sure you want to continue? \n1) Yes {chr(0x2705)} \n2) No  {chr(0x274C)}\n",166))
