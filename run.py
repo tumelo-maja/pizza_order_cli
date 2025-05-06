@@ -102,8 +102,8 @@ def create_meal(meal_list):
                continue
             if validate_single_entry(user_input,1,2):
                 break
-
-        if user_input == '2':
+        user_input = str(int(user_input))
+        if user_input == 2:
             continue_order = False
 
     return meal_list
@@ -123,7 +123,8 @@ def confirm_exit():
 
         if validate_single_entry(user_input,1,2):
             break
-    if user_input == "1":
+    user_input = str(int(user_input))
+    if user_input == 1:
         main_menu()
     #clear_console()
 
@@ -155,6 +156,7 @@ def choose_pizza_name():
             continue
         if validate_single_entry(user_input,1,5):
             break
+    user_input = str(int(user_input))
     pizza_name = PIZZA_MENU[user_input]['name']
     pizza_base = PIZZA_MENU[user_input]['base_toppings']
 
@@ -187,6 +189,7 @@ def choose_pizza_size():
             continue
         if validate_single_entry(user_input,1,3):
             break
+    user_input = str(int(user_input))
     pizza_size = PIZZA_SIZES[user_input]['label']
     pizza_price = PIZZA_SIZES[user_input]['price']
 
@@ -353,7 +356,6 @@ def summary_order_confirm(input_list):
                 continue
             if validate_single_entry(user_input,1,3):
                 break
-
     return int(user_input)-1,total_sum
 
 def display_full_order(input_list): 
@@ -570,13 +572,25 @@ def remove_meal_items(input_list):
     
     return new_list   
 
-def validate_single_entry(value, min_value=None, max_value=None):
+def validate_single_entry(value, min_value, max_value):
+    """
+    Validates a single digit input according to specific conditions.
+
+    This function checks that input:
+      - is numeric (no other charatcetrs are allowed), 
+      - is within the allowed range specified,
     
+    If the input is invalid, an error message is displayed.
+
+    Args:
+        value (str): The user input to validate.
+        min_value (int): The minimum input value.
+        max_value (int): The maximum input value.
+
+    Returns:
+        bool: True if the input is valid (meets the conditions), otherwise False.
+    """    
     try:
-        
-        # Check if there are leading zerpos
-        if len(value)> 1 and value.startswith("0"):
-                raise ValueError(f"'{value}' is not a valid entry. Leading zeros are not allowed")
         
         # Check if input is integer type 
         if not value.isdigit():
@@ -609,8 +623,6 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
         if not repeat_allowed:
             if len(values) != len(set(values)):
                     raise ValueError(f"'{values_input}' is not a valid entry. Duplicate entries are not allowed")
-
-            print()
 
         for value in values:
             
@@ -658,10 +670,11 @@ def welcome_page():
         print(color_text("1) Place an order".ljust(indent_value) + chr(0x1F4DD),82))
         print(color_text("2) Track an order".ljust(indent_value) + chr(0x1F50D),82))
 
-        task_to_do = strppied_input(color_text("Enter your choice:\n",166))
-        if validate_single_entry(task_to_do,1,2):
+        user_input = strppied_input(color_text("Enter your choice:\n",166))
+        if validate_single_entry(user_input,1,2):
             break
-    return task_to_do        
+    user_input = str(int(user_input))
+    return user_input        
 
 def track_order():
     #clear_console()
@@ -700,8 +713,9 @@ def track_order():
                 break
             if validate_single_entry(user_input,1,1):
                 break
-            
-        if user_input=='1':
+
+        user_input = str(int(user_input))
+        if user_input==1:
             #clear_console()
             continue
     
