@@ -335,7 +335,7 @@ def summary_order_confirm(input_list):
     #clear_console()
     if not len(input_list):
         print("\nThere are no items in this order")
-        input(color_text(f"- Press any key to Main Menu {chr(0x1F3E0)}\n",166))
+        input(color_text(f"- Press Enter to Main Menu {chr(0x1F3E0)}\n",166))
         main_menu()
 
     else:
@@ -461,6 +461,19 @@ def print_extras_description():
     print(color_text(f'\n * {extras_description}',166))
 
 def update_orders_sheet(order):
+    """
+    Appends a new order to the Google Sheets 'orders' worksheet and displays confirmation.
+
+    The function extracts summary data from the Order object, appends it to the worksheet,
+    prints a success message, runs 'print_order_summary()' to shows a summary of the submitted order.
+    Prompts user to the main menu by pressing Enter key.
+
+    Args:
+        order (Order): The completed order object containing full order details and total order cost.
+
+    Returns:
+        None
+    """    
     #clear_console()
     print(color_text("Updating 'order' worksheet...",220))
     order_list_item = list(order.summary.values())
@@ -471,7 +484,7 @@ def update_orders_sheet(order):
     print(color_text(f"\nSuccess!{chr(0x2705)}  {chr(0x1F4AF)}  {chr(0x1F603)}  Thank you for sending your order. It is now being prepared...",220))
     print_order_summary(order.summary.values())
  
-    input(color_text(f"\n- Press any key to return to the main menu {chr(0x1F3E0)}\n",166))
+    input(color_text(f"\n- Press Enter to return to the main menu {chr(0x1F3E0)}\n",166))
     main_menu()
 
 def get_latest_order_ID():
