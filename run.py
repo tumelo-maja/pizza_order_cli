@@ -42,13 +42,16 @@ def connect_google_sheets(sheet_name):
 
     return sheet_object
 
-def create_order(meal_list=[]):
+def create_order(meal_list):
     """
-    Creates new Meal order from user's inpusts 
+    Creates a list Meal objects built from a sequence of inputs 
+    Parameters:
+    -----------
+    meal_list (list): A list to store Meal objects or append to existing objects int the list.
 
     Returns
     -------
-    Meal object.
+    list: A list of Meal objects
 
     """
     continue_order = True
@@ -71,7 +74,7 @@ def create_order(meal_list=[]):
         # Choose drinks
         drinks = choose_extra_items('drinks',8)
         
-        # Repeat meals
+        # Meal qunatities
         quantity = enter_meal_quantity()
         
         meal_object = Meal(pizza_name=pizza_name,
