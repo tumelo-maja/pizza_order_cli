@@ -123,7 +123,7 @@ def confirm_exit():
 
         if validate_single_entry(user_input,1,2):
             break
-    user_input = str(int(user_input))
+    user_input = int(user_input)
     if user_input == 1:
         main_menu()
     #clear_console()
@@ -703,6 +703,16 @@ def welcome_page():
     return user_input        
 
 def track_order():
+    """
+    Prompts the user to enter an order number and displays the status and details of the matching order if it exist.
+
+    This function runs validate_order_number() to validate order number and update_orders_status() to update orders records.
+    if order number exists in the google sheets, order summary is displayed including the status ('Ready' or 'Preparing').
+    After order summary display, the user can track another order or return to the main menu.
+
+    Returns:
+        None
+    """    
     #clear_console()
     while True:
         print(color_text("Track order:",15))
@@ -721,7 +731,6 @@ def track_order():
         
         if not len(order_index):
             print(color_text(f"\n{chr(0x274C)} Order number {order_number} not found. Please check the number and try again.\n",196))
-
             continue
             
         order_dict = orders_df.iloc[order_index[0]].to_dict()
@@ -740,10 +749,10 @@ def track_order():
             if validate_single_entry(user_input,1,1):
                 break
 
-        user_input = str(int(user_input))
-        if user_input==1:
-            #clear_console()
-            continue
+        # user_input = str(int(user_input))
+        # if user_input==1:
+        #     #clear_console()
+        #     continue
     
 def update_orders_status():
     print(color_text("Updating order status...",220))
