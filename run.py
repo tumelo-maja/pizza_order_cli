@@ -561,7 +561,7 @@ def remove_meal_items(input_list):
         if user_input == '0':
             return input_list
             
-        if validate_multiple_entries(user_input,1,len(input_list)):
+        if validate_multiple_entries(user_input,1,len(input_list),len(input_list),repeat_allowed=False):
             break
         
     removed_indexes = [int(x)-1 for x in user_input.split(",")]
@@ -593,7 +593,7 @@ def validate_single_entry(value, min_value=None, max_value=None):
 
     return True
         
-def validate_multiple_entries(values_input, min_value=None, max_value=None,count_max=None):
+def validate_multiple_entries(values_input, min_value=None, max_value=None,count_max=None,repeat_allowed=True):
     
     try:
         values = [x for x in values_input.split(",")]
@@ -605,6 +605,12 @@ def validate_multiple_entries(values_input, min_value=None, max_value=None,count
         # Check number of inputs does not exceed limit
         if count_max is not None and len(values) > count_max:
             raise ValueError(f"You've entered {len(values)} items, you may only add up to {count_max} items")
+        
+        if not repeat_allowed:
+            if len(values) != len(set(values)):
+                    raise ValueError(f"'{values_input}' is not a valid entry. Duplicate entries are not allowed")
+
+            print()
 
         for value in values:
             
