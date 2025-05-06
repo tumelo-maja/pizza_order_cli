@@ -45,13 +45,13 @@ def connect_google_sheets(sheet_name):
 def create_order(meal_list):
     """
     Creates a list Meal objects built from a sequence of inputs 
-    Parameters:
-    -----------
-    meal_list (list): A list to store Meal objects or append to existing objects int the list.
 
-    Returns
-    -------
-    list: A list of Meal objects
+    Args:
+        meal_list (list): A list to store Meal objects or append to existing objects int the list.
+        
+    Returns:
+        list: A list of Meal objects
+    
 
     """
     continue_order = True
@@ -285,6 +285,17 @@ def enter_meal_quantity():
     return int(user_input)
 
 def print_meal_summary(meal_object):
+    """
+    Displays a summary of a meal object showing the name, size, any extras and meal quantity.
+
+    If any of the extras (toppings, dips, sides, drinks) items have been selected, they will be displayed with their quantities.
+
+    Args:
+        meal_object (Meal): The Meal object containing all details of the selected meal options.
+
+    Returns:
+        None
+    """    
     #clear_console()
     print(color_text("\nOrder summary: ",15))
     summary_str = f"{meal_object.quantity} x {meal_object.pizza_size} {meal_object.pizza_name} Pizza with "
