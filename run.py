@@ -443,22 +443,14 @@ def prepare_new_order(last_orderID):
         
         if continue_loop == 1:
             meal_list= create_order(meal_list)
-            
-            # total_price, continue_loop  = confirm_order(meal_list)
             continue_loop, total_price= summary_order_confirm(meal_list)
 
-        
         elif continue_loop == 2:
             continue_loop =1
             continue
         elif continue_loop == 3:
             meal_list = remove_order_items(meal_list)
-            order_comfirmed, total_price= summary_order_confirm(meal_list)
-          
-            if order_comfirmed == "1":
-                continue_loop=0
-            elif order_comfirmed == "2":
-                continue_loop=1
+            continue_loop, total_price= summary_order_confirm(meal_list)
 
     order = Order(meal_list, total_price, last_orderID)
     return order
