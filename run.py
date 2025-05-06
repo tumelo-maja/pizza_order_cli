@@ -262,6 +262,15 @@ def choose_extra_items(item_type,count_max):
     return extra_items_dict    
    
 def enter_meal_quantity():
+    """
+    Prompts the user to enter the quantity of a meal they wish to order.
+
+    The function prompts user to an integer between 1 and 50 to proceed. 
+    Validates user's inputs and allows user to return to main menu.
+
+    Returns:
+        int: The number of meal portions.
+    """    
     #clear_console()    
     while True:
         print(color_text("\nHow many qunatities of this meal would you like?",15))
