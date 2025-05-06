@@ -320,6 +320,20 @@ def print_meal_summary(meal_object):
         print(color_text(summary_str + "no extras",15))
         
 def summary_order_confirm(input_list):
+    """
+    Displays the full order summary with all meal items and their prices and total cost.
+
+    Function prompts the user either place the order, add more items, remove items, or return to the main menu.
+    All user inputs are validated.
+
+    Args:
+        input_list (list): A list of Meal objects that make up the current order.
+
+    Returns:
+        tuple:
+            int: A flow control value based on user's input; derived as 'user_input' - 1 (0 = confirm, 1 = add more, 2 = remove items).
+            float: The total cost of the order.
+    """    
     #clear_console()
     if not len(input_list):
         print("\nThere are no items in this order")
@@ -343,7 +357,6 @@ def summary_order_confirm(input_list):
                 break
 
     return int(user_input)-1,total_sum
-
 
 def display_full_order(input_list):
 
