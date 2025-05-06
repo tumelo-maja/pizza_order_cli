@@ -342,12 +342,7 @@ def summary_order_confirm(input_list):
             if validate_single_entry(user_input,1,3):
                 break
 
-    if user_input == "1":
-        return  0, total_sum
-    elif user_input == "2":
-        return 2, None
-    elif user_input == "3":
-        return 3, None
+    return int(user_input)-1,total_sum
 
 
 def display_full_order(input_list):
@@ -444,11 +439,7 @@ def prepare_new_order(last_orderID):
         if continue_loop == 1:
             meal_list= create_order(meal_list)
             continue_loop, total_price= summary_order_confirm(meal_list)
-
         elif continue_loop == 2:
-            continue_loop =1
-            continue
-        elif continue_loop == 3:
             meal_list = remove_order_items(meal_list)
             continue_loop, total_price= summary_order_confirm(meal_list)
 
