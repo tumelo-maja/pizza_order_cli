@@ -321,9 +321,7 @@ def print_meal_summary(meal_object):
         
 def summary_order_confirm(input_list):
     """
-    Displays the full order summary with all meal items and their prices and total cost.
-
-    Function prompts the user either place the order, add more items, remove items, or return to the main menu.
+    Run display_full_order() to display the full order summary and prompt the user either place the order, add more items, remove items, or return to the main menu.
     All user inputs are validated.
 
     Args:
@@ -359,21 +357,40 @@ def summary_order_confirm(input_list):
     return int(user_input)-1,total_sum
 
 def display_full_order(input_list):
+    
+    """
+    Displays the full order summary with all meal items and their prices and total cost.
 
+    Each meal item is displayed with its description, any extras (if included) and price. 
+    The total order cost is displayed at the bottom.
+    Description of extras abbreviations is shown if at least one extra item has been included in any of the meal items.
+
+    Args:
+        input_list (list): A list of Meal objects each representing a complete meal and collectively a full order.
+
+    Returns:
+        float: The total cost of all meals in the order.
+    """    
     total_sum = 0
     price_indent=9
     str_indent=62
     print(color_text("Items".center(str_indent)+"| Price (£)",15))
     print(color_text("-"*(str_indent+10),15))
+    show_extra_note = False
 
     for ind,order in enumerate(input_list):
         description_str, price_str = order.summary()
         print(color_text(f"{ind+1}) {description_str}".ljust(str_indent),220) +color_text("|",15)+ color_text(f"{price_format(price_str)}".rjust(price_indent),220))
         total_sum += order.total_price
+        if '- *' in description_str:
+            show_extra_note = True
+
     total_sum = round(total_sum, 2)
     print(color_text('_'*(str_indent+10),15))
     print(color_text(f"Total cost {chr(0x1F4B7)} :".center(str_indent) +"|",15)+ color_text(f"{price_format(total_sum)}".rjust(price_indent),220))
-    print_extras_description()
+
+    if show_extra_note:
+        print_extras_description()
     
     return total_sum
 
