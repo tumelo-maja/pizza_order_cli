@@ -48,7 +48,7 @@ def create_order(meal_list):
 
     Args:
         meal_list (list): A list to store Meal objects or append to existing objects int the list.
-        
+
     Returns:
         list: A list of Meal objects
     
@@ -319,27 +319,11 @@ def print_meal_summary(meal_object):
     else:
         print(color_text(summary_str + "no extras",15))
         
-
-def confirm_order(input_list):
-    
-    order_comfirmed, total_sum= summary_order_confirm(input_list)
-
-    if order_comfirmed == "1":
-        return total_sum, 0
-    elif order_comfirmed == "2":
-        return None, 2
-    elif order_comfirmed == "3":
-        return None, 3
-    else:
-        print("Invalid answer")
-
 def summary_order_confirm(input_list):
     #clear_console()
     if not len(input_list):
         print("\nThere are no items in this order")
         input(color_text(f"- Press any key to Main Menu {chr(0x1F3E0)}\n",166))
-        total_sum=0
-        user_input="2"
         main_menu()
 
     else:
@@ -357,8 +341,14 @@ def summary_order_confirm(input_list):
                 continue
             if validate_single_entry(user_input,1,3):
                 break
-            
-    return user_input, total_sum
+
+    if user_input == "1":
+        return  0, total_sum
+    elif user_input == "2":
+        return 2, None
+    elif user_input == "3":
+        return 3, None
+
 
 def display_full_order(input_list):
 
@@ -454,7 +444,9 @@ def prepare_new_order(last_orderID):
         if continue_loop == 1:
             meal_list= create_order(meal_list)
             
-            total_price, continue_loop  = confirm_order(meal_list)
+            # total_price, continue_loop  = confirm_order(meal_list)
+            continue_loop, total_price= summary_order_confirm(meal_list)
+
         
         elif continue_loop == 2:
             continue_loop =1
