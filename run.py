@@ -874,7 +874,16 @@ def display_return_home_option():
     print(color_text("- enter 99 to return to the main menu\n",166))
 
 def color_text(message,color_code):
+    """
+    Styles the given message string by wrapping it in ANSI 256-color formatting with the color code specified.
 
+    Args:
+        message (str): The text to be colorized.
+        color_code (int): The ANSI color code to apply (0-255).
+
+    Returns:
+        str: The message string wrapped in ANSI color codes.
+    """
     return f"\033[38;5;{color_code}m{message}\033[0m"
 
 def clear_console():
