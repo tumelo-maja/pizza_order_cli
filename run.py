@@ -318,7 +318,7 @@ def enter_meal_quantity():
     """
     Prompts the user to enter the quantity of a meal they wish to order.
 
-    The function prompts user to an integer between 1 and 50 to proceed. 
+    The function prompts user to an integer between 1 and 50 to proceed.
     Validates user's inputs and allows user to return to main menu.
 
     Returns:
@@ -326,7 +326,8 @@ def enter_meal_quantity():
     """
     # clear_console()
     while True:
-        print(color_text("\nHow many qunatities of this meal would you like?", 15))
+        print(color_text(
+            "\nHow many qunatities of this meal would you like?", 15))
         display_return_home_option()
         user_input = strppied_input(color_text(
             "Enter your required quantity (1-50):\n", 166))
@@ -341,19 +342,23 @@ def enter_meal_quantity():
 
 def print_meal_summary(meal_object):
     """
-    Displays a summary of a meal object showing the name, size, any extras and meal quantity.
+    Displays a summary of a meal object showing
+    the name, size, any extras and meal quantity.
 
-    If any of the extras (toppings, dips, sides, drinks) items have been selected, they will be displayed with their quantities.
+    If any of the extras (toppings, dips, sides, drinks) items
+    have been selected, they will be displayed with their quantities.
 
     Args:
-        meal_object (Meal): The Meal object containing all details of the selected meal options.
+        meal_object (Meal): The Meal object containing all
+                            details of the selected meal options.
 
     Returns:
         None
     """
     # clear_console()
     print(color_text("\nOrder summary: ", 15))
-    summary_str = f"{meal_object.quantity} x {meal_object.pizza_size} {meal_object.pizza_name} Pizza with "
+    summary_str = f"{meal_object.quantity} x {meal_object.pizza_size}" + \
+                  f" {meal_object.pizza_name} Pizza with "
     extras = meal_object.extras_summary()
     if len(extras) > 0:
         print(color_text(summary_str + "the following extra(s):", 15))
@@ -368,7 +373,8 @@ def print_meal_summary(meal_object):
                     align_space = " " * \
                         len(f"{extra_short}".ljust(indent)) + "  "
                     print(color_text(f"{extra_short}".ljust(
-                        indent) + f": {extra_label[0]}\n{align_space}" + f'\n{align_space}'.join(extra_label[1:]), 15))
+                        indent) + f": {extra_label[0]}\n{align_space}" +
+                            f'\n{align_space}'.join(extra_label[1:]), 15))
                 else:
                     print(color_text(f"{extra_short}".ljust(
                         indent) + f" {extra_label[0]}", 15))
@@ -380,15 +386,20 @@ def print_meal_summary(meal_object):
 
 def summary_order_confirm(input_list):
     """
-    Run display_full_order() to display the full order summary and prompt the user either place the order, add more items, remove items, or return to the main menu.
+    Run display_full_order() to display the full order summary and
+    prompt the user either place the order, add more items,
+    remove items, or return to the main menu.
     All user inputs are validated.
 
     Args:
-        input_list (list): A list of Meal objects that make up the current order.
+        input_list (list): A list of Meal objects that
+                          make up the current order.
 
     Returns:
         tuple:
-            int: A flow control value based on user's input; derived as 'user_input' - 1 (0 = confirm, 1 = add more, 2 = remove items).
+            int: A flow control value based on user's input;
+                 derived as 'user_input'-1
+                 (0 = confirm, 1 = add more, 2 = remove items).
             float: The total cost of the order.
     """
     # clear_console()
@@ -422,14 +433,18 @@ def summary_order_confirm(input_list):
 
 def display_full_order(input_list):
     """
-    Displays the full order summary with all meal items and their prices and total cost.
+    Displays the full order summary with all meal
+    items and their prices and total cost.
 
-    Each meal item is displayed with its description, any extras (if included) and price. 
+    Each meal item is displayed with its description,
+    any extras (if included) and price.
     The total order cost is displayed at the bottom.
-    Description of extras abbreviations is shown if at least one extra item has been included in any of the meal items.
+    Description of extras abbreviations is shown if
+    at least one extra item has been included in any of the meal items.
 
     Args:
-        input_list (list): A list of Meal objects each representing a complete meal and collectively a full order.
+        input_list (list): A list of Meal objects each representing
+                    a complete meal and collectively a full order.
 
     Returns:
         float: The total cost of all meals in the order.
@@ -443,8 +458,11 @@ def display_full_order(input_list):
 
     for ind, order in enumerate(input_list):
         description_str, price_str = order.summary()
-        print(color_text(f"{ind+1}) {description_str}".ljust(str_indent), 220) + color_text(
-            "|", 15) + color_text(f"{price_format(price_str)}".rjust(price_indent), 220))
+        print(color_text(f"{ind+1})"
+                         f"{description_str}".ljust(str_indent), 220) +
+              color_text("|", 15) +
+              color_text(
+                  f"{price_format(price_str)}".rjust(price_indent), 220))
         total_sum += order.total_price
         if '- *' in description_str:
             show_extra_note = True
@@ -452,7 +470,8 @@ def display_full_order(input_list):
     total_sum = round(total_sum, 2)
     print(color_text('_'*(str_indent+10), 15))
     print(color_text(f"Total cost {chr(0x1F4B7)} :".center(
-        str_indent) + "|", 15) + color_text(f"{price_format(total_sum)}".rjust(price_indent), 220))
+        str_indent) + "|", 15) +
+        color_text(f"{price_format(total_sum)}".rjust(price_indent), 220))
 
     if show_extra_note:
         print_extras_description()
@@ -462,7 +481,8 @@ def display_full_order(input_list):
 
 def price_format(value):
     """
-    Formats a numeric value as a price string with two decimal places and comma separators.
+    Formats a numeric value as a price string with
+    two decimal places and comma separators.
 
     Args:
         value (float or int): The numeric value to format.
@@ -477,8 +497,9 @@ def print_order_summary(order_dict):
     """
     Displays a formatted summary of an order.
 
-    The summary includes the order ID, date and time, ordered items, ready time, 
-    status, and total cost. Each meal items is displayed on a individual row for for readability.
+    The summary includes the order ID, date and
+    time, ordered items, ready time,status, and total cost.
+    Each meal items is displayed on a individual row for for readability.
 
     Args:
         order_dict (iterable): A dictionary containing the order details.
@@ -507,7 +528,8 @@ def print_order_summary(order_dict):
             split_str = [color_text(x, 220) for x in value.split(',')]
 
             print(color_text(f"{label}".ljust(indent) + "|", 15) +
-                  f" {split_str[0]}\n{align_space}" + f'\n{align_space}'.join(split_str[1:]))
+                  f" {split_str[0]}\n{align_space}" +
+                  f'\n{align_space}'.join(split_str[1:]))
 
         elif label == 'Items':
             print(color_text(f"{label}".ljust(indent) +
@@ -515,10 +537,12 @@ def print_order_summary(order_dict):
         elif label == 'Status':
             if value != 'Ready':
                 print(color_text(f"{label}".ljust(
-                    indent) + "|", 15) + f" {chr(0x231B)}"+color_text(f"  {value}", 166))
+                    indent) + "|", 15) +
+                    f" {chr(0x231B)}"+color_text(f"  {value}", 166))
             else:
                 print(color_text(f"{label}".ljust(
-                    indent) + "|", 15) + f" {chr(0x2705)}"+color_text(f"  {value}", 82))
+                    indent) + "|", 15) +
+                    f" {chr(0x2705)}"+color_text(f"  {value}", 82))
 
         else:
             print(color_text(f"{label}".ljust(
@@ -527,9 +551,11 @@ def print_order_summary(order_dict):
 
 def print_extras_description():
     """
-    Prints a legend note explaining the shorthand labels used for extra items in order summaries.
+    Prints a legend note explaining the
+    shorthand labels used for extra items in order summaries.
 
-    The labels are taken from a global EXTRAS_NAMES constant and formatted for display.
+    The labels are taken from a global
+    EXTRAS_NAMES constant and formatted for display.
 
     Returns:
         None
@@ -541,14 +567,18 @@ def print_extras_description():
 
 def update_orders_sheet(order):
     """
-    Appends a new order to the Google Sheets 'orders' worksheet and displays confirmation.
+    Appends a new order to the Google Sheets 'orders'
+    worksheet and displays confirmation.
 
-    The function extracts summary data from the Order object, appends it to the worksheet,
-    prints a success message, runs 'print_order_summary()' to shows a summary of the submitted order.
+    The function extracts summary data from
+    the Order object, appends it to the worksheet,
+    prints a success message, runs 'print_order_summary()'
+    to shows a summary of the submitted order.
     Prompts user to the main menu by pressing Enter key.
 
     Args:
-        order (Order): The completed order object containing full order details and total order cost.
+        order (Order): The completed order object containing
+                    the full order details and total order cost.
 
     Returns:
         None
@@ -561,7 +591,9 @@ def update_orders_sheet(order):
 
     print(color_text("'orders' worksheet updated successfully.", 220))
     print(color_text(
-        f"\nSuccess!{chr(0x2705)}  {chr(0x1F4AF)}  {chr(0x1F603)}  Thank you for sending your order. It is now being prepared...", 220))
+        f"\nSuccess!{chr(0x2705)}  {chr(0x1F4AF)}  {chr(0x1F603)}"
+        "  Thank you for sending your order. "
+        "It is now being prepared...", 220))
     print_order_summary(order.summary.values())
 
     input(color_text(
@@ -571,13 +603,15 @@ def update_orders_sheet(order):
 
 def get_latest_order_ID():
     """
-    Retrieves the latest order ID from the Google Sheet and extracts the last sequence number for today.
+    Retrieves the latest order ID from the
+    Google Sheet and extracts the last sequence number for today.
 
-    If no order has been placed today, 0 is returned to start the count. 
+    If no order has been placed today, 0 is returned to start the count.
     Otherwise, the latest order number in the last 4 digits is returned.
 
     Returns:
-        int: The last sequence number used for today's orders or 0 if there are no was placed today.
+        int: The last sequence number used for
+            today's orders or 0 if there are no was placed today.
     """
     latest_order_ID = ORDERS_SHEET.col_values(1)[-1]
     today_date = datetime.today().strftime(DATETIME_FORMAT_ORDER)
@@ -595,13 +629,15 @@ def create_new_order(last_orderID):
     Handles adding and modifying meal items and creating an order object.
 
     This function run create_meal() to build a list of meal items.
-    User can review the order summary to add or remove items, or confirms the final order. 
+    User can review the order summary to add or
+    remove items, or confirms the final order.
 
     Args:
         last_orderID (int): The last used sequence number for today's orders.
 
     Returns:
-        Order: An Order object containing the finalized meal list, total price, and order ID.
+        Order: An Order object containing the
+             finalized meal list, total price, and order ID.
     """
     meal_list = []
     continue_loop = 1
@@ -623,11 +659,14 @@ def remove_meal_items(input_list):
     """
     Removes one or more meals from the current order.
 
-    User prompted to enter indexes of items to remove from the order.
-    The input is validated, and the corresponding items are excluded from the returned list.
+    User prompted to enter indexes of
+    items to remove from the order.
+    The input is validated, and the corresponding
+    items are excluded from the returned list.
 
     Args:
-        input_list (list): A list of Meal objects representing the current order.
+        input_list (list): A list of Meal objects
+                    representing the current order.
 
     Returns:
         list: An updated list of Meal objects with the selected items removed.
@@ -635,7 +674,8 @@ def remove_meal_items(input_list):
     # clear_console()
     while True:
         print(color_text(
-            "\nSelect the order item(s) you wish to remove \n(inputs can be comma-separated integers)", 15))
+            "\nSelect the order item(s) you wish to remove "
+            "\n(inputs can be comma-separated integers)", 15))
         print(color_text("-  enter 0 for no changes", 166))
         display_return_home_option()
         display_full_order(input_list)
@@ -646,7 +686,11 @@ def remove_meal_items(input_list):
         if user_input == '0':
             return input_list
 
-        if validate_multiple_entries(user_input, 1, len(input_list), len(input_list), repeat_allowed=False):
+        if validate_multiple_entries(
+            user_input, 1,
+            len(input_list), len(input_list),
+            repeat_allowed=False
+        ):
             break
 
     removed_indexes = [int(x)-1 for x in user_input.split(",")]
@@ -662,7 +706,7 @@ def validate_single_entry(value, min_value, max_value):
     Validates a single digit input according to specific conditions.
 
     This function checks that the input:
-      - is numeric (no other charatcetrs are allowed), 
+      - is numeric (no other charatcetrs are allowed),
       - is within the allowed range specified,
 
     If the input is invalid, an error message is displayed.
@@ -673,7 +717,8 @@ def validate_single_entry(value, min_value, max_value):
         max_value (int): The maximum input value.
 
     Returns:
-        bool: True if the input is valid (meets the conditions), otherwise False.
+        bool: True if the input is valid
+            (meets the conditions), otherwise False.
     """
     try:
 
@@ -685,7 +730,8 @@ def validate_single_entry(value, min_value, max_value):
         # check if input is within range
         if value < min_value or value > max_value:
             raise ValueError(
-                f"Value '{value}' is out of range. The input value must be between {min_value} and {max_value}")
+                f"Value '{value}' is out of range. "
+                f"The input value must be between {min_value} and {max_value}")
 
     except ValueError as e:
         print(color_text(
@@ -695,25 +741,31 @@ def validate_single_entry(value, min_value, max_value):
     return True
 
 
-def validate_multiple_entries(values_input, min_value, max_value, count_max, repeat_allowed=True):
+def validate_multiple_entries(
+        values_input,
+        min_value,
+        max_value,
+        count_max,
+        repeat_allowed=True):
     """
     Validates multiple comma-separated inputs against specified conditions.
 
     This function checks that :
-      - input contains numeric characters only, 
+      - input contains numeric characters only,
       - each character in the input lies within the range specified,
       - number of characters do not exceed the count limit
-      - values are not repeated, where repitition is prohibited 
+      - values are not repeated, where repitition is prohibited
       - '0' option is not selected with any other options
 
-    If the input is invalid, an error message is displayed.    
+    If the input is invalid, an error message is displayed.
 
     Args:
-        values_input (str): The raw comma-separated user input string to validate.
+        values_input (str): The raw user input string to validate.
         min_value (int): The minimum allowed value for entries.
         max_value (int): The maximum allowed value for entries.
         count_max (int): The maximum number of items allowed in the input.
-        repeat_allowed (bool, optional): Whether repeated values are permitted. Defaults is True.
+        repeat_allowed (bool, optional): Whether repeated values are permitted.
+                                        Defaults is True.
 
     Returns:
         bool: True if all input values are valid, otherwise False.
@@ -724,36 +776,44 @@ def validate_multiple_entries(values_input, min_value, max_value, count_max, rep
         #  Check if zero in selected with other options
         if len(values) > 1 and '0' in values:
             raise ValueError(
-                f"'{values_input}' is not a valid entry. You cannot select '0' with any other values")
+                f"'{values_input}' is not a valid entry. "
+                "You cannot select '0' with any other values")
 
         # Check number of inputs does not exceed limit
         if count_max is not None and len(values) > count_max:
             raise ValueError(
-                f"You've entered {len(values)} items, you may only add up to {count_max} items")
+                f"You've entered {len(values)} items, "
+                f"you may only add up to {count_max} items")
 
         # Check for repeated numbers
         if not repeat_allowed:
             if len(values) != len(set(values)):
                 raise ValueError(
-                    f"'{values_input}' is not a valid entry. Duplicate entries are not allowed")
+                    f"'{values_input}' is not a valid entry. "
+                    "Duplicate entries are not allowed")
 
         for value in values:
 
             #  Check if zero in selected with other options
             if len(value) > 1 and '0' in value:
                 raise ValueError(
-                    f"'{values_input}' is not a valid entry. You cannot select '0' with any other values")
+                    f"'{values_input}' is not a valid entry. "
+                    "You cannot select '0' with any other values")
 
             # Check if input strictly has integer type only
             if not value.isdigit():
                 raise ValueError(
-                    f"'{value}' is not an integer. The input values must be integers between {min_value} and {max_value}")
+                    f"'{value}' is not an integer. "
+                    "The input values must be integers "
+                    f"between {min_value} and {max_value}")
             value = int(value)
 
             # check if input is within range
             if value < min_value or value > max_value:
                 raise ValueError(
-                    f"Value '{value}' is out of range. The input values must be integers between {min_value} and {max_value}")
+                    f"Value '{value}' is out of range. "
+                    "The input values must be integers "
+                    f"between {min_value} and {max_value}")
 
     except ValueError as e:
         print(color_text(
@@ -771,15 +831,22 @@ def welcome_page():
     All user inputs are validated.
 
     Returns:
-        str: A validated user input - '1' to place a new order or '2' to track an existing order.
+        str: A validated user input - '1' to place a new order
+            or '2' to track an existing order.
 
     """
     # #clear_console()
     dashes = "-"*21
     dashes_slogan = "-"*18
     string_len = 75
-    welcome_str = f"{color_text('/'+dashes, 166)}{chr(0x1F355)}  {color_text('Welcome to PizzaPalace CLI!', 82)} {chr(0x1F355)}{color_text(dashes+'-\\', 166)}"
-    second_line_str = f"{color_text('|'+dashes_slogan, 166)}{color_text(chr(0x1F336), 196)*2}  {color_text('Packed with incredible', 82)} {color_text('flavors!', 196)} {chr(0x1F525)*2}{color_text(dashes_slogan+'-|', 166)}"
+    welcome_str = f"{color_text('/'+dashes, 166)}{chr(0x1F355)}  " + \
+        f"{color_text('Welcome to PizzaPalace CLI!', 82)} " + \
+        f"{chr(0x1F355)}{color_text(dashes+'-\\', 166)}"
+    second_line_str = f"{color_text('|'+dashes_slogan, 166)}" + \
+        f"{color_text(chr(0x1F336), 196)*2}  " + \
+        f"{color_text('Packed with incredible', 82)} " + \
+        f"{color_text('flavors!', 196)} " + \
+        f"{chr(0x1F525)*2}{color_text(dashes_slogan+'-|', 166)}"
     print(color_text(" " + "_"*string_len, 166))
     print(welcome_str)
     print(color_text("|"+"-"*string_len + "|", 166))
@@ -804,11 +871,16 @@ def welcome_page():
 
 def track_order():
     """
-    Prompts the user to enter an order number and displays the status and details of the order if it exists.
+    Prompts the user to enter an order number and
+    displays the status and details of the order if it exists.
 
-    This function runs validate_order_number() to validate order number and update_orders_status() to update orders records.
-    if order number exists in the google sheets, order summary is displayed including the status ('Ready' or 'Preparing').
-    After order summary display, the user can track another order or return to the main menu.
+    This function runs validate_order_number() to
+    validate order number and update_orders_status()
+    to update orders records.
+    if order number exists in the google sheets,
+    order summary is displayed including the status ('Ready' or 'Preparing').
+    After order summary display, the user can
+    track another order or return to the main menu.
 
     Returns:
         None
@@ -832,7 +904,8 @@ def track_order():
 
         if not len(order_index):
             print(color_text(
-                f"\n{chr(0x274C)} Order number {order_number} not found. Please check the number and try again.\n", 196))
+                f"\n{chr(0x274C)} Order number {order_number} not found. "
+                "Please check the number and try again.\n", 196))
             continue
 
         order_dict = orders_df.iloc[order_index[0]].to_dict()
@@ -857,9 +930,11 @@ def track_order():
 
 def update_orders_status():
     """
-    Updates the status of all orders in the worksheet based on their ready time.
+    Updates the status of all orders in
+    the worksheet based on their ready time.
 
-    This function checks each order's 'Order ready time' against the current time.
+    This function checks each order's
+    'Order ready time' against the current time.
     If the ready time has passed, the status is updated to 'Ready'.
 
     Returns:
@@ -891,16 +966,20 @@ def update_orders_status():
 
 def check_order_status(order_dict):
     """
-    Checks if the order is ready bby comparing the scheduled ready time and current time.
+    Checks if the order is ready bby comparing
+    the scheduled ready time and current time.
 
-    It returns a text indicating whether the order is ready or still being prepared.
+    It returns a text indicating whether
+    the order is ready or still being prepared.
 
     Args:
-        order_dict (dict): A dictionary containing order information, including 'Order ready time'.
+        order_dict (dict): A dictionary containing
+                        order information, including 'Order ready time'.
 
     Returns:
         tuple:
-            str: A formatted message indicating whether the order is ready or still being prepared.
+            str: A formatted message indicating whether
+                the order is ready or still being prepared.
     """
     print(color_text("Checking your order status...", 220))
 
@@ -946,22 +1025,26 @@ def validate_order_number(number):
         # Check if there are any spaces ' '
         if ' ' in number:
             raise ValueError(
-                f"'{number}' is not a valid order number. Order number must not contain any spaces")
+                f"'{number}' is not a valid order number. "
+                "Order number must not contain any spaces")
 
         # Check if there are leading zerpos
         if not number.startswith("20"):
             raise ValueError(
-                f"'{number}' is not a valid order number. Order number must start with '20'")
+                f"'{number}' is not a valid order number. "
+                "Order number must start with '20'")
 
         # Check if digit
         if not number.isdigit():
             raise ValueError(
-                f"'{number}' is not a valid order number. Order number must contain integers only")
+                f"'{number}' is not a valid order number. "
+                "Order number must contain integers only")
 
         # Check number length
         if len(number) != ORDER_NUMBER_LENGTH:
             raise ValueError(
-                f"Order number must have exactly 12 integers - you provided {len(number)}")
+                f"Order number must have exactly 12 integers "
+                "- you provided {len(number)}")
 
     except ValueError as e:
         print(color_text(
@@ -996,7 +1079,8 @@ def display_return_home_option():
 
 def color_text(message, color_code):
     """
-    Styles the given message string by wrapping it in ANSI 256-color formatting with the color code specified.
+    Styles the given message string by wrapping it in
+    ANSI 256-color formatting with the color code specified.
 
     Args:
         message (str): The text to be colorized.
