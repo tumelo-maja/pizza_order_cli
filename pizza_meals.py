@@ -94,10 +94,20 @@ class Meal():
 
 class Order():
     """
-    Creates an instance order.
+    Represents a full order containing 1 or more meals and other order details.
+
+    Attributes:
+        order_list (list): List of Meal objects in the order.
+        total_price (float): Total cost of the full order.
+        order_date (str): Timestamp when the order was created.
+        last_orderID (int): The last numeric order ID for today's date.
+        order_ID (str): Generated unique order ID based on date and 4-number digit in the formart - yyyymmdd####.
     """
 
     def __init__(self, order_list, total_price,last_orderID):
+        """
+        Creates an instance order with a list of meals, total cost, and other order details.
+        """        
         self.order_list = order_list
         self.total_price = total_price
         self.order_date = datetime.now().strftime(DATETIME_FORMAT)
@@ -106,6 +116,12 @@ class Order():
 
     @property
     def order_ready_time(self):
+        """
+        Calculates the order's ready time based on meal items quantity and extras included in each meal.
+
+        Returns:
+            str: datetime string for when the order should be ready.
+        """        
         BASE_MEAL_PREP_TIME = 15
         DELAY_pizza_PREP_TIME = 5
     
@@ -125,7 +141,12 @@ class Order():
 
     @property
     def order_items(self):
+        """
+        Combines order details into a summary for all items in the order.
 
+        Returns:
+            str: Concatenated item descriptions for all items in the order.
+        """
         full_order_str = []
         for order_item in self.order_list:
 
@@ -138,7 +159,12 @@ class Order():
 
     @property
     def summary(self):
+        """
+        Creates a dictionary with key order details.
 
+        Returns:
+            dict: with keys including ID, date, items, status, and total cost of the order.
+        """
         return {
             "Order ID": self.order_ID,
             "Order date": self.order_date,
@@ -149,6 +175,12 @@ class Order():
         }
 
     def create_order_ID(self):
+        """
+        Creates a unique order ID using the current date and incremented 4-digit number.
+
+        Returns:
+            str: Formatted order ID in the formart - yyyymmdd####.
+        """        
         new_order_ID = datetime.today().strftime(DATETIME_FORMAT_ORDER) + '{:04}'.format(self.last_orderID+1)
         
         return new_order_ID
