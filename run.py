@@ -144,7 +144,7 @@ def confirm_exit():
     user_input = int(user_input)
     if user_input == 1:
         main_menu()
-    # clear_console()
+    clear_console()
 
 
 def choose_pizza_name():
@@ -159,7 +159,7 @@ def choose_pizza_name():
             str: The selected pizza name.
             list: The list of base toppings for the selected pizza.
     '''
-    # clear_console()
+    clear_console()
     indent = 18
     while True:
         print(color_text("\nChoose your pizza (one pizza at a time)", 15))
@@ -197,7 +197,7 @@ def choose_pizza_size():
             str: The selected pizza size label.
             float: The price of the selected pizza size.
     '''
-    # clear_console()
+    clear_console()
     indent = 21
     while True:
         print(color_text("\nChoose the size of your pizza", 15))
@@ -245,7 +245,7 @@ def choose_extra_items(item_type, count_max):
                     accessing other properties of the item_type menu.
             - 'counts' (int): Total number of selected items.
     """
-    # clear_console()
+    clear_console()
     if item_type == 'toppings':
         menu_list = EXTRA_TOPPINGS
         indent = 18
@@ -324,7 +324,7 @@ def enter_meal_quantity():
     Returns:
         int: The number of meal portions.
     """
-    # clear_console()
+    clear_console()
     while True:
         print(color_text(
             "\nHow many qunatities of this meal would you like?", 15))
@@ -355,7 +355,7 @@ def print_meal_summary(meal_object):
     Returns:
         None
     """
-    # clear_console()
+    clear_console()
     print(color_text("\nOrder summary: ", 15))
     summary_str = f"{meal_object.quantity} x {meal_object.pizza_size}" + \
                   f" {meal_object.pizza_name} Pizza with "
@@ -402,7 +402,7 @@ def summary_order_confirm(input_list):
                  (0 = confirm, 1 = add more, 2 = remove items).
             float: The total cost of the order.
     """
-    # clear_console()
+    clear_console()
     if not len(input_list):
         print("\nThere are no items in this order")
         input(color_text(f"- Press Enter to Main Menu {chr(0x1F3E0)}\n", 166))
@@ -583,7 +583,7 @@ def update_orders_sheet(order):
     Returns:
         None
     """
-    # clear_console()
+    clear_console()
     print(color_text("Updating 'order' worksheet...", 220))
     order_list_item = list(order.summary.values())
 
@@ -671,7 +671,7 @@ def remove_meal_items(input_list):
     Returns:
         list: An updated list of Meal objects with the selected items removed.
     """
-    # clear_console()
+    clear_console()
     while True:
         print(color_text(
             "\nSelect the order item(s) you wish to remove "
@@ -835,7 +835,7 @@ def welcome_page():
             or '2' to track an existing order.
 
     """
-    # #clear_console()
+    clear_console()
     dashes = "-"*21
     dashes_slogan = "-"*18
     string_len = 75
@@ -885,7 +885,7 @@ def track_order():
     Returns:
         None
     """
-    # clear_console()
+    clear_console()
     while True:
         print(color_text("Track order:", 15))
         display_return_home_option()
