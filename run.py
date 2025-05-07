@@ -853,6 +853,15 @@ def validate_order_number(number):
     return True
 
 def strppied_input(message):
+    """
+    Removes any spaces from the input() response.
+
+    Args:
+        message (str): Message displayed to the user.
+
+    Returns:
+        str: The input() response without any spaces.
+    """    
     return input(message).replace(' ', '')
 
 def display_return_home_option():
