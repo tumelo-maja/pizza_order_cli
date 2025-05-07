@@ -865,6 +865,12 @@ def strppied_input(message):
     return input(message).replace(' ', '')
 
 def display_return_home_option():
+    """
+    Displays a message on how to return to the main menu.
+
+    Returns:
+        None
+    """    
     print(color_text("- enter 99 to return to the main menu\n",166))
 
 def color_text(message,color_code):
