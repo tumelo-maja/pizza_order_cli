@@ -7,10 +7,25 @@ ORDER_NUMBER_LENGTH = 12
 
 class Meal():
     """
-    Creates a Meal instance
-    """
+    Represents a meal consisting of a pizza and optional extras like toppings, dips, sides, and drinks.
+
+    Attributes:
+        pizza_name (str): Name of the pizza.
+        pizza_base_toppings (list): base toppings for the pizza.
+        pizza_size (str): Size of the pizza.
+        pizza_price (float): Base price of the pizza without extras.
+        toppings (dict): Selected extra toppings.
+        dips (dict): Selected dips.
+        sides (dict): Selected side items.
+        drinks (dict): Selected drinks.
+        quantity (int): Specified number of portions for the meal.
+        total_price(float): Total sum of all meal items and quantities
+    """    
 
     def __init__(self, pizza_name, pizza_base_toppings, pizza_size, pizza_price, toppings,dips,sides,drinks,quantity):
+        """
+        Creates a Meal instance with pizza and selected extras.
+        """        
         self.pizza_name = pizza_name
         self.pizza_base_toppings = pizza_base_toppings
         self.pizza_size = pizza_size
@@ -22,14 +37,24 @@ class Meal():
         self.quantity = quantity
 
     def summary(self):
-        
+        """
+        Formarts the meal information including extras and pizza details into a formatted string.
+
+        Returns:
+            tuple: (str, float) containing the formatted meal description and total price.
+        """    
         description_str = f"{self.quantity} x {self.pizza_name} {self.pizza_size} {chr(0x1F355)} {self.extras_summary()}"
-        price_str = self.total_price
-        return description_str, price_str
+
+        return description_str, self.total_price
 
     @property
     def total_price(self):
-        
+        """
+        Calculates the total cost of all meal items including quantities.
+
+        Returns:
+            float: Meal total cost.
+        """    
         toppings_prices = [EXTRA_TOPPINGS[x[0]]['price']*x[1] for x in self.toppings['item_indx']]
         dips_prices = [EXTRA_DIP[x[0]]['price']*x[1] for x in self.dips['item_indx']]
         sides_prices = [SIDES_MENU[x[0]]['price']*x[1] for x in self.sides['item_indx']]
@@ -44,7 +69,15 @@ class Meal():
         return round(items_total, 2)
     
     def extras_summary(self,label_type='short'):
-        
+        """
+        Combines labels and quantities of the selected extras.
+
+        Args:
+            label_type (str): Whether to return shorthand ('short') or full labels.
+
+        Returns:
+            str: Concatenated summary string of extras.
+        """        
         extras_str_list=[]
         for extra_full,extra_short in EXTRAS_NAMES:
             extra_counts =getattr(self, extra_full).get('counts')
