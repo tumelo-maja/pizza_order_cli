@@ -887,6 +887,12 @@ def color_text(message,color_code):
     return f"\033[38;5;{color_code}m{message}\033[0m"
 
 def clear_console():
+    """
+    Clears the terminal screen.
+
+    Returns:
+        None
+    """    
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def main_menu():
