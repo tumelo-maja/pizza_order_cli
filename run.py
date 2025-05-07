@@ -5,7 +5,14 @@ from datetime import datetime
 import pandas as pd
 import os
 from pizza_meals import Meal, Order
-from menu_items import (EXTRA_TOPPINGS,EXTRA_DIP, SIDES_MENU,DRINKS_MENU, EXTRAS_NAMES,PIZZA_MENU,PIZZA_SIZES)
+from menu_items import (
+    EXTRA_TOPPINGS, 
+    EXTRA_DIP, 
+    SIDES_MENU, 
+    DRINKS_MENU, 
+    EXTRAS_NAMES, 
+    PIZZA_MENU, 
+    PIZZA_SIZES)
 
 SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -920,9 +927,3 @@ def main_menu():
 ORDERS_SHEET = connect_google_sheets('orders')        
 
 main_menu()
-
-
-
-
-
-    
