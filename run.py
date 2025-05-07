@@ -734,7 +734,7 @@ def track_order():
             continue
             
         order_dict = orders_df.iloc[order_index[0]].to_dict()
-        status_str, order_dict = check_order_status(order_dict)     
+        status_str = check_order_status(order_dict)     
     
         print_order_summary(order_dict.values())
         print(f"\n{status_str}")
@@ -782,6 +782,18 @@ def update_orders_status():
     ORDERS_SHEET.update(values=status_values,range_name=f'E2:E{len(status_values)+1}')
 
 def check_order_status(order_dict):
+    """
+    Checks if the order is ready bby comparing the scheduled ready time and current time.
+
+    It returns a text indicating whether the order is ready or still being prepared.
+
+    Args:
+        order_dict (dict): A dictionary containing order information, including 'Order ready time'.
+
+    Returns:
+        tuple:
+            str: A formatted message indicating whether the order is ready or still being prepared.
+    """    
     print(color_text("Checking your order status...",220))
     
     order_ready_datetime = datetime.strptime(order_dict['Order ready time'], DATETIME_FORMAT)
@@ -797,7 +809,7 @@ def check_order_status(order_dict):
     else:
         status_str = color_text("Your order is ready now",82)
     
-    return status_str, order_dict
+    return status_str
 
 def validate_order_number(number):
     
