@@ -898,6 +898,9 @@ def clear_console():
 def main_menu():
     """
     Run the application to initiate requests for user input
+
+    Returns:
+        None
     """    
 
     continue_app=True
