@@ -1,4 +1,15 @@
+"""
+Defines menu options and pricing for pizzas and extras (dips, sides, and drinks).
 
+Dictionaries inlcuded in this file:
+- PIZZA_MENU: 5 x Available pizza options, each with custom base toppings.
+- PIZZA_SIZES: 3 x Size options with price.
+- EXTRA_TOPPINGS: 8 x Optional extra toppings, their prices and emoji icons 
+- EXTRA_DIP: 4 x Optional extra dips, their prices and emoji icons  
+- SIDES_MENU: 3 x Optional sides, their prices and emoji icons for chicken wings and fries 
+- DRINKS_MENU: 8 x Optional drinks, their prices and emoji icons 
+- EXTRAS_NAMES: Tuple of shortand and full display labels for extras.
+"""
 
 PIZZA_MENU = {
     "1": {"name": "Hawaiian", "base_toppings": ["ham", "pineapple", "cheese"]},
@@ -6,6 +17,27 @@ PIZZA_MENU = {
     "3": {"name": "Vegetarian", "base_toppings": ["mushrooms", "peppers", "onions", "olives"]},
     "4": {"name": "All Meaty", "base_toppings": ["pepperoni", "sausage", "ham", "olives", "beef"]},
     "5": {"name": "Spicy Chicken", "base_toppings": ["spicy chicken", "jalapenos", "onions", "cheese"]},
+}
+
+PIZZA_SIZES = {
+    "1": {
+        "label": 'Small',
+        "size_inch": '9"',
+        "size_cm": '23 cm',
+        "price": 9.00
+    },
+    "2": {
+        "label": 'Medium',
+        "size_inch": '12"',
+        "size_cm": '30 cm',
+        "price": 11.00
+    },
+    "3": {
+        "label": 'Large',
+        "size_inch": '15"',
+        "size_cm": '38 cm',
+        "price": 15.00
+    }
 }
 
 DRINKS_MENU = {
@@ -51,27 +83,6 @@ SIDES_MENU = {
     "4": {"name": "8 x Chicken Wings", "price": 4.50,'icon':chr(0x1F357)},
     "5": {"name": "12 x Chicken Wings", "price": 6.50,'icon':chr(0x1F357)},
     "6": {"name": "16 x Chicken Wings", "price": 8.00,'icon':chr(0x1F357)},
-}
-
-PIZZA_SIZES = {
-    "1": {
-        "label": 'Small',
-        "size_inch": '9"',
-        "size_cm": '23 cm',
-        "price": 9.00
-    },
-    "2": {
-        "label": 'Medium',
-        "size_inch": '12"',
-        "size_cm": '30 cm',
-        "price": 11.00
-    },
-    "3": {
-        "label": 'Large',
-        "size_inch": '15"',
-        "size_cm": '38 cm',
-        "price": 15.00
-    }
 }
 
 EXTRAS_NAMES=(('toppings','TPs'),('dips','DPs'),('sides','SDs'),('drinks','DKs'))
