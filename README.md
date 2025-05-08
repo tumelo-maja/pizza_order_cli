@@ -66,7 +66,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
   - **Limits:**
     - input(s) must be integeters betweeen 0 and 8 or enter 99 to return to 'Main Menu'
     - Multiple options may be selected and any option can be repeated
-    - A maximum of 8 extra toppings items maybe be selected per meal.
+    - A maximum of 8 extra toppings items may be selected per meal.
 
 - **Choose extra dips**
   <figure>
@@ -79,11 +79,11 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
   - **Limits:**
     - input(s) must be integeters betweeen 0 and 4 or enter 99 to return to 'Main Menu'
     - Multiple options may be selected and any option can be repeated.
-    - A maximum of 4 extra dips items maybe be selected per meal.
+    - A maximum of 4 extra dips may be selected per meal.
 
 - **Choose sides**
   <figure>
-    <img src="docs/app-screenshots/app-order-choose-extra-dips.png" >
+    <img src="docs/app-screenshots/app-order-choose-sides.png" >
     <br>
     <figcaption><strong><em>Choose Sides (optional)</em></strong></figcaption>
   </figure>
@@ -92,7 +92,20 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
   - **Limits:**
     - input(s) must be integeters betweeen 0 and 6 or enter 99 to return to 'Main Menu'
     - Multiple options may be selected and any option can be repeated.
-    - A maximum of 6 side items maybe be selected per meal.
+    - A maximum of 6 sides may be selected per meal.
+
+- **Choose drinks**
+  <figure>
+    <img src="docs/app-screenshots/app-order-choose-drinks.png" >
+    <br>
+    <figcaption><strong><em>Choose Drinks (optional)</em></strong></figcaption>
+  </figure>
+
+  - **Options** - select '0 - None' to not include any drinks, 1 or more options as displayed with their prices.
+  - **Limits:**
+    - input(s) must be integeters betweeen 0 and 8 or enter 99 to return to 'Main Menu'
+    - Multiple options may be selected and any option can be repeated.
+    - A maximum of 8 drinks may be selected per meal.
 
 ### Features Left to Implement
 
