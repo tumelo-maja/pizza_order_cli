@@ -737,7 +737,7 @@ def validate_single_entry(value, min_value, max_value):
 
     except ValueError as e:
         print(INDENT_ALL + color_text(
-            f"\n{chr(0x274C)}  Invalid entry: {e}, please try again.", 196))
+            f"\n {chr(0x274C)}  Invalid entry: {e}, please try again.", 196))
         return False
 
     return True
@@ -819,7 +819,7 @@ def validate_multiple_entries(
 
     except ValueError as e:
         print(INDENT_ALL + color_text(
-            f"\n{chr(0x274C)}  Invalid entry: {e}, please try again.", 196))
+            f"\n {chr(0x274C)}  Invalid entry: {e}, please try again.", 196))
         return False
 
     return True
@@ -1050,7 +1050,7 @@ def validate_order_number(number):
 
     except ValueError as e:
         print(INDENT_ALL + color_text(
-            f"\n{chr(0x274C)}  Invalid entry: {e}, please try again.\n", 196))
+            f"\n {chr(0x274C)}  Invalid entry: {e}, please try again.\n", 196))
         return False
 
     return True
