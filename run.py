@@ -917,7 +917,7 @@ def track_order():
         print(INDENT_ALL + f"\n{status_str}")
         indent = 23
         while True:
-            print(INDENT_ALL + color_text("\n1) Track another order ".ljust(
+            print(color_text("\n 1) Track another order ".ljust(
                 indent) + chr(0x1F50D), 82))
             print(INDENT_ALL + color_text("99) Main Menu".ljust(
                 indent)+chr(0x1F3E0), 82))
@@ -995,12 +995,12 @@ def check_order_status(order_dict):
 
     if time_difference > 0:
         status_str = color_text(
-            f"Your order has been ready since {order_ready_datestr}", 82)
+            f" Your order has been ready since {order_ready_datestr}", 82)
     elif time_difference < 0:
         status_str = color_text(
-            f"Your order will be ready at {order_ready_datestr}", 166)
+            f" Your order will be ready at {order_ready_datestr}", 166)
     else:
-        status_str = color_text("Your order is ready now", 82)
+        status_str = color_text(" Your order is ready now", 82)
 
     return status_str
 
