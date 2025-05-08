@@ -676,7 +676,7 @@ def remove_meal_items(input_list):
     clear_console()
     while True:
         print(color_text(
-            "\n Select the order item(s) you wish to remove "
+            "\n Select the meal item(s) you wish to remove "
             "\n (inputs can be comma-separated integers)", 15))
         print(INDENT_ALL + color_text("- enter 0 for no changes", 166))
         display_return_home_option()
