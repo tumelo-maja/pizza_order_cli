@@ -390,8 +390,8 @@ def print_meal_summary(meal_object):
 def summary_order_confirm(input_list):
     """
     Run display_full_order() to display the full order summary and
-    prompt the user either place the order, add more items,
-    remove items, or return to the main menu.
+    prompt the user either place the order, add more meals,
+    remove meals, or return to the main menu.
     All user inputs are validated.
 
     Args:
@@ -418,9 +418,9 @@ def summary_order_confirm(input_list):
             total_sum = display_full_order(input_list)
             print(color_text("\n 1) Place order".ljust(
                 indent+1)+chr(0x1F6D2), 82))
-            print(INDENT_ALL + color_text("2) Add more items".ljust(
+            print(INDENT_ALL + color_text("2) Add more meals".ljust(
                 indent)+chr(0x2795), 82))
-            print(INDENT_ALL + color_text("3) Remove items".ljust(
+            print(INDENT_ALL + color_text("3) Remove meals".ljust(
                 indent)+chr(0x2796), 82))
             print(INDENT_ALL + color_text("99) Main Menu".ljust(
                 indent)+chr(0x1F3E0), 82))

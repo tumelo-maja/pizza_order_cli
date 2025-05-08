@@ -131,6 +131,19 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
   - **2) No** - to proceed to checkout; app goes to order summary.
   - **Limits:** input must be an integer betweeen 1 and 2 or enter 99 to return to 'Main Menu'
 
+- **Order summary**
+  <figure>
+    <img src="docs/app-screenshots/app-order-order-summary-add.png" >
+    <br>
+    <figcaption><strong><em>Order Summary</em></strong></figcaption>
+  </figure>
+
+  - **Meal display** - complete order summary is shown including any extra items selected and their quantities for each meal.
+  - **1) Place Order** - to submit the order.
+  - **2) Add more meals** - to add 1 or more meals to the order; app goes back to choose pizza name
+  - **3) Remove meals** - to remove 1 or more meals from the order; app goes to remove meals menu.
+  - **Limits:** input must be an integer betweeen 1 and 3 or enter 99 to return to 'Main Menu'
+
 ### Features Left to Implement
 
 Future releases should use a proper database. Currently only order summaries are saved to the google sheet. The specific items are not saved i.e. google sheet has only number of drinks and not exactly which drink type e.g Orange Juice.
