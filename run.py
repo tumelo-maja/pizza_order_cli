@@ -529,9 +529,9 @@ def print_order_summary(order_dict):
                 len(f"{label}".ljust(indent)) + color_text("|", 15)
             split_str = [color_text(x, 220) for x in value.split(',')]
 
-            print(INDENT_ALL + color_text(f"{label}".ljust(indent) + "|", 15) +
+            print(INDENT_ALL + color_text(f"{label}".ljust(indent) + " |", 15) +
                   f" {split_str[0]}\n{align_space}" +
-                  f'\n {align_space}'.join(split_str[1:]))
+                  f'\n{align_space}'.join(split_str[1:]))
 
         elif label == 'Items':
             print(INDENT_ALL + color_text(f"{label}".ljust(indent) +
@@ -586,7 +586,7 @@ def update_orders_sheet(order):
         None
     """
     clear_console()
-    print(INDENT_ALL + color_text("Updating 'order' worksheet...", 220))
+    print(color_text("\n Updating 'order' worksheet...", 220))
     order_list_item = list(order.summary.values())
 
     ORDERS_SHEET.append_row(order_list_item)
