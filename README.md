@@ -395,8 +395,11 @@ Other goals:
 ## Google Sheets API
 This application uses google sheets as a cloud storage for placed orders. Google sheets and google drive APIs have been enabled for the application to have read and write permissions in the spreadsheet. A private API key is used to securely access the orders records and to update data in the sheet. 
 
-<Image>
-
+  <figure>
+    <img src="docs/gs-screenshots/google-sheets-orders-records.png" width="60%">
+    <figcaption><strong><em>Google Sheets - 'Orders' worksheet</em></strong></figcaption>
+  </figure>
+  
 ### Variables stored in Google sheets
 
 - **Order ID**: A unique identifier based on the date and sequence number.
