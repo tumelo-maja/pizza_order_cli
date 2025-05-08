@@ -22,6 +22,16 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 ## Features 
 
 ### Existing Features
+- **Main menu**
+  <figure>
+    <img src="docs/app-screenshots/app-main-menu-order.png" >
+    <br>
+    <figcaption><strong><em>Main Menu</em></strong></figcaption>
+  </figure>
+
+  - **1)** - Start making an order.
+  - **2)** - Start tracking an order.
+  - **Enter your choice:** - Enter a value followed by enter
 
 ### Features Left to Implement
 
