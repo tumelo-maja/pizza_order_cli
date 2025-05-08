@@ -390,7 +390,7 @@ def print_meal_summary(meal_object):
 def summary_order_confirm(input_list):
     """
     Run display_full_order() to display the full order summary and
-    prompt the user either place the order, add more meals,
+    prompt the user either submit the order, add more meals,
     remove meals, or return to the main menu.
     All user inputs are validated.
 
@@ -416,7 +416,7 @@ def summary_order_confirm(input_list):
         while True:
             print(color_text("\n Confirm your full order:", 15))
             total_sum = display_full_order(input_list)
-            print(color_text("\n 1) Place order".ljust(
+            print(color_text("\n 1) Submit order".ljust(
                 indent+1)+chr(0x1F6D2), 82))
             print(INDENT_ALL + color_text("2) Add more meals".ljust(
                 indent)+chr(0x2795), 82))
@@ -834,7 +834,7 @@ def welcome_page():
     All user inputs are validated.
 
     Returns:
-        str: A validated user input - '1' to place a new order
+        str: A validated user input - '1' to start a new order
             or '2' to track an existing order.
 
     """
@@ -860,7 +860,7 @@ def welcome_page():
     while True:
         print(color_text(
             f"\n What would you like to do today? {chr(0x1F600)}", 15))
-        print(INDENT_ALL + color_text("1) Place an order".ljust(
+        print(INDENT_ALL + color_text("1) Start an order".ljust(
             indent) + chr(0x1F4DD), 82))
         print(INDENT_ALL + color_text("2) Track an order".ljust(
             indent) + chr(0x1F50D), 82))

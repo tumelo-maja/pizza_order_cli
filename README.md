@@ -136,7 +136,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
     <img src="docs/app-screenshots/app-order-order-summary-add.png" ><br>
     <img src="docs/app-screenshots/app-order-order-summary-remove.png" >
     <br>
-    <figcaption><strong><em>Order Summary</em></strong></figcaption>
+    <figcaption><strong><em>Order Summary - Add more meals</em></strong></figcaption>
     *Note: bottom image shows mutliple meal added by selecting option 2.
   </figure>
 
@@ -156,7 +156,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
     <br>
     Meal options 5,3 and 4 were selected to be removed
     <br>
-    <figcaption><strong><em>Order Summary</em></strong></figcaption>
+    <figcaption><strong><em>Order Summary - Remove meals</em></strong></figcaption>
   </figure>
 
   - **Meal display** - complete order summary is shown including any extra items selected and their quantities for each meal.
@@ -164,6 +164,23 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
   - **2) Add more meals** - to add 1 or more meals to the order; app goes back to choose pizza name
   - **3) Remove meals** - to remove 1 or more meals from the order; app goes to remove meals menu.
   - **Limits:** input must be an integer betweeen 1 and 3 or enter 99 to return to 'Main Menu'
+
+- **Order summary - submit order**
+  <figure>
+    <img src="docs/app-screenshots/app-order-order-summary-place.png" >
+    <br>
+    option 1 selected to submit an order.
+    <br>
+    <img src="docs/app-screenshots/app-order-submit-succcess.png" >
+    <br>
+    Order submission feedback - success!
+    <br>
+    <figcaption><strong><em>Order Summary - Submit</em></strong></figcaption>
+  </figure>
+
+  - **Meal display** - complete order summary is shown including any extra items selected and their quantities for each meal.
+  - **Press Enter** - to return to Main Menue.
+
 
 ### Features Left to Implement
 
