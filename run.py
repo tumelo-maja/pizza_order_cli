@@ -529,9 +529,9 @@ def print_order_summary(order_dict):
                 len(f"{label}".ljust(indent)) + color_text("|", 15)
             split_str = [color_text(x, 220) for x in value.split(',')]
 
-            print(INDENT_ALL + color_text(f"{label}".ljust(indent) + " |", 15) +
-                  f" {split_str[0]}\n{align_space}" +
-                  f'\n{align_space}'.join(split_str[1:]))
+            print(INDENT_ALL + color_text(f"{label}".ljust(indent) + "|", 15) +
+                  f" {split_str[0]}\n{align_space} " +
+                  f'\n {align_space}'.join(split_str[1:]))
 
         elif label == 'Items':
             print(INDENT_ALL + color_text(f"{label}".ljust(indent) +
