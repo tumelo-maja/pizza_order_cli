@@ -206,9 +206,11 @@ def choose_pizza_size():
             indent) + "| Price (£)", 15))
         print(color_text("-"*33, 15))
         for key, value in PIZZA_SIZES.items():
-            print(color_text(f"{key}) {value['label']} " +
-                             f"{value['size_inch']}" +
-                             f"({value['size_cm']})".ljust(indent), 82) +
+            item_str=f"{key}) {value['label']} " + \
+            f"{value['size_inch']}" + \
+            f"({value['size_cm']})"
+            
+            print(color_text(item_str.ljust(indent), 82) +
                   color_text("|", 15) +
                   color_text(f"{price_format(value['price'])}".rjust(7), 82))
         user_input = strppied_input(color_text("Enter your choice:\n", 166))
