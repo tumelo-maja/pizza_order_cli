@@ -849,7 +849,7 @@ def welcome_page():
         f"{color_text('Packed with incredible', 82)} " + \
         f"{color_text('flavors!', 196)} " + \
         f"{chr(0x1F525)*2}{color_text(dashes_slogan+'-|', 166)}"
-    print(INDENT_ALL + INDENT_ALL + color_text(" " + "_"*string_len, 166))
+    print(INDENT_ALL + color_text(" " + "_"*string_len, 166))
     print(INDENT_ALL + welcome_str)
     print(INDENT_ALL + color_text("|"+"-"*string_len + "|", 166))
     print(INDENT_ALL + second_line_str)

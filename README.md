@@ -238,7 +238,7 @@ The application can add new records (as rows) to the 'orders' worksheet and also
 
 - **Python** - The application was developed using Python as the main language.
     - Packages used in the app include: gspread, google-auth, collections, datetime, pandas, os and two custom modules (pizza_meals and menu_items)
-- **Google Sheets** - Orders records were stored on google sheets and an API with secure credentials was used access and modify the worksheet .
+- **Google Sheets** - Orders records were stored on google sheets and an API with secure credentials was used access and modify the worksheet.
 
 
 ## Testing 
