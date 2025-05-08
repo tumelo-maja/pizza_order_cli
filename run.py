@@ -732,8 +732,8 @@ def validate_single_entry(value, min_value, max_value):
         # check if input is within range
         if value < min_value or value > max_value:
             raise ValueError(
-                f"Value '{value}' is out of range. "
-                f"The input value must be between {min_value} and {max_value}")
+                f"Value '{value}' is out of range."
+                f"\n The input value must be between {min_value} and {max_value}")
 
     except ValueError as e:
         print(INDENT_ALL + color_text(
@@ -778,43 +778,43 @@ def validate_multiple_entries(
         #  Check if zero in selected with other options
         if len(values) > 1 and '0' in values:
             raise ValueError(
-                f"'{values_input}' is not a valid entry. "
-                "You cannot select '0' with any other values")
+                f"'{values_input}' is not a valid entry."
+                "\n You cannot select '0' with any other values")
 
         # Check number of inputs does not exceed limit
         if count_max is not None and len(values) > count_max:
             raise ValueError(
-                f"You've entered {len(values)} items, "
-                f"you may only add up to {count_max} items")
+                f"You've entered {len(values)} items,"
+                f"\n you may only add up to {count_max} items")
 
         # Check for repeated numbers
         if not repeat_allowed:
             if len(values) != len(set(values)):
                 raise ValueError(
-                    f"'{values_input}' is not a valid entry. "
-                    "Duplicate entries are not allowed")
+                    f"'{values_input}' is not a valid entry."
+                    "\n Duplicate entries are not allowed")
 
         for value in values:
 
             #  Check if zero in selected with other options
             if len(value) > 1 and '0' in value:
                 raise ValueError(
-                    f"'{values_input}' is not a valid entry. "
-                    "You cannot select '0' with any other values")
+                    f"'{values_input}' is not a valid entry."
+                    "\n You cannot select '0' with any other values")
 
             # Check if input strictly has integer type only
             if not value.isdigit():
                 raise ValueError(
-                    f"'{value}' is not an integer. "
-                    "The input values must be integers "
+                    f"'{value}' is not an integer."
+                    "\n The input values must be integers "
                     f"between {min_value} and {max_value}")
             value = int(value)
 
             # check if input is within range
             if value < min_value or value > max_value:
                 raise ValueError(
-                    f"Value '{value}' is out of range. "
-                    "The input values must be integers "
+                    f"Value '{value}' is out of range."
+                    "\n The input values must be integers "
                     f"between {min_value} and {max_value}")
 
     except ValueError as e:
@@ -1027,26 +1027,26 @@ def validate_order_number(number):
         # Check if there are any spaces ' '
         if ' ' in number:
             raise ValueError(
-                f"'{number}' is not a valid order number. "
-                "Order number must not contain any spaces")
+                f"'{number}' is not a valid order number."
+                "\n Order number must not contain any spaces")
 
         # Check if there are leading zerpos
         if not number.startswith("20"):
             raise ValueError(
-                f"'{number}' is not a valid order number. "
-                "Order number must start with '20'")
+                f"'{number}' is not a valid order number."
+                "\n Order number must start with '20'")
 
         # Check if digit
         if not number.isdigit():
             raise ValueError(
-                f"'{number}' is not a valid order number. "
-                "Order number must contain integers only")
+                f"'{number}' is not a valid order number."
+                "\n Order number must contain integers only")
 
         # Check number length
         if len(number) != ORDER_NUMBER_LENGTH:
             raise ValueError(
                 f"Order number must have exactly 12 integers "
-                "- you provided {len(number)}")
+                f"\n - you provided {len(number)}")
 
     except ValueError as e:
         print(INDENT_ALL + color_text(
