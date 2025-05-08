@@ -232,9 +232,14 @@ The application can add new records (as rows) to the 'orders' worksheet and also
 
     - The order statuses are updated based on the current time versus the scheduled ready time.
 
-    - The updated summary of the queried order number will be displayed in the app if it exist
+    - The updated summary of the queried order will be displayed in the application if it exists.
 
 ## Technologies
+
+- **Python** - The application was developed using Python as the main language.
+    - Packages used in the app include: gspread, google-auth, collections, datetime, pandas, os and two custom modules (pizza_meals and menu_items)
+- **Google Sheets** - Orders records were stored on google sheets and an API with secure credentials was used access and modify the worksheet .
+
 
 ## Testing 
 
