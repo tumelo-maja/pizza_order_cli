@@ -200,6 +200,42 @@ Other goals:
 
 ### Flow charts
 
+## Google Sheets API
+This application uses google sheets as a cloud storage for placed orders. Google sheets and google drive APIs have been enabled for the application to have read and write permissions in the spreadsheet. A private API key is used to securely access the orders records and to update data in the sheet. 
+
+<Image>
+
+### Variables stored in Google sheets
+
+- **Order ID**: A unique identifier based on the date and sequence number.
+    
+- **Order Date & Time**: Date timestamp when the order was placed.
+
+- **Order Items**: Summary of pizzas, toppings, sides, drinks, and quantities.
+
+- **Ready Time**: Calculated order completion time.
+
+- **Status**: Indicates order status, the string can either be 'Preparing' or 'Ready'.
+
+- **Total Cost**: Total amount for the order.
+
+### Sheet updates and record retrivals
+The application can add new records (as rows) to the 'orders' worksheet and also retrieve all records for tracking an existing order.
+
+- **Sheet Updates:**
+    - When an order is submitted from the application, a new row is added to the 'orders' worksheet.
+
+    - The row includes all key order information: date, items, price, status, and readiness time in line with columns names in the worksheet.
+
+- **Record Retrievals:**
+    - When tracking an order, the application fetches all records and locates a specific order by checking the user's input order number against all existing entries in the 'order number' column of the worksheet.
+
+    - The order statuses are updated based on the current time versus the scheduled ready time.
+
+    - The updated summary of the queried order number will be displayed in the app if it exist
+
+## Technologies
+
 ## Testing 
 
 ### Feature Testing
