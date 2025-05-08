@@ -31,7 +31,19 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 
   - **1)** - Start making an order.
   - **2)** - Start tracking an order.
-  - **Enter your choice:** - Enter a value followed by enter
+  - **Enter your choice:** - Enter a single digit followed by Enter
+
+- **Choose pizza name**
+  <figure>
+    <img src="docs/app-screenshots/app-order-choose-pizza-name.png" >
+    <br>
+    <figcaption><strong><em>Choose Pizza Name</em></strong></figcaption>
+  </figure>
+
+  - **Options** - select from 5 options.
+  - **Enter your choice:** - Enter a single digit followed by Enter
+  - **Limits** - value must be betweeen 1 and 5 or enter 99 to return to 'Main Menu'
+
 
 ### Features Left to Implement
 
