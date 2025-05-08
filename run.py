@@ -106,6 +106,7 @@ def create_meal(meal_list):
 
         while True:
             print(color_text("\n Would you like to add another meal?", 15))
+            display_return_home_option()
             print(INDENT_ALL + color_text(
                 f"1) Yes {chr(0x2705)} \n 2) No  {chr(0x274C)}", 82))
             user_input = strppied_input(
