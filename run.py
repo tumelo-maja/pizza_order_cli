@@ -270,7 +270,7 @@ def choose_extra_items(item_type, count_max):
     while True:
         print(color_text(
             f"\n Any {item_type.lower()}? " +
-            f"(You can select up to {count_max} items", 15))
+            f"(You can select up to {count_max} items)", 15))
         print(INDENT_ALL + color_text("- input(s) can be comma-separated integers", 166))
         display_return_home_option()
         print(INDENT_ALL + color_text(
