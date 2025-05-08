@@ -81,6 +81,18 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
     - Multiple options may be selected and any option can be repeated.
     - A maximum of 4 extra dips items maybe be selected per meal.
 
+- **Choose sides**
+  <figure>
+    <img src="docs/app-screenshots/app-order-choose-extra-dips.png" >
+    <br>
+    <figcaption><strong><em>Choose Sides (optional)</em></strong></figcaption>
+  </figure>
+
+  - **Options** - select '0 - None' to not include any side, 1 or more options as displayed with their prices.
+  - **Limits:**
+    - input(s) must be integeters betweeen 0 and 6 or enter 99 to return to 'Main Menu'
+    - Multiple options may be selected and any option can be repeated.
+    - A maximum of 6 side items maybe be selected per meal.
 
 ### Features Left to Implement
 
