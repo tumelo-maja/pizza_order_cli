@@ -64,7 +64,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 
   - **Options** - select '0 - None' to not include any topping, 1 or more options as displayed with their prices.
   - **Limits:**
-    - input(s) must be integeters betweeen 0 and 8 or enter 99 to return to 'Main Menu'
+    - input(s) must be integers betweeen 0 and 8 or enter 99 to return to 'Main Menu'
     - Multiple options may be selected and any option can be repeated
     - A maximum of 8 extra toppings items may be selected per meal.
 
@@ -77,7 +77,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 
   - **Options** - select '0 - None' to not include any dip, 1 or more options as displayed with their prices.
   - **Limits:**
-    - input(s) must be integeters betweeen 0 and 4 or enter 99 to return to 'Main Menu'
+    - input(s) must be integers betweeen 0 and 4 or enter 99 to return to 'Main Menu'
     - Multiple options may be selected and any option can be repeated.
     - A maximum of 4 extra dips may be selected per meal.
 
@@ -90,7 +90,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 
   - **Options** - select '0 - None' to not include any side, 1 or more options as displayed with their prices.
   - **Limits:**
-    - input(s) must be integeters betweeen 0 and 6 or enter 99 to return to 'Main Menu'
+    - input(s) must be integers betweeen 0 and 6 or enter 99 to return to 'Main Menu'
     - Multiple options may be selected and any option can be repeated.
     - A maximum of 6 sides may be selected per meal.
 
@@ -103,9 +103,21 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 
   - **Options** - select '0 - None' to not include any drinks, 1 or more options as displayed with their prices.
   - **Limits:**
-    - input(s) must be integeters betweeen 0 and 8 or enter 99 to return to 'Main Menu'
+    - input(s) must be integers betweeen 0 and 8 or enter 99 to return to 'Main Menu'
     - Multiple options may be selected and any option can be repeated.
     - A maximum of 8 drinks may be selected per meal.
+
+- **Specify meal quantities**
+  <figure>
+    <img src="docs/app-screenshots/app-order-specify-quantity.png" >
+    <br>
+    <figcaption><strong><em>Specify Meal Quantities</em></strong></figcaption>
+  </figure>
+
+  - **Options** - Specify number of quantities to order for the current meal.
+  - **Limits:**
+    - input must be number betweeen 1 and 50 or enter 99 to return to 'Main Menu'
+    - A maximum of 50 meals may be ordered for each meal.
 
 ### Features Left to Implement
 
