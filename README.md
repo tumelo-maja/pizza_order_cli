@@ -199,6 +199,21 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
   - **1) Track another order** - to track another order; app return to track order and prompts user to enter new order number.
   - **Limits:** input must be 12-digit number or enter 99 to return to 'Main Menu'
 
+- **Track Order - Invalid Entries**
+  <figure>
+    <img src="docs/app-screenshots/app-track-invalid-order-number.png" >
+    <br>
+    * valid order number format but order number does not exist
+    * Invalid order number format
+    Valid order output
+    <br>
+    <figcaption><strong><em>Track Order - Invalid Entries</em></strong></figcaption>
+  </figure>
+
+  - **Order number not found** - an order number that does not exist in the order records.
+  - **Invalid order number format** - an order number with an invalid format.
+  - **Limits:** input must be 12-digit number or enter 99 to return to 'Main Menu'
+
 ### Features Left to Implement
 
 Future releases should use a proper database. Currently only order summaries are saved to the google sheet. The specific items are not saved i.e. google sheet has only number of drinks and not exactly which drink type e.g Orange Juice.
