@@ -138,7 +138,7 @@ def confirm_exit():
     while True:
         user_input = strppied_input(color_text(
             f"     Are you sure you want to continue? "
-            "\n1) Yes {chr(0x2705)} \n2) No  {chr(0x274C)}\n", 166))
+            f"\n1) Yes {chr(0x2705)} \n2) No  {chr(0x274C)}\n", 166))
 
         if validate_single_entry(user_input, 1, 2):
             break
