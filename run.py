@@ -531,7 +531,7 @@ def print_order_summary(order_dict):
 
             print(INDENT_ALL + color_text(f"{label}".ljust(indent) + "|", 15) +
                   f" {split_str[0]}\n{align_space}" +
-                  f'\n{align_space}'.join(split_str[1:]))
+                  f'\n {align_space}'.join(split_str[1:]))
 
         elif label == 'Items':
             print(INDENT_ALL + color_text(f"{label}".ljust(indent) +
