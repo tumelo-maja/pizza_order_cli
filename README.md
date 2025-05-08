@@ -22,7 +22,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 ## Features 
 
 ### Existing Features
-- **Main menu**
+- **Main menu - **
   <figure>
     <img src="docs/app-screenshots/app-main-menu-order.png" >
     <br>
@@ -178,9 +178,26 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
     <figcaption><strong><em>Order Summary - Submit</em></strong></figcaption>
   </figure>
 
-  - **Meal display** - complete order summary is shown including any extra items selected and their quantities for each meal.
+  - **Order summary** - complete order summary is displayed after submission with order number and ready time.
   - **Press Enter** - to return to Main Menue.
 
+- **Main Menu - Track Order**
+  <figure>
+    <img src="docs/app-screenshots/app-main-menu-track.png" >
+    <br>
+    Option 2 selected ie. Track an order
+    <br>
+    <img src="docs/app-screenshots/app-track-valid-order.png" >
+    <br>
+    Valid order output
+    <br>
+    <figcaption><strong><em>Main Menu - Track Order</em></strong></figcaption>
+    *Note: bottom image shows ouput from a valid order number.
+  </figure>
+
+  - **Order Status** - complete order summary is shown including the status of the order; could either be 'Ready' or 'Preparing'.
+  - **1) Track another order** - to track another order; app return to track order and prompts user to enter new order number.
+  - **Limits:** input must be 12-digit number or enter 99 to return to 'Main Menu'
 
 ### Features Left to Implement
 
