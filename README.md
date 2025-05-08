@@ -40,10 +40,20 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
     <figcaption><strong><em>Choose Pizza Name</em></strong></figcaption>
   </figure>
 
-  - **Options** - select from 5 options.
+  - **Options** - select from 5 options showing names and base toppings for each pizza.
   - **Enter your choice:** - Enter a single digit followed by Enter
-  - **Limits** - value must be betweeen 1 and 5 or enter 99 to return to 'Main Menu'
+  - **Limits** - input must be an integeter betweeen 1 and 5 or enter 99 to return to 'Main Menu'
 
+- **Choose pizza size**
+  <figure>
+    <img src="docs/app-screenshots/app-order-choose-pizza-size.png" >
+    <br>
+    <figcaption><strong><em>Choose Pizza Size</em></strong></figcaption>
+  </figure>
+
+  - **Options** - select from 3 options showing size and price for each option.
+  - **Enter your choice:** - Enter a single digit followed by Enter
+  - **Limits** - input must be an integeter betweeen 1 and 3 or enter 99 to return to 'Main Menu'
 
 ### Features Left to Implement
 
