@@ -358,7 +358,7 @@ def print_meal_summary(meal_object):
         None
     """
     clear_console()
-    print(color_text("\n Order summary: ", 15))
+    print(color_text("\n Meal summary: ", 15))
     summary_str = f"{meal_object.quantity} x {meal_object.pizza_size}" + \
                   f" {meal_object.pizza_name} Pizza with "
     extras = meal_object.extras_summary()
