@@ -140,7 +140,7 @@ def confirm_exit():
     Returns:
         None
     '''
-    print(INDENT_ALL + f"\n{chr(0x26A0)} Returning to the main menu will"
+    print(INDENT_ALL + f"\n{color_text(chr(0x26A0),YELLOW)} Returning to the main menu will"
           " clear all items in your current order.")
     while True:
         user_input = strppied_input(color_text(
