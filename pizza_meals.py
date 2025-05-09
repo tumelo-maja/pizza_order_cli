@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from pytz import timezone
 from menu_items import (EXTRA_TOPPINGS,
                         EXTRA_DIP,
                         SIDES_MENU,
@@ -8,6 +9,7 @@ from menu_items import (EXTRA_TOPPINGS,
 DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 DATETIME_FORMAT_ORDER = "%Y%m%d"
 ORDER_NUMBER_LENGTH = 12
+LONDON_TIMEZONE = timezone('Europe/London')
 
 
 class Meal():
@@ -137,7 +139,7 @@ class Order():
         """
         self.order_list = order_list
         self.total_price = total_price
-        self.order_date = datetime.now().strftime(DATETIME_FORMAT)
+        self.order_date = datetime.now().astimezone(LONDON_TIMEZONE).strftime(DATETIME_FORMAT)
         self.last_orderID = last_orderID
         self.order_ID = self.create_order_ID()
 
