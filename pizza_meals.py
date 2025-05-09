@@ -152,7 +152,7 @@ class Order():
         Returns:
             str: datetime string for when the order should be ready.
         """
-        BASE_MEAL_PREP_TIME = 15
+        BASE_MEAL_PREP_TIME = 10
         DELAY_pizza_PREP_TIME = 5
 
         pizza_count = sum([x.quantity for x in self.order_list])
