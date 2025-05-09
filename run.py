@@ -797,7 +797,7 @@ def validate_multiple_entries(
         if count_max is not None and len(values) > count_max:
             raise ValueError(
                 f"You've entered {len(values)} items,"
-                f"\n you may only add up to {count_max} items")
+                f"\n you may only enter up to {count_max} items")
 
         # Check for repeated numbers
         if not repeat_allowed:
