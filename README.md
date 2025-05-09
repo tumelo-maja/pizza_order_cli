@@ -493,6 +493,26 @@ The application can add new records (as rows) to the 'orders' worksheet and also
 
 ## Deployment
 
+This section provides the steps to follow when deploying the project.
+
+### Heroku Deployment
+- The site was deployed to Heroku. The steps to deploy are as follows: 
+  - On the Heroku dashboard, click 'Create new app'
+  - Speficy name for the app (e.g. pizza-order-cli, name must be unique) and select the region, then click 'Create app'
+  - Got to the 'Settings' tab and scroll to the 'Config Vars' section and add the following:
+    - Add the google sheets API credentials: KEY as 'CREDS' and VALUE as the content of the API credential JSON file.
+    - Add Port 8000: KEY as 'PORT' and VALUE AS 8000
+  - Navigate to Buildpacks and add buildpacks for Python and NodeJS (may need to click save each time you add a buildback. NB: they must be added in this specific order).
+  - Go to the 'Deploy' tab, select GitHub as the delployment method
+  - Click 'Connect to GitHub' and oathorize Heroku to access the GitHub account repositories
+  - Search for the repository in the search bar besides 'Connect to GitHub' (https://github.com/tumelo-maja/pizza_order_cli), select the repo and click 'connect' 
+  - Navigate to 'Automatic deploys', click 'Enable Automatic Deploys' to rebuild the app on every pushed GitHub commits
+  - Click 'Deploy Branch' to deploy, the app is now live.
+  - The app is now live and can be accessed by clicking 'Open app' in the app's directory.
+  - On the GitHub repository (https://github.com/tumelo-maja/pizza_order_cli), all pushed commits will now show under 'Deployments' on the right-side.
+  - The latest deployed versions can be seen under 'Latest Activity' and any changes can also be checked in the GitHib repo page.   
+
+Alternatively the app's live link can be found here - (https://pizza-order-cli-e9246e0445e4.herokuapp.com/)
 
 ## Credits
 
