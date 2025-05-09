@@ -876,6 +876,12 @@ def welcome_page():
             indent) + chr(0x1F4DD), 82))
         print(INDENT_ALL + color_text("2) Track an order".ljust(
             indent) + chr(0x1F50D), 82))
+        
+        current_time = datetime.now().astimezone(LONDON_TIMEZONE)
+        current_time_now = datetime.now(LONDON_TIMEZONE)
+        
+        print(f"astimezone(tz): {current_time}")
+        print(f"now(tz): {current_time_now}")
 
         user_input = strppied_input(color_text("Enter your choice:", 166))
         if validate_single_entry(user_input, 1, 2):
