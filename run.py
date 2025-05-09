@@ -785,7 +785,7 @@ def validate_multiple_entries(
             raise ValueError(
                 f"'{values_input}' is not a valid entry."
                 f"\n{invalid_del_str} delimiter(s) not allowed. "
-                "Use comma ',' to separate values")
+                "Use comma ',' to separate the values")
             
         values = [x for x in values_input.split(",")]
 
