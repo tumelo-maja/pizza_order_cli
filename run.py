@@ -520,7 +520,7 @@ def print_order_summary(order_dict):
     """
     print(INDENT_ALL + color_text("Here's your order summary:", WHITE))
 
-    new_labels = ['Order ID', 'Time', 'Items', 'Ready time', 'Status', 'Total']
+    new_labels = ['Order ID', 'Order Time', 'Items', 'Ready time', 'Status', 'Total']
     indent = 12
     for label, value in zip(new_labels, order_dict):
 
@@ -989,15 +989,15 @@ def update_orders_status():
 
 def check_order_status(order_dict):
     """
-    Checks if the order is ready bby comparing
-    the scheduled ready time and current time.
+    Checks if the order is ready by checking
+    if the status column has the value 'Ready'.
 
     It returns a text indicating whether
     the order is ready or still being prepared.
 
     Args:
         order_dict (dict): A dictionary containing
-                        order information, including 'Order ready time'.
+                        order information.
 
     Returns:
         tuple:
@@ -1006,10 +1006,7 @@ def check_order_status(order_dict):
     """
     print(INDENT_ALL + color_text("Checking your order status...", YELLOW))
 
-    order_ready_datetime = datetime.strptime(
-        order_dict['Order ready time'], DATETIME_FORMAT)
-
-    order_ready_datestr = order_ready_datetime.strftime(DATETIME_FORMAT)[:-3]
+    order_ready_datestr =order_dict['Order ready time']
 
     if order_dict['Order status'] == 'Ready':
         status_str = color_text(
@@ -1126,7 +1123,6 @@ def main_menu():
     Returns:
         None
     """
-
     continue_app = True
     while continue_app:
 
@@ -1136,11 +1132,10 @@ def main_menu():
 
             last_orderID = get_latest_order_ID()
             order = create_new_order(last_orderID)
-
             update_orders_sheet(order)
+            
         elif user_choice == "2":
             track_order()
-
 
 ORDERS_SHEET = connect_google_sheets('orders')
 
