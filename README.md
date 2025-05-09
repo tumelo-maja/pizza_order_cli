@@ -525,6 +525,8 @@ import varaibles - (https://www.geeksforgeeks.org/how-to-import-variables-from-a
 
 python docstrings - (https://www.datacamp.com/tutorial/docstrings-python)
 
+Extract non-laphanumeric characters - (https://stackoverflow.com/questions/1249388/removing-all-non-numeric-characters-from-string-in-python)
+
 ### Tutorials and other resources
 
 

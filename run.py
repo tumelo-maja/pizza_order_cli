@@ -4,6 +4,7 @@ from collections import Counter
 from datetime import datetime
 import pandas as pd
 import os
+import re
 from pizza_meals import Meal, Order
 from menu_items import (
     EXTRA_TOPPINGS,
@@ -774,6 +775,16 @@ def validate_multiple_entries(
         bool: True if all input values are valid, otherwise False.
     """
     try:
+        
+        # Check for incorrect delimeters
+        invalid_delimeters = re.findall(r'[^a-zA-Z0-9\s,]', values_input)
+        invalid_del_str = ', '.join([f"'{x}'" for x in invalid_delimeters])
+        if len(invalid_delimeters):
+            raise ValueError(
+                f"'{values_input}' is not a valid entry."
+                f"\n{invalid_del_str} delimiter(s) not allowed. "
+                "Use comma ',' to separate values")
+            
         values = [x for x in values_input.split(",")]
 
         #  Check if zero in selected with other options
