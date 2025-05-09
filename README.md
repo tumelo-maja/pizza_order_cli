@@ -458,17 +458,22 @@ For each feature, a testing was conducted and the results are outlined in the ta
 #### 1) **Full Meal Order**
 | Step | Display Screen              | User input | Expected Outcome                            | Actual Outcome     | Result |
 |----  |-----------------            |------      |-----------------                            |------------------- |------- |
-| 1    | Main Menu                   | 1          | Main Menu screen displays with 2 option prompt, option 1 selected  | Main Menu screen displays with 2-option prompt correctly, option 1 selected  |  Pass |
-| 2    | Choose Pizza Name           | 1          | 5 x pizza name options with base toppings displayed, option 1 selected       | 5 x pizza options with base toppings are displayed correctly, option 1 selected   |  Pass |
-| 3    | Choose Pizza Size           | 1          | 3 x pizza size options with prices displayed | 3 x pizza sizes displayed with prices, option 1 selected       |  Pass |
-| 4    | Choose Extra Toppings       | 1,3,4      | 8 x extra toppping options with prices displayed, 3 x toppings selected | 8 x extra toppping options with prices, options 1,3,4 selected  |  Pass |
-| 5    | Choose Extra Dips           | 1,2        | 8 x extra toppping options with prices displayed, 2 x dips selected | Dip options shown with prices, options 1,2 selected  |  Pass |
-| 6    | Choose Sides                | 1,4        | 6 x sides options with prices displayed, 2 x sides selected | Sides options shown with prices, options 1,4 selected |  Pass |
-| 7    | Choose Drinks               | 2,3,8      | 8 x drinks options with prices displayed, 3 x drinks selected | Drink menu shown with prices; options 2,3,8 selected      |  Pass |
-| 8    | Enter Meal Quantity         | 10         | dsiplay of prompt to specify quantity between 1 and 50 units  | Input prompt and validation passes. 10 meals specified |  Pass |
-| 9    | Meal Summary Display; <br> Add Another Meal Prompt | 2 | Meal summary displayed including pizza name and side, extra toppings and sides, sides and drinks qunatities are displayed for each meal item; <br>Prompt display to add another meal (Yes/No) - option 2 (No) selected | Full meal summary displayed including pizza options selected, extras, sides and drinks; <br>Prompt display to add another meal - option 2 selected to proceed to order summary |  Pass |
-| 10   | Full Order Summary display; <br> Prompt with options to submit/modify Order items  | 1   | Full order summary displayed showing all meals, their quantities, subtotal prices for each meal and total order price; <br> Prompt with options to submit, add or remove meal items from the order - Option 1 to submit order selected  | Full order description with all meals and the total cost displayed; <br>Prompt with options to submit, add or remove meal items from the order - Option 1 to submit order selected |  Pass |
-| 11   | Submission confirmation - Order details display<br>Return to Menu Prompt   | *Enter*  | Confirms submission and sends order to Google sheets; <br> Order details display including order number and ready time - prompt to return to main menu | Confirmation message and display of order details including  order numbe  and ready time. Order status shown as 'Preperaing' <br>Prompt to return to main menu - Enter pressed and user is brought to main menu |  Pass |
+| 1    | Main Menu*                   | 1          | Main Menu screen displays with 2 option prompt, option 1 selected  | Main Menu screen displays with 2-option prompt correctly, option 1 selected  |  Pass |
+| 2    | Choose Pizza Name*           | 1          | 5 x pizza name options with base toppings displayed, option 1 selected       | 5 x pizza options with base toppings are displayed correctly, option 1 selected   |  Pass |
+| 3    | Choose Pizza Size*           | 1          | 3 x pizza size options with prices displayed | 3 x pizza sizes displayed with prices, option 1 selected       |  Pass |
+| 4    | Choose Extra Toppings**       | 1,3,4      | 8 x extra toppping options with prices displayed, 3 x toppings selected | 8 x extra toppping options with prices, options 1,3,4 selected  |  Pass |
+| 5    | Choose Extra Dips**           | 1,2        | 8 x extra toppping options with prices displayed, 2 x dips selected | Dip options shown with prices, options 1,2 selected  |  Pass |
+| 6    | Choose Sides**                | 1,4        | 6 x sides options with prices displayed, 2 x sides selected | Sides options shown with prices, options 1,4 selected |  Pass |
+| 7    | Choose Drinks**               | 2,3,8      | 8 x drinks options with prices displayed, 3 x drinks selected | Drink menu shown with prices; options 2,3,8 selected      |  Pass |
+| 8    | Enter Meal Quantity*         | 10         | dsiplay of prompt to specify quantity between 1 and 50 units  | Input prompt and validation passes. 10 meals specified |  Pass |
+| 9    | Meal Summary Display*; <br> Add Another Meal Prompt | 2 | Meal summary displayed including pizza name and side, extra toppings and sides, sides and drinks qunatities are displayed for each meal item; <br>Prompt display to add another meal (Yes/No) - option 2 (No) selected | Full meal summary displayed including pizza options selected, extras, sides and drinks; <br>Prompt display to add another meal - option 2 selected to proceed to order summary |  Pass |
+| 10   | Full Order Summary display*; <br> Prompt with options to submit/modify Order items  | 1   | Full order summary displayed showing all meals, their quantities, subtotal prices for each meal and total order price; <br> Prompt with options to submit, add or remove meal items from the order - Option 1 to submit order selected  | Full order description with all meals and the total cost displayed; <br>Prompt with options to submit, add or remove meal items from the order - Option 1 to submit order selected |  Pass |
+| 11   | Submission confirmation* - Order details display<br>Return to Menu Prompt   | *Enter*  | Confirms submission and sends order to Google sheets; <br> Order details display including order number and ready time - prompt to return to main menu | Confirmation message and display of order details including  order numbe  and ready time. Order status shown as 'Preperaing' <br>Prompt to return to main menu - Enter pressed and user is brought to main menu |  Pass |
+
+***Note:***
+- *Single entry - Exactly 1 number is required as an input. 
+- *Multiple entry - 1 or more numbers can be entered as input; multiple values should be comma-separated. 
+<br><br>
 
 
 #### 2) **Error handling - Invalid entries**
