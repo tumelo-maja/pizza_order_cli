@@ -399,7 +399,7 @@ This application uses google sheets as a cloud storage for placed orders. Google
     <img src="docs/gs-screenshots/google-sheets-orders-records.png" width="60%">
     <figcaption><strong><em>Google Sheets - 'Orders' worksheet</em></strong></figcaption>
   </figure>
-  
+
 ### Variables stored in Google sheets
 
 - **Order ID**: A unique identifier based on the date and sequence number.
@@ -437,8 +437,39 @@ The application can add new records (as rows) to the 'orders' worksheet and also
 
 
 ## Testing 
+For each feature, a testing was conducted and the results are outlined in the table below
+
+| Feature           | Testing                                   | Outcome  |  Result |
+| --------          | -------                                   |-------   |-------   |
+| Main Menu display | Load prpgram to see main menu options <br> Enter 1 to start an order <br>Enter  to start an order       | Main Menu welcome message and 2 options are displayed: <br>1) Start an order  <br>2) Trac an order <br><br> Invalid entry error message is shown for any other input besides an integeer between 1 and 2.       | PASS  |
+| Choose Pizza Name | Previous display selection: 1) Start an order <br> Check pizza name and base toppings display: <br>  Our pizzas 🍕      - Base toppings
+ -----------------------------------
+ 1) Hawaiian       | ham, pineapple, cheese
+ 2) Pepperoni      | pepperoni, cheese, tomato sauce
+ 3) Vegetarian     | mushrooms, peppers, onions, olives
+ 4) All Meaty      | pepperoni, sausage, ham, olives, beef
+ 5) Spicy Chicken  | spicy chicken, jalapenos, onions, cheese   | 5 x Pizza names and base toppings are displayed neatly in a table format <br><br> Invalid entry error message is shown for any other input besides an integeer between 1 and 5.       | PASS  |
+| Choose Pizza Name |  Previous display selection: 1) Hawaiian - ham, pineapple, cheese <br> 1) Hawaiian - ham, pineapple, cheese   | User is taken to the 'choose pizza size' display <br>3 x Pizza size and prices are displayed neatly in a table format <br><br> Invalid entry error message is shown for any other input besides an integeer between 1 and 3.       | PASS  |
+| Choose Pizza Size | Enter any number between 1-3, e.g 3 to select large sized pizza <br> 3) Large 15"(38 cm)  - 15.00    | User is taken to the 'extra toppings' display <br>8 x toppings and their prices are displayed neatly in a table format <br> 0 - option is included for no extra toppings and it cannot be selected with any other option <br> User can enter comma-separated list of numbers between 1-8 corresponding to individual extra toppings<br> Input numbers can be repeated although cannot exceed 8 in count <br><br> Invalid entry error message is shown for any other input besides an integeer between 0 and 8.    | PASS  |
+| Extra topping(s) | Enter any number(s) between 1-8, e.g '4,4,4' to select 3 x cheese extra topping <br> 4) 🧀  Cheese - 1.50   | User is taken to the 'extra toppings' display <br>8 x toppings and their prices are displayed neatly in a table format <br> 0 - option is included for no extra toppings and it cannot be selected with any other option <br> User can enter comma-separated list of numbers between 1-8 corresponding to individual extra toppings<br> Input numbers can be repeated although cannot exceed 8 in count <br><br> Invalid entry error message is shown for any other input besides an integeer between 0 and 8.    | PASS  |
+|               |         |          |
 
 ### Feature Testing
+#### 1) Full Meal Order
+| Step | Display Screen              | User input | Expected Outcome                            | Actual Outcome     | Result |
+|----  |-----------------            |------      |-----------------                            |----------------------------- | ------ |
+| 1    | Main Menu                   | 1          | Main Menu screen displays with 2 option prompt, option 1 selected  | Main Menu screen displays with 2-option prompt correctly, option 1 selected  |  Pass |
+| 2    | Choose Pizza Name           | 1          | 5 x pizza name options with base toppings displayed, option 1 selected       | 5 x pizza options with base toppings are displayed correctly, option 1 selected   |  Pass |
+| 3    | Choose Pizza Size           | 1          | 3 x pizza size options with prices displayed | 3 x pizza sizes displayed with prices, option 1 selected       |  Pass |
+| 4    | Choose Extra Toppings       | 1,3,4      | 8 x extra toppping options with prices displayed, 3 x toppings selected | 8 x extra toppping options with prices, options 1,3,4 selected  |  Pass |
+| 5    | Choose Extra Dips           | 1,2        | 8 x extra toppping options with prices displayed, 2 x dips selected | Dip options shown with prices, options 1,2 selected  |  Pass |
+| 6    | Choose Sides                | 1,4        | 6 x sides options with prices displayed, 2 x sides selected | Sides options shown with prices, options 1,4 selected |  Pass |
+| 7    | Choose Drinks               | 2,3,8      | 8 x drinks options with prices displayed, 3 x drinks selected | Drink menu shown with prices; options 2,3,8 selected      |  Pass |
+| 8    | Enter Meal Quantity         | 10         | dsiplay of prompt to specify quantity between 1 and 50 units  | Input prompt and validation passes. 10 meals specified |  Pass |
+| 9    | Meal Summary Display; <br> Add Another Meal Prompt | 2 | Meal summary displayed including pizza name and side, extra toppings and sides, sides and drinks qunatities are displayed for each meal item; <br>Prompt display to add another meal (Yes/No) - option 2 (No) selected | Full meal summary displayed including pizza options selected, extras, sides and drinks; <br>Prompt display to add another meal - option 2 selected to proceed to order summary |  Pass |
+| 10   | Full Order Summary display; <br> Prompt with options to submit/modify Order items  | 1   | Full order summary displayed showing all meals, their quantities, subtotal prices for each meal and total order price; <br> Prompt with options to submit, add or remove meal items from the order - Option 1 to submit order selected  | Full order description with all meals and the total cost displayed; <br>Prompt with options to submit, add or remove meal items from the order - Option 1 to submit order selected |  Pass |
+| 11   | Submission confirmation - Order details display<br>Return to Menu Prompt   | *Enter*  | Confirms submission and sends order to Google sheets; <br> Order details display including order number and ready time - prompt to return to main menu | Confirmation message and display of order details including  order numbe  and ready time. Order status shown as 'Preperaing' <br>Prompt to return to main menu - Enter pressed and user is brought to main menu |  Pass |
+
 
 ### Code validation
 
