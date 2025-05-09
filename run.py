@@ -5,6 +5,7 @@ from datetime import datetime
 import pandas as pd
 import os
 import re
+import pytz
 from pizza_meals import Meal, Order
 from menu_items import (
     EXTRA_TOPPINGS,
@@ -24,6 +25,8 @@ SCOPE = [
 ORDER_NUMBER_LENGTH = 12
 DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 DATETIME_FORMAT_ORDER = "%Y%m%d"
+LONDON_TIMEZONE = pytz.timezone('Europe/London')
+
 
 
 def connect_google_sheets(sheet_name):
@@ -962,7 +965,7 @@ def update_orders_status():
 
         if status_value != 'Ready':
 
-            current_time = datetime.now()
+            current_time = datetime.now(LONDON_TIMEZONE)
             ready_time = datetime.strptime(status_value, DATETIME_FORMAT)
 
             time_difference = int((current_time - ready_time).total_seconds())
@@ -999,7 +1002,7 @@ def check_order_status(order_dict):
 
     order_ready_datetime = datetime.strptime(
         order_dict['Order ready time'], DATETIME_FORMAT)
-    current_time = datetime.now()
+    current_time = datetime.now(LONDON_TIMEZONE)
     time_difference = int(
         (current_time - order_ready_datetime).total_seconds())
 
@@ -1113,7 +1116,8 @@ def clear_console():
     Returns:
         None
     """
-    os.system('cls' if os.name == 'nt' else 'clear')
+    # os.system('cls' if os.name == 'nt' else 'clear')
+    pass
 
 
 def main_menu():
