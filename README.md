@@ -488,6 +488,21 @@ For each feature, a testing was conducted and the results are outlined in the ta
 | Mutliple  | Duplicate entries <br>(if repeats are not allowed) | 2,3,3 | Displays error message: <br>"Invalid entry: '2,3,3' is not a valid entry. Duplicate entries are not allowed, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: '2,3,3' is not a valid entry. Duplicate entries are not allowed, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
 | Single      | Non-digit input(s)        | 1,2,a,5 | Displays error message: <br>"Invalid entry: 'a' is not an integer. The input values must be integers between 0 and 8, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: 'One' is not an integer. The input values must be integers between 0 and 8, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
 
+
+#### 3) **Full Order Track**
+| Step | Display Screen              | User input | Expected Outcome                            | Actual Outcome     | Result |
+|----  |-----------------            |------      |-----------------                            |------------------- |------- |
+| 1    | Main Menu*                   | 1          | Main Menu screen displays with 2 option prompt, option 1 selected  | Main Menu screen displays with 2-option prompt correctly, option 2 selected  |  Pass |
+| 2    | Enter Order Number Display*         | 202505080008 | Order details revtrieved from Google Sheet 'orders' worksheet | Order details revtrieved from Google Sheet 'orders' worksheet |  Pass |
+| 3    | Order Details Display* <br>Prompt display to track another order/return to main menu  | 1  | Order summary details are displayed including status with a value of "Ready" based on current time vs ready time | Order summary details are displayed including status with a value of "Ready" based on current time vs ready time |  Pass |
+| 4    | Option 1) Track Another Order  | 1 | Display of prompts enter another order number | Option to enter another number or return home displayed                    |  Pass |
+| 5    | Option 99) Main Menu  | 99 | USer is returned to the main menu | USer is returned to the main menu  |  Pass |
+| 6    | Any other entry besides 1 or 99 - Error handling: <br>Order Not Found | 202401010001 | Displays error message: <br>"Order number 202401010001 not found. Please check the number and try again." <br>Prompt to re-enter order number is displayed| Displays error message: <br>"Order number 202401010001 not found. Please check the number and try again." <br>Prompt to re-enter order number is displayed  |  Pass |
+| 7    | 'Enter your 12-digit order number' - Error handling: <br>Invalid Order Number Format | 9999               | Displays error message <br>"Invalid entry: '9999' is not a valid order number. Order number must start with '20', please try again"  <br>Prompt to re-enter order number is displayed | Displays error message: <br>"'9999' is not a valid order number. Order number must start with '20', please try again" <br>Prompt to re-enter order number is displayed  |  Pass |
+| 8    | 'Enter your 12-digit order number' - Error handling: <br>Invalid Order Number Length | 202501               | Displays error message: <br>"Invalid entry: Order number must have exactly 12 integers - you privided 6, please try again"  <br>Prompt to re-enter order number is displayed | Displays error message: <br>"Invalid entry: Order number must have exactly 12 integers - you privided 6, please try again" <br>Prompt to re-enter order number is displayed  |  Pass |
+| 9    | 'Enter your 12-digit order number' - Error handling: <br>Order Not Found | 202401010001 | Displays error message: <br>"Order number 202401010001 not found. Please check the number and try again." <br>Prompt to re-enter order number is displayed| Displays error message: <br>"Order number 202401010001 not found. Please check the number and try again." <br>Prompt to re-enter order number is displayed  |  Pass |
+
+
 ### Code validation
 
 ### Bugs
