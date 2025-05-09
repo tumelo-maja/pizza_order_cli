@@ -1117,9 +1117,7 @@ def clear_console():
     Returns:
         None
     """
-    # os.system('cls' if os.name == 'nt' else 'clear')
-    pass
-
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def main_menu():
     """
