@@ -956,18 +956,20 @@ def update_orders_status():
     Returns:
         None
     """
-    print(INDENT_ALL + color_text("Updating order status...", 220))
+    print(color_text("\n Updating order status...", 220))
     orders_df = pd.DataFrame(ORDERS_SHEET.get_all_records())
+    
+    current_time_str = datetime.now().astimezone(LONDON_TIMEZONE).strftime(DATETIME_FORMAT)
+    current_time = datetime.strptime(current_time_str, DATETIME_FORMAT).replace(tzinfo=LONDON_TIMEZONE)
 
     for ind, row in orders_df.iterrows():
-        status_value = row['Order ready time']
+        status_value = row['Order status']
+        status_datetime = row['Order ready time']
 
         if status_value != 'Ready':
 
-            current_time = datetime.now().astimezone(LONDON_TIMEZONE)
-            ready_time = datetime.strptime(status_value, DATETIME_FORMAT)
-
-            time_difference = int((current_time - ready_time).total_seconds())
+            ready_time = datetime.strptime(status_datetime, DATETIME_FORMAT).replace(tzinfo=LONDON_TIMEZONE)
+            time_difference = int((current_time - ready_time.replace(tzinfo=LONDON_TIMEZONE)).total_seconds())
 
             if time_difference > 0:
                 orders_df.at[ind, 'Order status'] = 'Ready'
@@ -1001,20 +1003,15 @@ def check_order_status(order_dict):
 
     order_ready_datetime = datetime.strptime(
         order_dict['Order ready time'], DATETIME_FORMAT)
-    current_time = datetime.now().astimezone(LONDON_TIMEZONE)
-    time_difference = int(
-        (current_time - order_ready_datetime).total_seconds())
 
     order_ready_datestr = order_ready_datetime.strftime(DATETIME_FORMAT)[:-3]
 
-    if time_difference > 0:
+    if order_dict['Order status'] == 'Ready':
         status_str = color_text(
             f" Your order has been ready since {order_ready_datestr}", 82)
-    elif time_difference < 0:
+    else:
         status_str = color_text(
             f" Your order will be ready at {order_ready_datestr}", 166)
-    else:
-        status_str = color_text(" Your order is ready now", 82)
 
     return status_str
 
@@ -1115,7 +1112,8 @@ def clear_console():
     Returns:
         None
     """
-    os.system('cls' if os.name == 'nt' else 'clear')
+    # os.system('cls' if os.name == 'nt' else 'clear')
+    pass
 
 
 def main_menu():
