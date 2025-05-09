@@ -426,6 +426,13 @@ def summary_order_confirm(input_list):
                 indent)+chr(0x2796), 82))
             print(INDENT_ALL + color_text("99) Main Menu".ljust(
                 indent)+chr(0x1F3E0), 82))
+            
+            current_time = datetime.now().astimezone(LONDON_TIMEZONE)
+            current_time_now = datetime.now(LONDON_TIMEZONE)
+            
+            print(f"astimezone(tz): {current_time}")
+            print(f"now(tz): {current_time_now}")
+            
             user_input = strppied_input(
                 color_text("Enter your choice:", 166))
             if user_input == '99':
