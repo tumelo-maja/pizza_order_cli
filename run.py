@@ -1058,7 +1058,7 @@ def validate_order_number(number):
         if len(number) != ORDER_NUMBER_LENGTH:
             raise ValueError(
                 f"Order number must have exactly 12 integers "
-                f"\n - you provided {len(number)}")
+                f"\n - you provided {len(number)} integers")
 
     except ValueError as e:
         print(INDENT_ALL + color_text(
