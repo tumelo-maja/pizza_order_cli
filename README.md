@@ -527,6 +527,7 @@ python docstrings - (https://www.datacamp.com/tutorial/docstrings-python)
 
 Extract non-laphanumeric characters - (https://stackoverflow.com/questions/1249388/removing-all-non-numeric-characters-from-string-in-python)
 
+Specify timezone for datetime - (https://www.geeksforgeeks.org/python-datetime-astimezone-method/)
 ### Tutorials and other resources
 
 
