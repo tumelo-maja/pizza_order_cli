@@ -516,7 +516,6 @@ These are the steps to follow when setting up google sheet for API access:
 - Click on 'Share' button (could be top right next tou account icon)
 - Share access with the service account email (e.g. robert@**.iam.gserviceaccount.com) you created and set Role as 'Editor'
 
-
 ### Heroku Deployment
 
 This section provides the steps to follow when deploying the project to Heroku. The steps to deploy are as follows: 
@@ -537,6 +536,13 @@ This section provides the steps to follow when deploying the project to Heroku. 
 
 Alternatively the app's live link can be found here - (https://pizza-order-cli-e9246e0445e4.herokuapp.com/)
 
+### Version Control
+
+This project was developed using the Visual Studio Code editor. For version control, changes were committed and pushed to the project's GitHub repository (<a href="https://github.com/tumelo-maja/pizza_order_cli" target="_blank" rel="noopener">pizza_order_cli</a>). These git commands used throught the project development for version control:
+- `git add <filepath>` - Adds any changes in the repo folders and file to the staging area and ready to be committed
+- `git commit -m "message about the change/addition"` - Brief summary about what change is being committed.
+- `git push` - Pushes all committed changes to the main repository. These changes will on GitHub will cause the rebuild of the app on the Heroku website (if enabled).
+
 ## Credits
 
 Unicode for emojis - (https://apps.timwhitlock.info/emoji/tables/unicode)
@@ -555,6 +561,7 @@ python docstrings - (https://www.datacamp.com/tutorial/docstrings-python)
 Extract non-laphanumeric characters - (https://stackoverflow.com/questions/1249388/removing-all-non-numeric-characters-from-string-in-python)
 
 Specify timezone for datetime - (https://www.geeksforgeeks.org/python-datetime-astimezone-method/)
+
 ### Tutorials and other resources
 
 
