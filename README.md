@@ -455,9 +455,9 @@ For each feature, a testing was conducted and the results are outlined in the ta
 |               |         |          |
 
 ### Feature Testing
-#### 1) Full Meal Order
+#### 1) **Full Meal Order**
 | Step | Display Screen              | User input | Expected Outcome                            | Actual Outcome     | Result |
-|----  |-----------------            |------      |-----------------                            |----------------------------- | ------ |
+|----  |-----------------            |------      |-----------------                            |------------------- |------- |
 | 1    | Main Menu                   | 1          | Main Menu screen displays with 2 option prompt, option 1 selected  | Main Menu screen displays with 2-option prompt correctly, option 1 selected  |  Pass |
 | 2    | Choose Pizza Name           | 1          | 5 x pizza name options with base toppings displayed, option 1 selected       | 5 x pizza options with base toppings are displayed correctly, option 1 selected   |  Pass |
 | 3    | Choose Pizza Size           | 1          | 3 x pizza size options with prices displayed | 3 x pizza sizes displayed with prices, option 1 selected       |  Pass |
@@ -470,6 +470,18 @@ For each feature, a testing was conducted and the results are outlined in the ta
 | 10   | Full Order Summary display; <br> Prompt with options to submit/modify Order items  | 1   | Full order summary displayed showing all meals, their quantities, subtotal prices for each meal and total order price; <br> Prompt with options to submit, add or remove meal items from the order - Option 1 to submit order selected  | Full order description with all meals and the total cost displayed; <br>Prompt with options to submit, add or remove meal items from the order - Option 1 to submit order selected |  Pass |
 | 11   | Submission confirmation - Order details display<br>Return to Menu Prompt   | *Enter*  | Confirms submission and sends order to Google sheets; <br> Order details display including order number and ready time - prompt to return to main menu | Confirmation message and display of order details including  order numbe  and ready time. Order status shown as 'Preperaing' <br>Prompt to return to main menu - Enter pressed and user is brought to main menu |  Pass |
 
+
+#### 2) **Error handling - Invalid entries**
+| Input Type  | Invalid Entry Type     | User input | Expected Outcome     | Actual Outcome     | Result |
+|----         |-----------------       |------      |-----------------     |------------------- |------- |
+| Single      | Non-digit input        | One | Displays error message: <br>"Invalid entry: 'One' is not an integer, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: 'One' is not an integer, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
+| Single      | Empty input        | (no input entered) | Displays error message: <br>"Invalid entry: '' is not an integer, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: '' is not an integer, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
+| Single      | Out-of-range value     | 7         | Displays error message: <br>"Invalid entry: Value '7' is out of range. The input value must be between 1 and 5, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: Value '7' is out of range. The input value must be between 1 and 5, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
+| Mutliple    | Out-of-range value     | 1,2,9     | Displays error message: <br>"Invalid entry: Value '9' is out of range. The input values must be integers between 0 and 8, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: Value '9' is out of range. The input values must be integers between 0 and 8, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
+| Mutliple  | Entering '0' with other entries | 0,1,2 | Displays error message: <br>"Invalid entry: '0,1,2' is not a valid entry. You cannot select '0' with any other values, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: '0,1,2' is not a valid entry. You cannot select '0' with any other values, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
+| Mutliple  | Exceeding maxium entries allowed | 1,2,3,4,5,6,7,8,1,2,3 | Displays error message: <br>"Invalid entry: You've entered 11 items, you may only enter up to 8 items, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: You've entered 11 items, you may only enter up to 8 items, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
+| Mutliple  | Duplicate entries <br>(if repeats are not allowed) | 2,3,3 | Displays error message: <br>"Invalid entry: '2,3,3' is not a valid entry. Duplicate entries are not allowed, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: '2,3,3' is not a valid entry. Duplicate entries are not allowed, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
+| Single      | Non-digit input(s)        | 1,2,a,5 | Displays error message: <br>"Invalid entry: 'a' is not an integer. The input values must be integers between 0 and 8, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: 'One' is not an integer. The input values must be integers between 0 and 8, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
 
 ### Code validation
 
