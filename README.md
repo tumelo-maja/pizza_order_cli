@@ -493,10 +493,33 @@ The application can add new records (as rows) to the 'orders' worksheet and also
 
 ## Deployment
 
-This section provides the steps to follow when deploying the project.
+### Google Sheets Setup
+These are the steps to follow when setting up google sheet for API access:
+- Sign-up for a google account or sign in if you already have one. 
+- Go to the Google console website (<a href="https://console.cloud.google.com/" target="_blank" rel="noopener">link</a>) 
+- On the platform, click on the 'Select a project' then click 'New Project'
+- Add a project name and click 'Create'
+- Ensure the newly created project has been selected and is the currently active project
+- Click on the hanburger icon on the top left to display the navigation menu
+- Under 'PRODUCTS' find and hover on 'APIs and services' then click 'Library' 
+- In the search bar, search for  and select 'Google Drive API':.
+  - Click 'Enable' to launch API overview page
+  - Click on 'Create Credentials' button, under 'Credential Type' select 'Application data' then 'Next'
+  - In the 'Create service account' window, enter service account name (e.g. robert) then 'Create and Continue'
+  - Under 'Grant thise service account acces to project', Select the role of 'Editor' the 'Continue' >> 'Done'
+  - Click 'Keys' from the tabs and select 'Add key' then 'Create new key'
+  - Ensure JOSN option is selected on the pop up window the click 'Create' (.json file will be downloaded automatically)
+- Back in the 'APIs and services' >> 'Library', search for 'Google Sheets API'
+- Click on 'Enable' to activate
+- Go to Google Sheets (<a href="https://docs.google.com/spreadsheets/u/0/" target="_blank" rel="noopener">link</a>) and create a blank Spreadsheet.
+- In the first row, column names can be added: 'Order ID','Order date','Order items', 'Order ready time', 'Order status' and 'Order total'
+- Click on 'Share' button (could be top right next tou account icon)
+- Share access with the service account email (e.g. robert@**.iam.gserviceaccount.com) you created and set Role as 'Editor'
+
 
 ### Heroku Deployment
-- The site was deployed to Heroku. The steps to deploy are as follows: 
+
+This section provides the steps to follow when deploying the project to Heroku. The steps to deploy are as follows: 
   - On the Heroku dashboard, click 'Create new app'
   - Speficy name for the app (e.g. pizza-order-cli, name must be unique) and select the region, then click 'Create app'
   - Got to the 'Settings' tab and scroll to the 'Config Vars' section and add the following:
@@ -505,7 +528,7 @@ This section provides the steps to follow when deploying the project.
   - Navigate to Buildpacks and add buildpacks for Python and NodeJS (may need to click save each time you add a buildback. NB: they must be added in this specific order).
   - Go to the 'Deploy' tab, select GitHub as the delployment method
   - Click 'Connect to GitHub' and oathorize Heroku to access the GitHub account repositories
-  - Search for the repository in the search bar besides 'Connect to GitHub' (https://github.com/tumelo-maja/pizza_order_cli), select the repo and click 'connect' 
+  - Search for the repository in the search bar besides 'Connect to GitHub' ('pizza_order_cli'), select the repo and click 'connect' 
   - Navigate to 'Automatic deploys', click 'Enable Automatic Deploys' to rebuild the app on every pushed GitHub commits
   - Click 'Deploy Branch' to deploy, the app is now live.
   - The app is now live and can be accessed by clicking 'Open app' in the app's directory.
