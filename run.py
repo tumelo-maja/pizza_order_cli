@@ -23,14 +23,15 @@ SCOPE = [
 ]
 
 ORDER_NUMBER_LENGTH = 12
-DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
-DATETIME_FORMAT_ORDER = "%Y%m%d"
-LONDON_TIMEZONE = timezone('Europe/London')
+DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
+DATE_FORMAT_ORDER = "%Y%m%d"
+UK_TIMEZONE = timezone('Europe/London')
 
 ORANGE = 166
 WHITE = 15
 GREEN = 82
-YELLOW=220
+YELLOW = 220
+
 
 def connect_google_sheets(sheet_name):
     """
@@ -140,8 +141,8 @@ def confirm_exit():
     Returns:
         None
     '''
-    print(INDENT_ALL + f"\n{color_text(chr(0x26A0),YELLOW)} Returning to the main menu will"
-          " clear all items in your current order.")
+    print(INDENT_ALL + f"\n{color_text(chr(0x26A0),YELLOW)} Returning to the "
+          "main menu will clear all items in your current order.")
     while True:
         user_input = strppied_input(color_text(
             f"     Are you sure you want to continue? "
@@ -176,7 +177,8 @@ def choose_pizza_name():
             indent) + "| Base toppings", WHITE))
         print(INDENT_ALL + color_text("-"*35, WHITE))
         for key, value in PIZZA_MENU.items():
-            print(INDENT_ALL + color_text(f"{key}) {value['name']}".ljust(indent), GREEN) +
+            print(INDENT_ALL +
+                  color_text(f"{key}) {value['name']}".ljust(indent), GREEN) +
                   color_text("|", WHITE) +
                   color_text(f" {', '.join(value['base_toppings'])}", GREEN))
 
@@ -214,13 +216,14 @@ def choose_pizza_size():
             indent) + "| Price (£)", WHITE))
         print(INDENT_ALL + color_text("-"*33, WHITE))
         for key, value in PIZZA_SIZES.items():
-            item_str=f"{key}) {value['label']} " + \
-            f"{value['size_inch']}" + \
-            f"({value['size_cm']})"
-            
+            item_str = f"{key}) {value['label']} " + \
+                      f"{value['size_inch']}" + \
+                      f"({value['size_cm']})"
+
             print(INDENT_ALL + color_text(item_str.ljust(indent), GREEN) +
                   color_text("|", WHITE) +
-                  color_text(f"{price_format(value['price'])}".rjust(7), GREEN))
+                  color_text(f"{price_format(value['price'])}".rjust(7),
+                             GREEN))
         user_input = strppied_input(color_text("Enter your choice:", ORANGE))
         if user_input == '99':
             confirm_exit()
@@ -279,7 +282,8 @@ def choose_extra_items(item_type, count_max):
         print(color_text(
             f"\n Any {item_type.lower()}? " +
             f"(You can select up to {count_max} items)", WHITE))
-        print(INDENT_ALL + color_text("- input(s) can be comma-separated integers", ORANGE))
+        print(INDENT_ALL +
+              color_text("- input(s) can be comma-separated integers", ORANGE))
         display_return_home_option()
         print(INDENT_ALL + color_text(
             f"{item_type.capitalize():^{indent}}"+"| Price (£)", WHITE))
@@ -290,14 +294,16 @@ def choose_extra_items(item_type, count_max):
             item_str = f"{key}) {value.get('icon', ' ')}  {value['name']}"
             if key == "0":
                 print(INDENT_ALL + color_text(f"{item_str:<{indent}}", GREEN) +
-                      color_text("|", WHITE) + color_text("-".center(5), GREEN))
+                      color_text("|", WHITE) +
+                      color_text("-".center(5), GREEN))
             else:
                 print(INDENT_ALL + color_text(f"{item_str:<{indent}}", GREEN) +
                       color_text("|", WHITE) +
                       color_text(f"{price_format(value['price'])}".rjust(5),
                                  GREEN))
 
-        user_input = strppied_input(color_text("Enter your choice(s):", ORANGE))
+        user_input = strppied_input(color_text("Enter your choice(s):",
+                                               ORANGE))
         if user_input == '99':
             confirm_exit()
             continue
@@ -371,7 +377,8 @@ def print_meal_summary(meal_object):
                   f" {meal_object.pizza_name} Pizza with "
     extras = meal_object.extras_summary()
     if len(extras) > 0:
-        print(INDENT_ALL + color_text(summary_str + "the following extra(s):", WHITE))
+        print(INDENT_ALL + color_text(summary_str +
+                                      "the following extra(s):", WHITE))
         indent = 3
 
         for extra_full, extra_short in EXTRAS_NAMES:
@@ -415,7 +422,8 @@ def summary_order_confirm(input_list):
     clear_console()
     if not len(input_list):
         print(INDENT_ALL + "\nThere are no items in this order")
-        input(color_text(f"- Press Enter to Main Menu {chr(0x1F3E0)}\n", ORANGE))
+        input(color_text(f"- Press Enter to Main Menu {chr(0x1F3E0)}\n",
+                         ORANGE))
         main_menu()
 
     else:
@@ -431,7 +439,7 @@ def summary_order_confirm(input_list):
                 indent)+chr(0x2796), GREEN))
             print(INDENT_ALL + color_text("99) Main Menu".ljust(
                 indent)+chr(0x1F3E0), GREEN))
-            
+
             user_input = strppied_input(
                 color_text("Enter your choice:", ORANGE))
             if user_input == '99':
@@ -463,14 +471,15 @@ def display_full_order(input_list):
     total_sum = 0
     price_indent = 9
     str_indent = 62
-    print(INDENT_ALL + color_text("Items".center(str_indent)+"| Price (£)", WHITE))
+    print(INDENT_ALL + color_text("Items".center(str_indent) +
+                                  "| Price (£)", WHITE))
     print(INDENT_ALL + color_text("-"*(str_indent+10), WHITE))
     show_extra_note = False
 
     for ind, order in enumerate(input_list):
         description_str, price_str = order.summary()
         print(INDENT_ALL + color_text(f"{ind+1})"
-                         f"{description_str}".ljust(str_indent), YELLOW) +
+              f"{description_str}".ljust(str_indent), YELLOW) +
               color_text("|", WHITE) +
               color_text(
                   f"{price_format(price_str)}".rjust(price_indent), YELLOW))
@@ -520,7 +529,8 @@ def print_order_summary(order_dict):
     """
     print(INDENT_ALL + color_text("Here's your order summary:", WHITE))
 
-    new_labels = ['Order ID', 'Order Time', 'Items', 'Ready time', 'Status', 'Total']
+    new_labels = ['Order ID', 'Order Time', 'Items',
+                  'Ready time', 'Status', 'Total']
     indent = 12
     for label, value in zip(new_labels, order_dict):
 
@@ -538,7 +548,8 @@ def print_order_summary(order_dict):
                 len(f"{label}".ljust(indent)) + color_text("|", WHITE)
             split_str = [color_text(x, YELLOW) for x in value.split(',')]
 
-            print(INDENT_ALL + color_text(f"{label}".ljust(indent) + "|", WHITE) +
+            print(INDENT_ALL + color_text(f"{label}".ljust(indent) +
+                                          "|", WHITE) +
                   f" {split_str[0]}\n {align_space}" +
                   f'\n {align_space}'.join(split_str[1:]))
 
@@ -600,7 +611,7 @@ def update_orders_sheet(order):
 
     ORDERS_SHEET.append_row(order_list_item)
 
-    print(INDENT_ALL + color_text("'orders' worksheet updated successfully.", YELLOW))
+    print(color_text(" 'orders' worksheet updated successfully.", YELLOW))
     print(color_text(
         f"\n Success!{chr(0x2705)}  {chr(0x1F4AF)}  {chr(0x1F603)}"
         "  Thank you for sending your order. "
@@ -608,7 +619,8 @@ def update_orders_sheet(order):
     print_order_summary(order.summary.values())
 
     input(color_text(
-        f"\n - Press Enter to return to the main menu {chr(0x1F3E0)}\n", ORANGE))
+        f"\n - Press Enter to return to the main menu {chr(0x1F3E0)}\n",
+        ORANGE))
     main_menu()
 
 
@@ -625,7 +637,7 @@ def get_latest_order_ID():
             today's orders or 0 if there are no was placed today.
     """
     latest_order_ID = ORDERS_SHEET.col_values(1)[-1]
-    today_date = datetime.today().strftime(DATETIME_FORMAT_ORDER)
+    today_date = datetime.today().strftime(DATE_FORMAT_ORDER)
 
     if today_date not in latest_order_ID:
         last_orderID = 0
@@ -742,7 +754,8 @@ def validate_single_entry(value, min_value, max_value):
         if value < min_value or value > max_value:
             raise ValueError(
                 f"Value '{value}' is out of range."
-                f"\n The input value must be between {min_value} and {max_value}")
+                "\n The input value must be between "
+                f"{min_value} and {max_value}")
 
     except ValueError as e:
         print(INDENT_ALL + color_text(
@@ -782,7 +795,7 @@ def validate_multiple_entries(
         bool: True if all input values are valid, otherwise False.
     """
     try:
-        
+
         # Check for incorrect delimeters
         invalid_delimeters = re.findall(r'[^a-zA-Z0-9\s,]', values_input)
         invalid_del_str = ', '.join([f"'{x}'" for x in invalid_delimeters])
@@ -791,7 +804,7 @@ def validate_multiple_entries(
                 f"'{values_input}' is not a valid entry."
                 f"\n{invalid_del_str} delimiter(s) not allowed. "
                 "Use comma ',' to separate the values")
-            
+
         values = [x for x in values_input.split(",")]
 
         #  Check if zero in selected with other options
@@ -963,9 +976,11 @@ def update_orders_status():
     """
     print(color_text("\n Updating order status...", YELLOW))
     orders_df = pd.DataFrame(ORDERS_SHEET.get_all_records())
-    
-    current_time_str = datetime.now().astimezone(LONDON_TIMEZONE).strftime(DATETIME_FORMAT)
-    current_time = datetime.strptime(current_time_str, DATETIME_FORMAT).replace(tzinfo=LONDON_TIMEZONE)
+
+    now_tz_aware = datetime.now().astimezone(UK_TIMEZONE)
+    now_time_str = now_tz_aware.strftime(DATE_FORMAT)
+    now_time_tz = datetime.strptime(now_time_str, DATE_FORMAT)
+    now_time = now_time_tz.replace(tzinfo=UK_TIMEZONE)
 
     for ind, row in orders_df.iterrows():
         status_value = row['Order status']
@@ -973,10 +988,11 @@ def update_orders_status():
 
         if status_value != 'Ready':
 
-            ready_time = datetime.strptime(status_datetime, DATETIME_FORMAT).replace(tzinfo=LONDON_TIMEZONE)
-            time_difference = int((current_time - ready_time.replace(tzinfo=LONDON_TIMEZONE)).total_seconds())
+            ready_time_naive = datetime.strptime(status_datetime, DATE_FORMAT)
+            ready_time = ready_time_naive.replace(tzinfo=UK_TIMEZONE)
+            time_diff = int((now_time - ready_time).total_seconds())
 
-            if time_difference > 0:
+            if time_diff > 0:
                 orders_df.at[ind, 'Order status'] = 'Ready'
             else:
                 orders_df.at[ind, 'Order status'] = 'Preparing'
@@ -1006,7 +1022,7 @@ def check_order_status(order_dict):
     """
     print(INDENT_ALL + color_text("Checking your order status...", YELLOW))
 
-    order_ready_datestr =order_dict['Order ready time']
+    order_ready_datestr = order_dict['Order ready time']
 
     if order_dict['Order status'] == 'Ready':
         status_str = color_text(
@@ -1089,7 +1105,8 @@ def display_return_home_option():
     Returns:
         None
     """
-    print(INDENT_ALL + color_text("- enter 99 to return to the main menu\n", ORANGE))
+    print(INDENT_ALL + color_text("- enter 99 to return to the main menu\n",
+                                  ORANGE))
 
 
 def color_text(message, color_code):
@@ -1116,6 +1133,7 @@ def clear_console():
     """
     os.system('cls' if os.name == 'nt' else 'clear')
 
+
 def main_menu():
     """
     Run the application to initiate requests for user input
@@ -1133,11 +1151,12 @@ def main_menu():
             last_orderID = get_latest_order_ID()
             order = create_new_order(last_orderID)
             update_orders_sheet(order)
-            
+
         elif user_choice == "2":
             track_order()
 
+
 ORDERS_SHEET = connect_google_sheets('orders')
 
-INDENT_ALL=' '
+INDENT_ALL = ' '
 main_menu()

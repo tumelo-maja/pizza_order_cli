@@ -418,15 +418,15 @@ This application uses google sheets as a cloud storage for placed orders. Google
 
 - **Total Cost**: Total amount for the order.
 
-### Sheet updates and record retrivals
+### Worksheet updates and records retrivals
 The application can add new records (as rows) to the 'orders' worksheet and also retrieve all records for tracking an existing order.
 
-- **Sheet Updates:**
+- **Worksheet Updates:**
     - When an order is submitted from the application, a new row is added to the 'orders' worksheet.
 
     - The row includes all key order information: date, items, price, status, and readiness time in line with columns names in the worksheet.
 
-- **Record Retrievals:**
+- **Records Retrievals:**
     - When tracking an order, the application fetches all records and locates a specific order by checking the user's input order number against all existing entries in the 'order number' column of the worksheet.
 
     - The order statuses are updated based on the current time versus the scheduled ready time.
@@ -493,6 +493,10 @@ The application can add new records (as rows) to the 'orders' worksheet and also
 
 ### Code validation
 
+| File Tested | Screenshot of Errors | Solution Applied   | Screenshot of Clear Validator Output |  
+|------------ |------------          |------------        |------------                          |
+| run.py  |<img src="docs\pep8-screenshots\run-initial-validator-results.png" width="700px">  | **Warnings:** <br> 1) Missing whitespace before/after operators or commas added <br><br> 2) Missing blank lines added <br><br> 3) Lines too long - broken down into multiple rows or variables | <img src="docs\pep8-screenshots\run-final-validator-results.png" width="700px">      |    
+
 ### Bugs
 
 ## Deployment
@@ -548,6 +552,9 @@ This project was developed using the Visual Studio Code editor. For version cont
 - `git push` - Pushes all committed changes to the main repository. These changes will on GitHub will cause the rebuild of the app on the Heroku website (if enabled).
 
 ## Credits
+
+- **<a href="https://pep8ci.herokuapp.com/" target="_blank" rel="noopener">CI Python Linter (Pep8)</a>** used to validate the Python code
+
 
 Unicode for emojis - (https://apps.timwhitlock.info/emoji/tables/unicode)
 Python program to print Emojis - (https://www.geeksforgeeks.org/python-program-to-print-emojis/)
