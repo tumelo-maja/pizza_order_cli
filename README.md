@@ -12,17 +12,21 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 
 
 **Target audience:** 
-  - Individual looking to buy pizza
-  - Event organisers/companies looking to place large order purchases of pizza for their events
+  - Individuals looking to buy pizza
+  - Event organisers/companies looking to place large order purchases of pizza
   - 
 
 **Application Mockup:** 
-
+  <figure>
+    <img src="docs/pizza-palace-app-walkthrough.gif" width="600px" >
+    <br>
+    <figcaption><strong><em>Pizza Palace: Full order placement</em></strong></figcaption>
+  </figure>
 
 ## Features 
 
 ### Existing Features
-- **Main menu - **
+- **Main menu**
   <figure>
     <img src="docs/app-screenshots/app-main-menu-order.png" >
     <br>
@@ -432,7 +436,7 @@ The application can add new records (as rows) to the 'orders' worksheet and also
 ## Technologies
 
 - **Python** - The application was developed using Python as the main language.
-    - Packages used in the app include: gspread, google-auth, collections, datetime, pandas, os and two custom modules (pizza_meals and menu_items)
+    - Packages used in the app include: gspread, google-auth, collections, datetime, pandas, os, re, pytz and two custom modules (pizza_meals and menu_items)
 - **Google Sheets** - Orders records were stored on google sheets and an API with secure credentials was used access and modify the worksheet.
 
 
@@ -561,6 +565,10 @@ python docstrings - (https://www.datacamp.com/tutorial/docstrings-python)
 Extract non-laphanumeric characters - (https://stackoverflow.com/questions/1249388/removing-all-non-numeric-characters-from-string-in-python)
 
 Specify timezone for datetime - (https://www.geeksforgeeks.org/python-datetime-astimezone-method/)
+
+window screen recording with screenPal - (https://screenpal.com/)
+
+converting mp4 to gif - (https://ezgif.com/video-to-gif)
 
 ### Tutorials and other resources
 
