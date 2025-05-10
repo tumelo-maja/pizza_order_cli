@@ -572,28 +572,25 @@ This project was developed using the Visual Studio Code editor. For version cont
 
 - **<a href="https://pep8ci.herokuapp.com/" target="_blank" rel="noopener">CI Python Linter (Pep8)</a>** used to validate the Python code
 
+- **<a href="https://home.unicode.org/" target="_blank" rel="noopener">UNICODE</a>** used as reference for emoji code used in the application
 
-Unicode for emojis - (https://apps.timwhitlock.info/emoji/tables/unicode)
-Python program to print Emojis - (https://www.geeksforgeeks.org/python-program-to-print-emojis/)
-colorrama - (https://www.geeksforgeeks.org/introduction-to-python-colorama/)
-breaking lines python - (https://www.pythonmorsels.com/breaking-long-lines-code-python/)
-ANSI escape codes - (https://jakob-bagterp.github.io/colorist-for-python/ansi-escape-codes/extended-256-colors/#structure)
-clear console - (https://stackoverflow.com/questions/517970/how-can-i-clear-the-interpreter-console)
+- **<a href="https://www.pythonmorsels.com/breaking-long-lines-code-python/" target="_blank" rel="noopener">Pythonmorsels</a>** used as guide on breaking long lines of code in Python
 
-importing custom class in same directory - (https://stackoverflow.com/questions/4142151/how-to-import-the-class-within-the-same-directory-or-sub-directory)
+- **<a href="https://jakob-bagterp.github.io/colorist-for-python/ansi-escape-codes/extended-256-colors/#structure" target="_blank" rel="noopener">Jakob-Bagterp (GitHub)</a>** used as reference to apply colors to the text in the application
 
-import varaibles - (https://www.geeksforgeeks.org/how-to-import-variables-from-another-file-in-python/)
+- **<a href="https://stackoverflow.com/questions/517970/how-can-i-clear-the-interpreter-console" target="_blank" rel="noopener">Clearing Console (Stackoverflow)</a>** used as reference to write a code that clear the console as implemented in the application.
 
-python docstrings - (https://www.datacamp.com/tutorial/docstrings-python)
+- **<a href="https://stackoverflow.com/questions/4142151/how-to-import-the-class-within-the-same-directory-or-sub-directory" target="_blank" rel="noopener">Importing custom modules (Stackoverflow)</a>** used as a guide to import custom modules (i.e. pizza_meals.py) into the application.
 
-Extract non-laphanumeric characters - (https://stackoverflow.com/questions/1249388/removing-all-non-numeric-characters-from-string-in-python)
+- **<a href="https://www.geeksforgeeks.org/how-to-import-variables-from-another-file-in-python/" target="_blank" rel="noopener">Importing varialble from .py file (Geeksforgeeks)</a>** used as a guide to import varaibles from a .py file (i.e. menu_items.py) into the application.
 
-Specify timezone for datetime - (https://www.geeksforgeeks.org/python-datetime-astimezone-method/)
+- **<a href="https://www.datacamp.com/tutorial/docstrings-python" target="_blank" rel="noopener">Writing Python docstrings (Datacamp)</a>** used as a guide to writing docstring for functions and classes.
 
-window screen recording with screenPal - (https://screenpal.com/)
+- **<a href="https://stackoverflow.com/questions/1249388/removing-all-non-numeric-characters-from-string-in-python" target="_blank" rel="noopener">Extracting non-alphanumeric characters (Stackoverflow)</a>** used as to implement validation of multiple-value inputs ensuring correct delimeters are used.
 
-converting mp4 to gif - (https://ezgif.com/video-to-gif)
+- **<a href="https://www.geeksforgeeks.org/python-datetime-astimezone-method/" target="_blank" rel="noopener">Setting timezone for datetime (Geeksforgeeks)</a>** used as a guide to handle timezone differences to ensure the application time is in reference to UK timezone.
 
-### Tutorials and other resources
+- **<a href="https://screenpal.com/" target="_blank" rel="noopener">ScreenPal - application screen recording</a>** used to record the application run for making the order.
 
+- **<a href="https://ezgif.com/video-to-gif" target="_blank" rel="noopener">Ezgif - .mp4 to .gif</a>** used to convert the walkthrough video from .mp4 format to a .gif.
 
