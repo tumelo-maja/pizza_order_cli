@@ -501,6 +501,21 @@ The application can add new records (as rows) to the 'orders' worksheet and also
 
 ### Bugs
 
+#### **Google Sheets API Error**
+An error with the stack trace below was encountered when checking through the all records and changing values in the 'order status'. This error was resolved by only writting to the worksheet at outside the for-loop instead of within.
+<figure>
+  <img src="docs\gs-screenshots\google-sheets-API-error.png" width="700px">
+  <figcaption><strong><em>Google Sheets API Error - Resolved</em></strong></figcaption>
+</figure>
+
+#### **Datetime Offset Type Error**
+An error with the stack trace below was encountered when attempting to get the time difference between the current time (timezone-aware) and the value from the 'ready time' (timezone-naive) from google worksheet. This error was resolved by converting the current time to a string (preserving timezone) then replacing timezone info. 
+
+<figure>
+  <img src="docs\datetime-offset-type-error.png" width="700px">
+  <figcaption><strong><em>Datetime Offset Type Error - Resolved</em></strong></figcaption>
+</figure>
+
 ## Deployment
 
 ### Google Sheets Setup
