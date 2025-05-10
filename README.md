@@ -495,7 +495,8 @@ The application can add new records (as rows) to the 'orders' worksheet and also
 
 | File Tested | Screenshot of Errors | Solution Applied   | Screenshot of Clear Validator Output |  
 |------------ |------------          |------------        |------------                          |
-| run.py  |<img src="docs\pep8-screenshots\run-initial-validator-results.png" width="700px">  | **Warnings:** <br> 1) Missing whitespace before/after operators or commas added <br><br> 2) Missing blank lines added <br><br> 3) Lines too long - broken down into multiple rows or variables | <img src="docs\pep8-screenshots\run-final-validator-results.png" width="700px">      |    
+| run.py  |<img src="docs\pep8-screenshots\run-initial-validator-results.png" width="700px">  | **Warnings:** <br> 1) Missing whitespace before/after operators or commas added <br><br> 2) Missing blank lines added <br><br> 3) Lines too long - broken down into multiple rows or variables | <img src="docs\pep8-screenshots\run-final-validator-results.png" width="700px"> |    
+| pizza_meals.py  |<img src="docs\pep8-screenshots\pizza-meals-initial-validator-results.png" width="700px">  | **Warnings:** <br> 1) Missing whitespace before/after operators or commas added <br><br> 2) Missing blank lines added <br><br> 3) Lines too long - broken down into multiple rows or variables | <img src="docs\pep8-screenshots\pizza-meals-final-validator-results.png" width="700px"> |    
 
 ### Bugs
 

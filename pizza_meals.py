@@ -6,10 +6,10 @@ from menu_items import (EXTRA_TOPPINGS,
                         DRINKS_MENU,
                         EXTRAS_NAMES)
 
-DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
-DATETIME_FORMAT_ORDER = "%Y%m%d"
+DATE_FORMAT = "%Y-%m-%d %H:%M:%S"
+DATE_FORMAT_ORDER = "%Y%m%d"
 ORDER_NUMBER_LENGTH = 12
-LONDON_TIMEZONE = timezone('Europe/London')
+UK_TZONE = timezone('Europe/London')
 
 
 class Meal():
@@ -139,7 +139,8 @@ class Order():
         """
         self.order_list = order_list
         self.total_price = total_price
-        self.order_date = datetime.now().astimezone(LONDON_TIMEZONE).strftime(DATETIME_FORMAT)
+        datetime_now = datetime.now().astimezone(UK_TZONE)
+        self.order_date = datetime_now.strftime(DATE_FORMAT)
         self.last_orderID = last_orderID
         self.order_ID = self.create_order_ID()
 
@@ -169,10 +170,10 @@ class Order():
                                  DELAY_pizza_PREP_TIME)+DELAY_pizza_PREP_TIME
 
         ready_by_time = datetime.strptime(
-            self.order_date, DATETIME_FORMAT) + \
+            self.order_date, DATE_FORMAT) + \
             timedelta(minutes=preparation_time)
 
-        return ready_by_time.replace(second=0).strftime(DATETIME_FORMAT)
+        return ready_by_time.replace(second=0).strftime(DATE_FORMAT)
 
     @property
     def order_items(self):
@@ -220,7 +221,7 @@ class Order():
         Returns:
             str: Formatted order ID in the formart - yyyymmdd####.
         """
-        new_order_ID = datetime.today().strftime(DATETIME_FORMAT_ORDER) + \
+        new_order_ID = datetime.today().strftime(DATE_FORMAT_ORDER) + \
             '{:04}'.format(self.last_orderID+1)
 
         return new_order_ID
