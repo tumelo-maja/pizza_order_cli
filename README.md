@@ -396,6 +396,21 @@ Other goals:
 
 ### Flow charts
 
+**Main Menu**
+<br><br><img src="docs\flow-charts\pizza-palace-main-menu.png">
+
+**Main Menu**
+<br><br><img src="docs\flow-charts\pizza-palace-create-order.png">
+
+**Main Menu**
+<br><br><img src="docs\flow-charts\pizza-palace-confirm-order.png">
+
+**Main Menu**
+<br><br><img src="docs\flow-charts\pizza-palace-track-order.png">
+
+
+
+
 ## Google Sheets API
 This application uses google sheets as a cloud storage for placed orders. Google sheets and google drive APIs have been enabled for the application to have read and write permissions in the spreadsheet. A private API key is used to securely access the orders records and to update data in the sheet. 
 
