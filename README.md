@@ -399,13 +399,13 @@ Other goals:
 **Main Menu**
 <br><br><img src="docs\flow-charts\pizza-palace-main-menu.png">
 
-**Main Menu**
+**Create Order**
 <br><br><img src="docs\flow-charts\pizza-palace-create-order.png">
 
-**Main Menu**
+**Confirm Order**
 <br><br><img src="docs\flow-charts\pizza-palace-confirm-order.png">
 
-**Main Menu**
+**Track Order**
 <br><br><img src="docs\flow-charts\pizza-palace-track-order.png">
 
 
@@ -584,6 +584,12 @@ This project was developed using the Visual Studio Code editor. For version cont
 - `git push` - Pushes all committed changes to the main repository. These changes will on GitHub will cause the rebuild of the app on the Heroku website (if enabled).
 
 ## Credits
+
+### Application Text Content 
+
+The text content (menus, prices, pizza details) used in this application was obtained from real pizza businesses including <a href="https://www.caprinospizza.co.uk" target="_blank" rel="noopener">Caprinos Pizza</a>, <a href="https://www.dominos.co.uk" target="_blank" rel="noopener">Dominos</a> etc. 
+
+### Tutorials and other resources
 
 - **<a href="https://pep8ci.herokuapp.com/" target="_blank" rel="noopener">CI Python Linter (Pep8)</a>** used to validate the Python code
 
