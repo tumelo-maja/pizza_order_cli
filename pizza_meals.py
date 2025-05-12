@@ -56,7 +56,7 @@ class Meal():
 
     def summary(self):
         """
-        Formarts the meal information including extras and
+        Formats the meal information including extras and
             pizza details into a formatted string.
 
         Returns:
@@ -77,13 +77,13 @@ class Meal():
             float: Meal total cost.
         """
         toppings_prices = [EXTRA_TOPPINGS[x[0]]['price']*x[1]
-                           for x in self.toppings['item_indx']]
+                           for x in self.toppings['item_index']]
         dips_prices = [EXTRA_DIP[x[0]]['price']*x[1]
-                       for x in self.dips['item_indx']]
+                       for x in self.dips['item_index']]
         sides_prices = [SIDES_MENU[x[0]]['price']*x[1]
-                        for x in self.sides['item_indx']]
+                        for x in self.sides['item_index']]
         drinks_prices = [DRINKS_MENU[x[0]]['price']*x[1]
-                         for x in self.drinks['item_indx']]
+                         for x in self.drinks['item_index']]
 
         items_total = self.quantity * (self.pizza_price +
                                        sum(toppings_prices) +
@@ -129,7 +129,7 @@ class Order():
         order_date (str): Timestamp when the order was created.
         last_orderID (int): The last numeric order ID for today's date.
         order_ID (str): Generated unique order ID based on date and
-                        4-number digit in the formart - yyyymmdd####.
+                        4-number digit in the format - yyyymmdd####.
     """
 
     def __init__(self, order_list, total_price, last_orderID):
@@ -219,7 +219,7 @@ class Order():
             current date and incremented 4-digit number.
 
         Returns:
-            str: Formatted order ID in the formart - yyyymmdd####.
+            str: Formatted order ID in the format - yyyymmdd####.
         """
         new_order_ID = datetime.today().strftime(DATE_FORMAT_ORDER) + \
             '{:04}'.format(self.last_orderID+1)

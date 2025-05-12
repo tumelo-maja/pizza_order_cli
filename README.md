@@ -13,7 +13,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 
 **Target audience:** 
   - Individuals looking to buy pizza
-  - Event organisers/companies looking to place large order purchases of pizza
+  - Event organizers/companies looking to place large order purchases of pizza
   - 
 
 **Application Mockup:** 
@@ -46,7 +46,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 
   - **Options** - select from 5 options showing names and base toppings for each pizza.
   - **Enter your choice:** - Enter a single digit followed by Enter
-  - **Limits** - input must be an integeter betweeen 1 and 5 or enter 99 to return to 'Main Menu'
+  - **Limits** - input must be an integer between 1 and 5 or enter 99 to return to 'Main Menu'
 
 - **Choose pizza size**
   <figure>
@@ -57,7 +57,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 
   - **Options** - select from 3 options showing size and price for each option.
   - **Enter your choice:** - Enter a single digit followed by Enter
-  - **Limits** - input must be an integeter betweeen 1 and 3 or enter 99 to return to 'Main Menu'
+  - **Limits** - input must be an integer between 1 and 3 or enter 99 to return to 'Main Menu'
 
 - **Choose extra toppings**
   <figure>
@@ -68,7 +68,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 
   - **Options** - select '0 - None' to not include any topping, 1 or more options as displayed with their prices.
   - **Limits:**
-    - input(s) must be integers betweeen 0 and 8 or enter 99 to return to 'Main Menu'
+    - input(s) must be integers between 0 and 8 or enter 99 to return to 'Main Menu'
     - Multiple options may be selected and any option can be repeated
     - A maximum of 8 extra toppings items may be selected per meal.
 
@@ -81,7 +81,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 
   - **Options** - select '0 - None' to not include any dip, 1 or more options as displayed with their prices.
   - **Limits:**
-    - input(s) must be integers betweeen 0 and 4 or enter 99 to return to 'Main Menu'
+    - input(s) must be integers between 0 and 4 or enter 99 to return to 'Main Menu'
     - Multiple options may be selected and any option can be repeated.
     - A maximum of 4 extra dips may be selected per meal.
 
@@ -94,7 +94,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 
   - **Options** - select '0 - None' to not include any side, 1 or more options as displayed with their prices.
   - **Limits:**
-    - input(s) must be integers betweeen 0 and 6 or enter 99 to return to 'Main Menu'
+    - input(s) must be integers between 0 and 6 or enter 99 to return to 'Main Menu'
     - Multiple options may be selected and any option can be repeated.
     - A maximum of 6 sides may be selected per meal.
 
@@ -107,7 +107,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 
   - **Options** - select '0 - None' to not include any drinks, 1 or more options as displayed with their prices.
   - **Limits:**
-    - input(s) must be integers betweeen 0 and 8 or enter 99 to return to 'Main Menu'
+    - input(s) must be integers between 0 and 8 or enter 99 to return to 'Main Menu'
     - Multiple options may be selected and any option can be repeated.
     - A maximum of 8 drinks may be selected per meal.
 
@@ -120,7 +120,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
 
   - **Options** - Specify number of quantities to order for the current meal.
   - **Limits:**
-    - input must be number betweeen 1 and 50 or enter 99 to return to 'Main Menu'
+    - input must be number between 1 and 50 or enter 99 to return to 'Main Menu'
     - A maximum of 50 meals may be ordered for each meal.
 
 - **Meal summary**
@@ -133,7 +133,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
   - **Meal display** - complete meal summary is shown including any extra items selected and their quantities per meal.
   - **1) Yes** - to add another meal; app goes back to choose pizza name.
   - **2) No** - to proceed to checkout; app goes to order summary.
-  - **Limits:** input must be an integer betweeen 1 and 2 or enter 99 to return to 'Main Menu'
+  - **Limits:** input must be an integer between 1 and 2 or enter 99 to return to 'Main Menu'
 
 - **Order summary - add meals**
   <figure>
@@ -141,14 +141,14 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
     <img src="docs/app-screenshots/app-order-order-summary-remove.png" >
     <br>
     <figcaption><strong><em>Order Summary - Add more meals</em></strong></figcaption>
-    *Note: bottom image shows mutliple meal added by selecting option 2.
+    *Note: bottom image shows multiple meal added by selecting option 2.
   </figure>
 
   - **Meal display** - complete order summary is shown including any extra items selected and their quantities for each meal.
   - **1) Place Order** - to submit the order.
   - **2) Add more meals** - to add 1 or more meals to the order; app goes back to choose pizza name
   - **3) Remove meals** - to remove 1 or more meals from the order; app goes to remove meals menu.
-  - **Limits:** input must be an integer betweeen 1 and 3 or enter 99 to return to 'Main Menu'
+  - **Limits:** input must be an integer between 1 and 3 or enter 99 to return to 'Main Menu'
 
 - **Order summary - remove meals**
   <figure>
@@ -167,7 +167,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
   - **1) Place Order** - to submit the order.
   - **2) Add more meals** - to add 1 or more meals to the order; app goes back to choose pizza name
   - **3) Remove meals** - to remove 1 or more meals from the order; app goes to remove meals menu.
-  - **Limits:** input must be an integer betweeen 1 and 3 or enter 99 to return to 'Main Menu'
+  - **Limits:** input must be an integer between 1 and 3 or enter 99 to return to 'Main Menu'
 
 - **Order summary - submit order**
   <figure>
@@ -175,7 +175,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
     <br>
     option 1 selected to submit an order.
     <br>
-    <img src="docs/app-screenshots/app-order-submit-succcess.png" >
+    <img src="docs/app-screenshots/app-order-submit-success.png" >
     <br>
     Order submission feedback - success!
     <br>
@@ -183,7 +183,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
   </figure>
 
   - **Order summary** - complete order summary is displayed after submission with order number and ready time.
-  - **Press Enter** - to return to Main Menue.
+  - **Press Enter** - to return to Main Menu.
 
 - **Main Menu - Track Order**
   <figure>
@@ -196,7 +196,7 @@ PizzaPalace is a command-line_interface (CLI) application for ordering pizza mea
     Valid order output
     <br>
     <figcaption><strong><em>Main Menu - Track Order</em></strong></figcaption>
-    *Note: bottom image shows ouput from a valid order number.
+    *Note: bottom image shows output from a valid order number.
   </figure>
 
   - **Order Status** - complete order summary is shown including the status of the order; could either be 'Ready' or 'Preparing'.
@@ -232,7 +232,7 @@ Primary goal: Design an interactive, user-friendly and efficient pizza ordering 
 Other goals:
 - Increase pizza order traffic
 - Enhance user experience with intuitive application flow and informative feedback.
-- Provide users with the option to customise their meal order by adding extras on the pizza and or sides and drinks 
+- Provide users with the option to customize their meal order by adding extras on the pizza and or sides and drinks 
 
 ### User stories
 
@@ -248,8 +248,8 @@ Other goals:
 
   **Tasks:**
     - Implement welcome display to run on launch of the application
-    - Display two option with clear labels and corrensponding integer to enter for each option
-    - Add code to validate user input and provide feeback for invalid entries while allowing user to resubmit the correct input
+    - Display two option with clear labels and corresponding integer to enter for each option
+    - Add code to validate user input and provide feedback for invalid entries while allowing user to resubmit the correct input
 
 - **Add Pizza to Order (must-have)**
 
@@ -266,9 +266,9 @@ Other goals:
   **Tasks:**
     - Display pizza names and for each pizza, display base toppings included
     - After pizza name selection, display pizza sizes and cost for each option.
-    - After pizza size selection, display optional extra topping avaibale to the user showing maximum amount allowed. 
-    - After extra toppings selection, display optional extra dips avaibale to the user showing maximum amount allowed. 
-    - Add code to validate user input and provide feeback for invalid entries while allowing user to resubmit the correct input
+    - After pizza size selection, display optional extra topping available to the user showing maximum amount allowed. 
+    - After extra toppings selection, display optional extra dips available to the user showing maximum amount allowed. 
+    - Add code to validate user input and provide feedback for invalid entries while allowing user to resubmit the correct input
 
 - **Submit Order to Google Sheets (must-have)**
 
@@ -277,15 +277,15 @@ Other goals:
 
   **Acceptance Criteria:**
     - Order summary is displayed after all selections have been made
-    - On confirmation, user can submit their order and receive success feeback and expected ready time.
+    - On confirmation, user can submit their order and receive success feedback and expected ready time.
     - Order summary is displayed including generated order number, counts of items ordered and total cost
     - User input is validated and any invalid entries are handle with an informative feedback and guide to resolve them
 
   **Tasks:**
     - Add code to connect to google sheets to add new order
-    - Display order summary including ordered items, total costs and cacalculated ready by time
+    - Display order summary including ordered items, total costs and calculated ready by time
     - Display generated order number to be used for tracking the order. Prompt user return to home page. 
-    - Add code to validate user input and provide feeback for invalid entries while allowing user to resubmit the correct input
+    - Add code to validate user input and provide feedback for invalid entries while allowing user to resubmit the correct input
 
 - **Track Existing Order (must-have)**
 
@@ -306,7 +306,7 @@ Other goals:
 - **Multiple Meals Order (should-have)**
 
   **Story:** 
-    - As an event organizer, I want to add mutliple pizzas to order so I can place a full order for my group events.
+    - As an event organizer, I want to add multiple pizzas to order so I can place a full order for my group events.
 
   **Acceptance Criteria:**
     - After all meal selection and before submitting order, user is asked if they want to add another meal to the current order
@@ -316,10 +316,10 @@ Other goals:
 
   **Tasks:**
     - Implement code to allow user to add more meals to a single order
-    - Implement code to allow user specify meal quantities for a specific meal before finlaizing the order item.
+    - Implement code to allow user specify meal quantities for a specific meal before finalizing the order item.
     - Using Order class, all meal items can be stored as a list with their individual selections
     - Add code to account for preparation time for large orders
-    - Add code to validate user input and provide feeback for invalid entries while allowing user to resubmit the correct input
+    - Add code to validate user input and provide feedback for invalid entries while allowing user to resubmit the correct input
 
 - **Add Meal Extras: Wings and Fries (should-have)**
 
@@ -332,9 +332,9 @@ Other goals:
     - User input is validated and any invalid entries are handle with an informative feedback and guide to resolve them
 
   **Tasks:**
-    - Display a list of avaliable sides, their prices, sizes and corresponding integers to be used for selecting one or more sides.
+    - Display a list of available sides, their prices, sizes and corresponding integers to be used for selecting one or more sides.
     - Ensure that user's input does not exceed  the maximum number of sides allowed per meal.
-    - Add code to validate user input and provide feeback for invalid entries while allowing user to resubmit the correct input
+    - Add code to validate user input and provide feedback for invalid entries while allowing user to resubmit the correct input
 
 - **Add Drinks (should-have)**
 
@@ -347,9 +347,9 @@ Other goals:
     - User input is validated and any invalid entries are handle with an informative feedback and guide to resolve them
 
   **Tasks:**
-    - Display a list of avaliable drinks, their prices, sizes and corresponding integers to be used for selecting one or more sides.
+    - Display a list of available drinks, their prices, sizes and corresponding integers to be used for selecting one or more sides.
     - Ensure that user's input does not exceed  the maximum number of drinks allowed per meal.
-    - Add code to validate user input and provide feeback for invalid entries while allowing user to resubmit the correct input
+    - Add code to validate user input and provide feedback for invalid entries while allowing user to resubmit the correct input
 
 - **Modify Order Before Submitting (could-have)**
 
@@ -364,7 +364,7 @@ Other goals:
   **Tasks:**
     - Display options for adding or removing items and the corresponding functions to handle either action.
     - Update the Orders list and the calculated total costs
-    - Add code to validate user input and provide feeback for invalid entries while allowing user to resubmit the correct input
+    - Add code to validate user input and provide feedback for invalid entries while allowing user to resubmit the correct input
 
 - **Style CLI with Emojis and Text Colors (could-have)**
 
@@ -384,7 +384,7 @@ Other goals:
 - **Anytime Application Exit (could-have)**
 
   **Story:** 
-    - As a user, I want to abondon current order and return to main menu so I can start a new order without having to delete all individual order items
+    - As a user, I want to abandon current order and return to main menu so I can start a new order without having to delete all individual order items
 
   **Acceptance Criteria:**
     - At every display, user can enter '99' to return to main menu
@@ -433,7 +433,7 @@ This application uses google sheets as a cloud storage for placed orders. Google
 
 - **Total Cost**: Total amount for the order.
 
-### Worksheet updates and records retrivals
+### Worksheet updates and records retrievals
 The application can add new records (as rows) to the 'orders' worksheet and also retrieve all records for tracking an existing order.
 
 - **Worksheet Updates:**
@@ -463,14 +463,14 @@ The application can add new records (as rows) to the 'orders' worksheet and also
 | 1    | Main Menu*                   | 1          | Main Menu screen displays with 2 option prompt, option 1 selected  | Main Menu screen displays with 2-option prompt correctly, option 1 selected  |  Pass |
 | 2    | Choose Pizza Name*           | 1          | 5 x pizza name options with base toppings displayed, option 1 selected       | 5 x pizza options with base toppings are displayed correctly, option 1 selected   |  Pass |
 | 3    | Choose Pizza Size*           | 1          | 3 x pizza size options with prices displayed | 3 x pizza sizes displayed with prices, option 1 selected       |  Pass |
-| 4    | Choose Extra Toppings**       | 1,3,4      | 8 x extra toppping options with prices displayed, 3 x toppings selected | 8 x extra toppping options with prices, options 1,3,4 selected  |  Pass |
-| 5    | Choose Extra Dips**           | 1,2        | 8 x extra toppping options with prices displayed, 2 x dips selected | Dip options shown with prices, options 1,2 selected  |  Pass |
+| 4    | Choose Extra Toppings**       | 1,3,4      | 8 x extra topping options with prices displayed, 3 x toppings selected | 8 x extra topping options with prices, options 1,3,4 selected  |  Pass |
+| 5    | Choose Extra Dips**           | 1,2        | 8 x extra topping options with prices displayed, 2 x dips selected | Dip options shown with prices, options 1,2 selected  |  Pass |
 | 6    | Choose Sides**                | 1,4        | 6 x sides options with prices displayed, 2 x sides selected | Sides options shown with prices, options 1,4 selected |  Pass |
 | 7    | Choose Drinks**               | 2,3,8      | 8 x drinks options with prices displayed, 3 x drinks selected | Drink menu shown with prices; options 2,3,8 selected      |  Pass |
-| 8    | Enter Meal Quantity*         | 10         | dsiplay of prompt to specify quantity between 1 and 50 units  | Input prompt and validation passes. 10 meals specified |  Pass |
-| 9    | Meal Summary Display*; <br> Add Another Meal Prompt | 2 | Meal summary displayed including pizza name and side, extra toppings and sides, sides and drinks qunatities are displayed for each meal item; <br>Prompt display to add another meal (Yes/No) - option 2 (No) selected | Full meal summary displayed including pizza options selected, extras, sides and drinks; <br>Prompt display to add another meal - option 2 selected to proceed to order summary |  Pass |
+| 8    | Enter Meal Quantity*         | 10         | display of prompt to specify quantity between 1 and 50 units  | Input prompt and validation passes. 10 meals specified |  Pass |
+| 9    | Meal Summary Display*; <br> Add Another Meal Prompt | 2 | Meal summary displayed including pizza name and side, extra toppings and sides, sides and drinks quantities are displayed for each meal item; <br>Prompt display to add another meal (Yes/No) - option 2 (No) selected | Full meal summary displayed including pizza options selected, extras, sides and drinks; <br>Prompt display to add another meal - option 2 selected to proceed to order summary |  Pass |
 | 10   | Full Order Summary display*; <br> Prompt with options to submit/modify Order items  | 1   | Full order summary displayed showing all meals, their quantities, subtotal prices for each meal and total order price; <br> Prompt with options to submit, add or remove meal items from the order - Option 1 to submit order selected  | Full order description with all meals and the total cost displayed; <br>Prompt with options to submit, add or remove meal items from the order - Option 1 to submit order selected |  Pass |
-| 11   | Submission confirmation* - Order details display<br>Return to Menu Prompt   | *Enter*  | Confirms submission and sends order to Google sheets; <br> Order details display including order number and ready time - prompt to return to main menu | Confirmation message and display of order details including  order numbe  and ready time. Order status shown as 'Preperaing' <br>Prompt to return to main menu - Enter pressed and user is brought to main menu |  Pass |
+| 11   | Submission confirmation* - Order details display<br>Return to Menu Prompt   | *Enter*  | Confirms submission and sends order to Google sheets; <br> Order details display including order number and ready time - prompt to return to main menu | Confirmation message and display of order details including  order number  and ready time. Order status shown as 'Preparing' <br>Prompt to return to main menu - Enter pressed and user is brought to main menu |  Pass |
 
 ***Note:***
 - *Single entry - Exactly 1 number is required as an input. 
@@ -483,13 +483,13 @@ The application can add new records (as rows) to the 'orders' worksheet and also
 | Step | Display Screen              | User input | Expected Outcome                            | Actual Outcome     | Result |
 |----  |-----------------            |------      |-----------------                            |------------------- |------- |
 | 1    | Main Menu*                   | 1          | Main Menu screen displays with 2 option prompt, option 1 selected  | Main Menu screen displays with 2-option prompt correctly, option 2 selected  |  Pass |
-| 2    | Enter Order Number Display*         | 202505080008 | Order details revtrieved from Google Sheet 'orders' worksheet | Order details revtrieved from Google Sheet 'orders' worksheet |  Pass |
+| 2    | Enter Order Number Display*         | 202505080008 | Order details retrieved from Google Sheet 'orders' worksheet | Order details retrieved from Google Sheet 'orders' worksheet |  Pass |
 | 3    | Order Details Display* <br>Prompt display to track another order/return to main menu  | 1  | Order summary details are displayed including status with a value of "Ready" based on current time vs ready time | Order summary details are displayed including status with a value of "Ready" based on current time vs ready time |  Pass |
 | 4    | Option 1) Track Another Order  | 1 | Display of prompts enter another order number | Option to enter another number or return home displayed                    |  Pass |
 | 5    | Option 99) Main Menu  | 99 | USer is returned to the main menu | USer is returned to the main menu  |  Pass |
 | 6    | Any other entry besides 1 or 99 - Error handling: <br>Order Not Found | 202401010001 | Displays error message: <br>"Order number 202401010001 not found. Please check the number and try again." <br>Prompt to re-enter order number is displayed| Displays error message: <br>"Order number 202401010001 not found. Please check the number and try again." <br>Prompt to re-enter order number is displayed  |  Pass |
 | 7    | 'Enter your 12-digit order number' - Error handling: <br>Invalid Order Number Format | 9999               | Displays error message <br>"Invalid entry: '9999' is not a valid order number. Order number must start with '20', please try again"  <br>Prompt to re-enter order number is displayed | Displays error message: <br>"'9999' is not a valid order number. Order number must start with '20', please try again" <br>Prompt to re-enter order number is displayed  |  Pass |
-| 8    | 'Enter your 12-digit order number' - Error handling: <br>Invalid Order Number Length | 202501               | Displays error message: <br>"Invalid entry: Order number must have exactly 12 integers - you privided 6, please try again"  <br>Prompt to re-enter order number is displayed | Displays error message: <br>"Invalid entry: Order number must have exactly 12 integers - you privided 6, please try again" <br>Prompt to re-enter order number is displayed  |  Pass |
+| 8    | 'Enter your 12-digit order number' - Error handling: <br>Invalid Order Number Length | 202501               | Displays error message: <br>"Invalid entry: Order number must have exactly 12 integers - you provided 6, please try again"  <br>Prompt to re-enter order number is displayed | Displays error message: <br>"Invalid entry: Order number must have exactly 12 integers - you provided 6, please try again" <br>Prompt to re-enter order number is displayed  |  Pass |
 
 
 #### 3) **Error handling - Invalid entries**
@@ -498,12 +498,12 @@ The application can add new records (as rows) to the 'orders' worksheet and also
 | Single      | Non-digit input        | One | Displays error message: <br>"Invalid entry: 'One' is not an integer, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: 'One' is not an integer, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
 | Single      | Empty input        | (no input entered) | Displays error message: <br>"Invalid entry: '' is not an integer, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: '' is not an integer, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
 | Single      | Out-of-range value     | 7         | Displays error message: <br>"Invalid entry: Value '7' is out of range. The input value must be between 1 and 5, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: Value '7' is out of range. The input value must be between 1 and 5, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
-| Mutliple    | Out-of-range value     | 1,2,9     | Displays error message: <br>"Invalid entry: Value '9' is out of range. The input values must be integers between 0 and 8, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: Value '9' is out of range. The input values must be integers between 0 and 8, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
-| Mutliple  | Entering '0' with other entries | 0,1,2 | Displays error message: <br>"Invalid entry: '0,1,2' is not a valid entry. You cannot select '0' with any other values, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: '0,1,2' is not a valid entry. You cannot select '0' with any other values, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
-| Mutliple  | Exceeding maxium entries allowed | 1,2,3,4,5,6,7,8,1,2,3 | Displays error message: <br>"Invalid entry: You've entered 11 items, you may only enter up to 8 items, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: You've entered 11 items, you may only enter up to 8 items, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
-| Mutliple  | Duplicate entries <br>(if repeats are not allowed) | 2,3,3 | Displays error message: <br>"Invalid entry: '2,3,3' is not a valid entry. Duplicate entries are not allowed, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: '2,3,3' is not a valid entry. Duplicate entries are not allowed, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
-| Mutliple      | Non-digit input(s)        | 1,2,a,5 | Displays error message: <br>"Invalid entry: 'a' is not an integer. The input values must be integers between 0 and 8, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: 'One' is not an integer. The input values must be integers between 0 and 8, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
-| Mutliple      | Invalid delimters  | 1,2;3/4&7.5 | Displays error message: <br>"Invalid entry: '1,2;3/4&7.5' is not a valid entry. ';', '/', '&', '.' delimiter(s) not allowed. Use comma ',' to separate the values, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: '1,2;3/4&7.5' is not a valid entry. ';', '/', '&', '.' delimiter(s) not allowed. Use comma ',' to separate the values, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
+| Multiple    | Out-of-range value     | 1,2,9     | Displays error message: <br>"Invalid entry: Value '9' is out of range. The input values must be integers between 0 and 8, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: Value '9' is out of range. The input values must be integers between 0 and 8, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
+| Multiple  | Entering '0' with other entries | 0,1,2 | Displays error message: <br>"Invalid entry: '0,1,2' is not a valid entry. You cannot select '0' with any other values, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: '0,1,2' is not a valid entry. You cannot select '0' with any other values, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
+| Multiple  | Exceeding maximum entries allowed | 1,2,3,4,5,6,7,8,1,2,3 | Displays error message: <br>"Invalid entry: You've entered 11 items, you may only enter up to 8 items, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: You've entered 11 items, you may only enter up to 8 items, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
+| Multiple  | Duplicate entries <br>(if repeats are not allowed) | 2,3,3 | Displays error message: <br>"Invalid entry: '2,3,3' is not a valid entry. Duplicate entries are not allowed, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: '2,3,3' is not a valid entry. Duplicate entries are not allowed, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
+| Multiple      | Non-digit input(s)        | 1,2,a,5 | Displays error message: <br>"Invalid entry: 'a' is not an integer. The input values must be integers between 0 and 8, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: 'One' is not an integer. The input values must be integers between 0 and 8, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
+| Multiple      | Invalid delimiters  | 1,2;3/4&7.5 | Displays error message: <br>"Invalid entry: '1,2;3/4&7.5' is not a valid entry. ';', '/', '&', '.' delimiter(s) not allowed. Use comma ',' to separate the values, please try again." <br>Prompt to re-enter answer is displayed  | Displays error message: <br>"Invalid entry: '1,2;3/4&7.5' is not a valid entry. ';', '/', '&', '.' delimiter(s) not allowed. Use comma ',' to separate the values, please try again." <br>Prompt to re-enter answer is displayed  |  Pass |
 
 
 ### Code validation
@@ -517,7 +517,7 @@ The application can add new records (as rows) to the 'orders' worksheet and also
 ### Bugs
 
 #### **Google Sheets API Error**
-An error with the stack trace below was encountered when checking through the all records and changing values in the 'order status'. This error was resolved by only writting to the worksheet at outside the for-loop instead of within.
+An error with the stack trace below was encountered when checking through the all records and changing values in the 'order status'. This error was resolved by only writing to the worksheet at outside the for-loop instead of within.
 <figure>
   <img src="docs\gs-screenshots\google-sheets-API-error.png" width="700px">
   <figcaption><strong><em>Google Sheets API Error - Resolved</em></strong></figcaption>
@@ -540,13 +540,13 @@ These are the steps to follow when setting up google sheet for API access:
 - On the platform, click on the 'Select a project' then click 'New Project'
 - Add a project name and click 'Create'
 - Ensure the newly created project has been selected and is the currently active project
-- Click on the hanburger icon on the top left to display the navigation menu
+- Click on the hamburger icon on the top left to display the navigation menu
 - Under 'PRODUCTS' find and hover on 'APIs and services' then click 'Library' 
 - In the search bar, search for  and select 'Google Drive API':.
   - Click 'Enable' to launch API overview page
   - Click on 'Create Credentials' button, under 'Credential Type' select 'Application data' then 'Next'
   - In the 'Create service account' window, enter service account name (e.g. robert) then 'Create and Continue'
-  - Under 'Grant thise service account acces to project', Select the role of 'Editor' the 'Continue' >> 'Done'
+  - Under 'Grant this service account access to project', Select the role of 'Editor' the 'Continue' >> 'Done'
   - Click 'Keys' from the tabs and select 'Add key' then 'Create new key'
   - Ensure JOSN option is selected on the pop up window the click 'Create' (.json file will be downloaded automatically)
 - Back in the 'APIs and services' >> 'Library', search for 'Google Sheets API'
@@ -560,13 +560,13 @@ These are the steps to follow when setting up google sheet for API access:
 
 This section provides the steps to follow when deploying the project to Heroku. The steps to deploy are as follows: 
   - On the Heroku dashboard, click 'Create new app'
-  - Speficy name for the app (e.g. pizza-order-cli, name must be unique) and select the region, then click 'Create app'
+  - Specify name for the app (e.g. pizza-order-cli, name must be unique) and select the region, then click 'Create app'
   - Got to the 'Settings' tab and scroll to the 'Config Vars' section and add the following:
     - Add the google sheets API credentials: KEY as 'CREDS' and VALUE as the content of the API credential JSON file.
     - Add Port 8000: KEY as 'PORT' and VALUE AS 8000
   - Navigate to Buildpacks and add buildpacks for Python and NodeJS (may need to click save each time you add a buildback. NB: they must be added in this specific order).
-  - Go to the 'Deploy' tab, select GitHub as the delployment method
-  - Click 'Connect to GitHub' and oathorize Heroku to access the GitHub account repositories
+  - Go to the 'Deploy' tab, select GitHub as the deployment method
+  - Click 'Connect to GitHub' and authorize Heroku to access the GitHub account repositories
   - Search for the repository in the search bar besides 'Connect to GitHub' ('pizza_order_cli'), select the repo and click 'connect' 
   - Navigate to 'Automatic deploys', click 'Enable Automatic Deploys' to rebuild the app on every pushed GitHub commits
   - Click 'Deploy Branch' to deploy, the app is now live.
@@ -578,7 +578,7 @@ Alternatively the app's live link can be found here - (https://pizza-order-cli-e
 
 ### Version Control
 
-This project was developed using the Visual Studio Code editor. For version control, changes were committed and pushed to the project's GitHub repository (<a href="https://github.com/tumelo-maja/pizza_order_cli" target="_blank" rel="noopener">pizza_order_cli</a>). These git commands used throught the project development for version control:
+This project was developed using the Visual Studio Code editor. For version control, changes were committed and pushed to the project's GitHub repository (<a href="https://github.com/tumelo-maja/pizza_order_cli" target="_blank" rel="noopener">pizza_order_cli</a>). These git commands used throughout the project development for version control:
 - `git add <filepath>` - Adds any changes in the repo folders and file to the staging area and ready to be committed
 - `git commit -m "message about the change/addition"` - Brief summary about what change is being committed.
 - `git push` - Pushes all committed changes to the main repository. These changes will on GitHub will cause the rebuild of the app on the Heroku website (if enabled).
@@ -603,11 +603,11 @@ The text content (menus, prices, pizza details) used in this application was obt
 
 - **<a href="https://stackoverflow.com/questions/4142151/how-to-import-the-class-within-the-same-directory-or-sub-directory" target="_blank" rel="noopener">Importing custom modules (Stackoverflow)</a>** used as a guide to import custom modules (i.e. pizza_meals.py) into the application.
 
-- **<a href="https://www.geeksforgeeks.org/how-to-import-variables-from-another-file-in-python/" target="_blank" rel="noopener">Importing varialble from .py file (Geeksforgeeks)</a>** used as a guide to import varaibles from a .py file (i.e. menu_items.py) into the application.
+- **<a href="https://www.geeksforgeeks.org/how-to-import-variables-from-another-file-in-python/" target="_blank" rel="noopener">Importing variable from .py file (Geeksforgeeks)</a>** used as a guide to import variables from a .py file (i.e. menu_items.py) into the application.
 
 - **<a href="https://www.datacamp.com/tutorial/docstrings-python" target="_blank" rel="noopener">Writing Python docstrings (Datacamp)</a>** used as a guide to writing docstring for functions and classes.
 
-- **<a href="https://stackoverflow.com/questions/1249388/removing-all-non-numeric-characters-from-string-in-python" target="_blank" rel="noopener">Extracting non-alphanumeric characters (Stackoverflow)</a>** used as to implement validation of multiple-value inputs ensuring correct delimeters are used.
+- **<a href="https://stackoverflow.com/questions/1249388/removing-all-non-numeric-characters-from-string-in-python" target="_blank" rel="noopener">Extracting non-alphanumeric characters (Stackoverflow)</a>** used as to implement validation of multiple-value inputs ensuring correct delimiters are used.
 
 - **<a href="https://www.geeksforgeeks.org/python-datetime-astimezone-method/" target="_blank" rel="noopener">Setting timezone for datetime (Geeksforgeeks)</a>** used as a guide to handle timezone differences to ensure the application time is in reference to UK timezone.
 

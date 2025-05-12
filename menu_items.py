@@ -2,7 +2,7 @@
 Menu options and pricing
 for pizzas and extras (dips, sides, and drinks).
 
-Dictionaries inlcuded in this file:
+Dictionaries included in this file:
 - PIZZA_MENU: 5 x Available pizza options, each with custom base toppings.
 - PIZZA_SIZES: 3 x Size options with price.
 - EXTRA_TOPPINGS: 8 x Optional extra toppings, their prices and emoji icons.
@@ -10,7 +10,7 @@ Dictionaries inlcuded in this file:
 - SIDES_MENU: 3 x Optional sides, their prices
             and emoji icons for chicken wings and fries.
 - DRINKS_MENU: 8 x Optional drinks, their prices and emoji icons.
-- EXTRAS_NAMES: Tuple of shortand and full display labels for extras.
+- EXTRAS_NAMES: Tuple of shorthand and full display labels for extras.
 """
 
 PIZZA_MENU = {

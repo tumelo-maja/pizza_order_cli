@@ -81,7 +81,7 @@ def create_meal(meal_list):
         # choose pizza size
         pizza_size, pizza_price = choose_pizza_size()
 
-        # Choose extra toppigns
+        # Choose extra toppings
         pizza_extra_toppings = choose_extra_items('toppings', 8)
 
         # Choose extra dips
@@ -93,7 +93,7 @@ def create_meal(meal_list):
         # Choose drinks
         drinks = choose_extra_items('drinks', 8)
 
-        # Meal qunatities
+        # Meal quantities
         quantity = enter_meal_quantity()
 
         meal_object = Meal(pizza_name=pizza_name,
@@ -116,7 +116,7 @@ def create_meal(meal_list):
             display_return_home_option()
             print(INDENT_ALL + color_text(
                 f"1) Yes {chr(0x2705)} \n 2) No  {chr(0x274C)}", GREEN))
-            user_input = strppied_input(
+            user_input = strip_input(
                 color_text("Enter your choice:", ORANGE))
             if user_input == '99':
                 confirm_exit()
@@ -143,7 +143,7 @@ def confirm_exit():
     print(INDENT_ALL + f"\n{color_text(chr(0x26A0),YELLOW)} Returning to the "
           "main menu will clear all items in your current order.")
     while True:
-        user_input = strppied_input(color_text(
+        user_input = strip_input(color_text(
             f"     Are you sure you want to continue? "
             f"\n1) Yes {chr(0x2705)} \n2) No  {chr(0x274C)}\n", ORANGE))
 
@@ -181,7 +181,7 @@ def choose_pizza_name():
                   color_text("|", WHITE) +
                   color_text(f" {', '.join(value['base_toppings'])}", GREEN))
 
-        user_input = strppied_input(color_text("Enter your choice:", ORANGE))
+        user_input = strip_input(color_text("Enter your choice:", ORANGE))
         if user_input == '99':
             confirm_exit()
             continue
@@ -223,7 +223,7 @@ def choose_pizza_size():
                   color_text("|", WHITE) +
                   color_text(f"{price_format(value['price'])}".rjust(7),
                              GREEN))
-        user_input = strppied_input(color_text("Enter your choice:", ORANGE))
+        user_input = strip_input(color_text("Enter your choice:", ORANGE))
         if user_input == '99':
             confirm_exit()
             continue
@@ -241,7 +241,7 @@ def choose_extra_items(item_type, count_max):
     Displays a list of extra items and their prices for a specified item_type.
 
     It prompts user to select none or more of the options to proceed.
-    Mutliple selection are allowed up to a specified limit i.e. 'count_max'.
+    Multiple selection are allowed up to a specified limit i.e. 'count_max'.
     Validates user's inputs and allows user to return to main menu.
 
     Args:
@@ -253,7 +253,7 @@ def choose_extra_items(item_type, count_max):
     Returns:
         dict: A dictionary containing:
             - 'labels' (list): labels of selected items and their counts.
-            - 'item_indx' (list): Indexes and counts of selected for
+            - 'item_index' (list): Indexes and counts of selected for
                     accessing other properties of the item_type menu.
             - 'counts' (int): Total number of selected items.
     """
@@ -301,7 +301,7 @@ def choose_extra_items(item_type, count_max):
                       color_text(f"{price_format(value['price'])}".rjust(5),
                                  GREEN))
 
-        user_input = strppied_input(color_text("Enter your choice(s):",
+        user_input = strip_input(color_text("Enter your choice(s):",
                                                ORANGE))
         if user_input == '99':
             confirm_exit()
@@ -313,17 +313,17 @@ def choose_extra_items(item_type, count_max):
         ):
             break
 
-    extra_items_indx = [str(int(x)) for x in user_input.split(",") if x != "0"]
-    extra_items = [menu_list[x]['name'] for x in extra_items_indx if x != "0"]
+    extra_items_index = [str(int(x)) for x in user_input.split(",") if x != "0"]
+    extra_items = [menu_list[x]['name'] for x in extra_items_index if x != "0"]
 
     extra_items_dict = {'labels': [f"{count} x {item}"
                                    if extra_items != ["None"]else None
                                    for item, count in
                                    Counter(extra_items).items()],
-                        'item_indx': [[f"{item}", count]
+                        'item_index': [[f"{item}", count]
                                       if extra_items != ["None"] else None
                                       for item, count in
-                                      Counter(extra_items_indx).items()],
+                                      Counter(extra_items_index).items()],
                         'counts': len(extra_items)}
 
     return extra_items_dict
@@ -344,7 +344,7 @@ def enter_meal_quantity():
         print(color_text(
             "\n How many quantities of this meal would you like?", WHITE))
         display_return_home_option()
-        user_input = strppied_input(color_text(
+        user_input = strip_input(color_text(
             "Enter your required quantity (1-50):", ORANGE))
         if user_input == '99':
             confirm_exit()
@@ -439,7 +439,7 @@ def summary_order_confirm(input_list):
             print(INDENT_ALL + color_text("99) Main Menu".ljust(
                 indent)+chr(0x1F3E0), GREEN))
 
-            user_input = strppied_input(
+            user_input = strip_input(
                 color_text("Enter your choice:", ORANGE))
             if user_input == '99':
                 confirm_exit()
@@ -701,7 +701,7 @@ def remove_meal_items(input_list):
         print(INDENT_ALL + color_text("- enter 0 for no changes", ORANGE))
         display_return_home_option()
         display_full_order(input_list)
-        user_input = strppied_input(color_text("Enter your choice:", ORANGE))
+        user_input = strip_input(color_text("Enter your choice:", ORANGE))
         if user_input == '99':
             confirm_exit()
             continue
@@ -728,7 +728,7 @@ def validate_single_entry(value, min_value, max_value):
     Validates a single digit input according to specific conditions.
 
     This function checks that the input:
-      - is numeric (no other charatcetrs are allowed),
+      - is numeric (no other characters are allowed),
       - is within the allowed range specified,
 
     If the input is invalid, an error message is displayed.
@@ -777,7 +777,7 @@ def validate_multiple_entries(
       - input contains numeric characters only,
       - each character in the input lies within the range specified,
       - number of characters do not exceed the count limit
-      - values are not repeated, where repitition is prohibited
+      - values are not repeated, where repetition is prohibited
       - '0' option is not selected with any other options
 
     If the input is invalid, an error message is displayed.
@@ -795,10 +795,10 @@ def validate_multiple_entries(
     """
     try:
 
-        # Check for incorrect delimeters
-        invalid_delimeters = re.findall(r'[^a-zA-Z0-9\s,]', values_input)
-        invalid_del_str = ', '.join([f"'{x}'" for x in invalid_delimeters])
-        if len(invalid_delimeters):
+        # Check for incorrect delimiters
+        invalid_delimiters = re.findall(r'[^a-zA-Z0-9\s,]', values_input)
+        invalid_del_str = ', '.join([f"'{x}'" for x in invalid_delimiters])
+        if len(invalid_delimiters):
             raise ValueError(
                 f"'{values_input}' is not a valid entry."
                 f"\n{invalid_del_str} delimiter(s) not allowed. "
@@ -895,7 +895,7 @@ def welcome_page():
         print(INDENT_ALL + color_text("2) Track an order".ljust(
             indent) + chr(0x1F50D), GREEN))
 
-        user_input = strppied_input(color_text("Enter your choice:", ORANGE))
+        user_input = strip_input(color_text("Enter your choice:", ORANGE))
         if validate_single_entry(user_input, 1, 2):
             break
     user_input = str(int(user_input))
@@ -922,7 +922,7 @@ def track_order():
     while True:
         print(INDENT_ALL + color_text("Track order:", WHITE))
         display_return_home_option()
-        user_input = strppied_input(color_text(
+        user_input = strip_input(color_text(
             f"Enter your {ORDER_NUMBER_LENGTH}-digit order number:", ORANGE))
         if user_input == '99':
             main_menu()
@@ -952,7 +952,7 @@ def track_order():
                 indent) + chr(0x1F50D), GREEN))
             print(INDENT_ALL + color_text("99) Main Menu".ljust(
                 indent)+chr(0x1F3E0), GREEN))
-            user_input = strppied_input(
+            user_input = strip_input(
                 color_text("Enter your choice:", ORANGE))
             if user_input == '99':
                 main_menu()
@@ -1058,7 +1058,7 @@ def validate_order_number(number):
                 f"'{number}' is not a valid order number."
                 "\n Order number must not contain any spaces")
 
-        # Check if there are leading zerpos
+        # Check if there are leading zeros
         if not number.startswith("20"):
             raise ValueError(
                 f"'{number}' is not a valid order number."
@@ -1084,7 +1084,7 @@ def validate_order_number(number):
     return True
 
 
-def strppied_input(message):
+def strip_input(message):
     """
     Removes any spaces from the input() response.
 
