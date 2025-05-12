@@ -1,8 +1,8 @@
-# PizzaPalace CLI
+# Pizza Palace CLI
 
 **Authors:** Tumelo Maja (GitHub username: tumelo-maja)
 
-PizzaPalace is a command-line_interface (CLI) application for ordering pizza meals. User can choose their desired pizza and add additional toppings and dips. User are able to include drinks and sides in the meal order. 
+Pizza Palace is a command-line_interface (CLI) application for ordering pizza meals. User can choose their desired pizza and add additional toppings and dips. User are able to include drinks and sides in the meal order. 
 
 **The application is aimed at helping users to:** 
   - Place an order for pizza meal in the command terminal
