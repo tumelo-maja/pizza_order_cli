@@ -107,7 +107,6 @@ def create_meal(meal_list):
                            quantity=quantity
                            )
 
-        # Print meal summary
         print_meal_summary(meal_object)
 
         meal_list.append(meal_object)
