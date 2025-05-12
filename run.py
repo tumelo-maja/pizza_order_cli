@@ -342,7 +342,7 @@ def enter_meal_quantity():
     clear_console()
     while True:
         print(color_text(
-            "\n How many qunatities of this meal would you like?", WHITE))
+            "\n How many quantities of this meal would you like?", WHITE))
         display_return_home_option()
         user_input = strppied_input(color_text(
             "Enter your required quantity (1-50):", ORANGE))
